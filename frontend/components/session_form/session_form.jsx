@@ -36,10 +36,10 @@ class SessionForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} class="login-form">
+            <form onSubmit={this.handleSubmit}>
                 {this.renderErrors()}
                 <label>Username:
-                    <input type="textx"
+                    <input type="text"
                     value={this.state.username}
                     onChange={this.update('username')}
                     />

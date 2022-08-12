@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom'
 import Root from './components/root'
 import configureStore from './store/store.js'
 import React from 'react'
+import { logout, login  } from './actions/session_actions'
 
 document.addEventListener("DOMContentLoaded", () => {
     let store; 
@@ -24,4 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     window.getState = store.getState;
     window.dispatch = store.dispatch;
+    window.logout = logout;
+    window.login = login;
 })

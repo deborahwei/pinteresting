@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { logout } from '../../util/session_api_util'
+import { logout } from '../../actions/session_actions'
 import Nav from './nav'
 
 const mapStateToProps = ( {session, entities: { users }}) => {
