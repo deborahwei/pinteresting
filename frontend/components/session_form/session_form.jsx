@@ -1,31 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class SessionForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: '',
-            password: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+const SessionForm = props => {
 
-    update(field) {
-        return e => this.setState({
+    const [state, setState] = useState({
+      username: '',
+      password: ''
+    })
+
+    const update = (field) => {
+        return e => setState({
           [field]: e.currentTarget.value
         });
-      }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const user = Object.assign({}, this.state);
-        this.props.processForm(user)
     }
 
-    renderErrors() {
+    const closeModal = (e) => {
+      e.preventDefault();
+      props.closeModal();
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const user = Object.assign({}, state);
+        props.processForm(user)
+    }
+
+    const renderErrors = () => {
         return(
           <ul>
-            {this.props.errors.map((error, i) => (
+            {props.errors.map((error, i) => (
               <li key={`error-${i}`}>
                 {error}
               </li>
@@ -34,26 +36,47 @@ class SessionForm extends React.Component {
         );
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                {this.renderErrors()}
-                <label>Username:
-                    <input type="text"
-                    value={this.state.username}
-                    onChange={this.update('username')}
-                    />
-                </label>
-                <label>Password:
-                    <input type="password"
-                    value={this.state.password}
-                    onChange={this.update('password')}
-                    />
-                </label>
-                <input type="submit" value={this.props.formType} />
-            </form>
-        )
-    }
+    let headerText = props.formType === 'signup' ? 'Find new ideas to try' : ''
+    let userAuthText = props.formType === 'signup' ? 'Continue' : 'Log in'
+
+    return (
+        <div className="auth-form-modal">
+          <div className="auth-form-header">
+            <div className="exit-modal" onClick={closeModal}>×</div>
+            <i className="fa-brands fa-pinterest fa-2x"></i>
+            <h1>Welcome to Pinterest</h1>
+            <h2>{headerText}</h2>
+          </div>
+          <form onSubmit={handleSubmit}>
+              {renderErrors()}
+              <label>Username
+                  <input type="text"
+                  value={state.username}
+                  onChange={update('username')}
+                  placeholder='Username'
+                  />
+              </label>
+              <label>Password
+                  <input type="password"
+                  value={state.password}
+                  onChange={update('password')}
+                  placeholder='Password'
+                  />
+              </label>
+            
+              <button type="submit" value={props.formType}> {userAuthText} </button>
+              <span>OR</span>
+              <button>Continue with Demo User</button>
+
+          </form>
+          <footer>
+            <p> By continuing, you agree this is just a Pinterest Clone. </p>
+            <div className="auth-form-line-break"></div>
+            {props.footerForm}
+          </footer>
+        </div>
+    )
+
 }
 
 export default SessionForm 

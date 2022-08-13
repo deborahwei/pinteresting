@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import * as ReactDOMClient from 'react-dom/client';
 import Root from './components/root'
 import configureStore from './store/store.js'
 import React from 'react'
@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
         store = configureStore()
     }
 
-    const root = document.getElementById('root')
-    ReactDOM.render(<Root store={store} />, root)
+    const container = document.getElementById('root')
+    const root = ReactDOMClient.createRoot(container)
+    root.render(<Root store={store}/>)
     
     window.getState = store.getState;
     window.dispatch = store.dispatch;
