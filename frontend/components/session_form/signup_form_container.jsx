@@ -2,10 +2,12 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { signup } from '../../actions/session_actions';
 import SessionForm from './session_form';
+import { openModal, closeModal } from '../../actions/modal_actions'
 
-const mapStateToProps = state => {
+
+const mapStateToProps = ({ errors }) => {
   return {
-    errors: state.errors.session,
+    errors: errors.session,
     formType: 'signup',
   };
 };

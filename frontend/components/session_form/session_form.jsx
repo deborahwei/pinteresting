@@ -42,31 +42,32 @@ const SessionForm = props => {
     return (
         <div className="auth-form-modal">
           <div className="auth-form-header">
-            <div className="exit-modal" onClick={closeModal}>×</div>
-            <i className="fa-brands fa-pinterest fa-2x"></i>
-            <h1>Welcome to Pinterest</h1>
+            <div className="exit-auth-modal" tabindex="0" onClick={closeModal}>×</div>
+            <i class="fa-brands fa-pinterest"></i>
+            <h1>Welcome to Pinteresting</h1>
             <h2>{headerText}</h2>
           </div>
           <form onSubmit={handleSubmit}>
               {renderErrors()}
-              <label>Username
-                  <input type="text"
-                  value={state.username}
-                  onChange={update('username')}
-                  placeholder='Username'
-                  />
+              <label for='modal-username'>Username
               </label>
-              <label>Password
-                  <input type="password"
-                  value={state.password}
-                  onChange={update('password')}
-                  placeholder='Password'
-                  />
+              <input id="modal-username" type="text"
+              value={state.username}
+              onChange={update('username')}
+              placeholder='Username'
+              />
+                  
+              <label for="modal-password">Password
               </label>
+              <input id="modal-password" type="password"
+              value={state.password}
+              onChange={update('password')}
+              placeholder='Password'
+              />
             
-              <button type="submit" value={props.formType}> {userAuthText} </button>
+              <button className="modal-form-button" type="submit" value={props.formType}> {userAuthText} </button>
               <span>OR</span>
-              <button>Continue with Demo User</button>
+              <button className="modal-demo-user-button">Continue with Demo User</button>
 
           </form>
           <footer>
