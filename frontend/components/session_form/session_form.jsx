@@ -43,7 +43,7 @@ const SessionForm = props => {
         <div className="auth-form-modal">
           <div className="auth-form-header">
             <div className="exit-auth-modal" tabindex="0" onClick={closeModal}>×</div>
-            <i class="fa-brands fa-pinterest"></i>
+            <i class="fa-brands fa-pinterest fa-2x"></i>
             <h1>Welcome to Pinteresting</h1>
             <h2>{headerText}</h2>
           </div>

@@ -17,11 +17,24 @@ const Nav = (props) => {
 
     const loggedOut = () => (
         <div className="logged-out-nav">
-            <div className="nav-login" onClick={openModal('login')}>
-                Log in 
+            <div className='logo-header'>
+                <i class="fa-brands fa-pinterest fa-2xl logo-pinterest"></i>
+                <h1 className="logo-text"> Pinteresting</h1>
             </div>
-            <div className="nav-signup" onClick={openModal('signup')}>
-                Sign up
+            <div className="logged-out- nav-right">
+                <div className="socials">
+                    <div>Portfolio</div>
+                    <div>Github</div>
+                    <div>Linkedin</div>
+                </div>
+                <div className="logged-out-buttons">
+                    <div className="nav-login" onClick={openModal('login')}>
+                        Log in 
+                    </div>
+                    <div className="nav-signup" onClick={openModal('signup')}>
+                        Sign up
+                    </div>
+                </div>
             </div>
         </div>        
     )

@@ -14,7 +14,6 @@ import ModalContainer from './modal/modal'
 const App = () => (
     <div>
     <header>
-        <h1> Pinteresting</h1>
       <NavContainer/>
       <ModalContainer/>
     </header>

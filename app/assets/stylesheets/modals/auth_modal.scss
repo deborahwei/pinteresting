@@ -11,16 +11,18 @@
     border-radius: 32px;
     height: 550px;
     width: 484px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 
     h1 {
         font-size: 32px;
-        color: rgb(51, 51, 51);
-        font-weight: 600;
+        color: $header-grey;
+        font-weight: $semibold;
         letter-spacing: -1.2px;
     
     }
 
     .auth-form-header {
+        padding-top: 20px;
         position: relative;
         display: flex; 
         justify-content: space-evenly;
@@ -35,7 +37,7 @@
             top: 8px;
             font-size: 35px;
             font-weight: bold;
-            color: #111;
+            color: $dark-grey;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -46,7 +48,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        height: 60%;
+        height: 55%;
         width: 100%;
 
         button {
@@ -65,13 +67,13 @@
             display: flex;
             flex-direction: column;
             font-size: 14px;
-            color: #111;
+            color: $dark-grey;
             height: 0px;
             margin-right: 190px;
         }
 
         input {
-            border: 2px solid #cdcdcd;
+            border: 2px solid $input-border-grey;
             border-radius: 16px;
             height: 40px;
             width: 250px;
@@ -79,7 +81,12 @@
             padding-left: 15px;           
 
             &:hover {
-                border-color: #b9b8b8;
+                border-color: $input-light-grey;
+            }
+
+            &:focus {
+                box-shadow: $demo-user-blue 0 0 0 4px;
+                outline: 0;
             }
         }
 
@@ -97,12 +104,12 @@
         background-color: $pinterest-red;
 
         &:hover {
-            background-color: #ad081b;
+            background-color: $hover-red;
         }
     }
 
     .modal-demo-user-button {
-        background-color: $blue-button;
+        background-color: $demo-user-blue;
     }
 
     footer {
@@ -115,17 +122,17 @@
         align-items: center;
 
         p {
-            color: $charcoal;
+            color:$modal-footer-text-grey;
             font-size: 11px;
         }
 
         .auth-form-line-break {
-            border-bottom: 1px solid rgb(222, 222, 222);
+            border-bottom: 1px solid $modal-footer-link-grey;
             width: 110px;
         }
 
         .footer-form-div {
-            color: rgb(51, 51, 51);
+            color: $header-grey;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
@@ -133,20 +140,3 @@
         }
     }
 }
-
-.modal-background {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 10;
-  }
-  
-  .modal-child {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
