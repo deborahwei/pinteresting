@@ -1,0 +1,100 @@
+@import '../variables.scss';
+
+.logged-out-nav {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: $button-font-size;
+    width: 100%;
+}
+
+.logged-out-nav-right {
+    color: $text-default;
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 10%;
+    padding: 30px 30px 20px 20px;
+    width: 50%;
+    font-size: $button-font-size; 
+    font-weight: $semibold;
+}
+
+.logged-out-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 18%;
+    height: 40px;
+
+    .nav-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: $pinterest-red;
+        width: 70px;
+        border-radius: 24px;
+        color: white;
+
+        &:hover {
+            background-color: $hover-red;
+        }
+    }
+
+    .nav-signup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color:#f0f0f0;
+        width: 90px;
+        border-radius: 24px;
+
+        &:hover {
+            background-color: #dadada;
+        }
+    }
+}
+
+
+.logo-header {
+    display: flex; 
+    flex-direction: row;
+    padding: 35px;
+}
+
+.logo-text {
+    padding-left: 5px;
+    color: $logo-red;
+    font-weight: $semibold;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -1px;
+}
+
+.logo-pinterest {
+    padding-top: 10px;
+}
+
+.socials, .logged-out-buttons {
+    cursor: pointer;
+}
+
+.socials { 
+    padding-top: 15px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 32%;
+
+    a {
+        text-decoration: none;
+        color: $text-default;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+

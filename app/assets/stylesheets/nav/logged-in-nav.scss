@@ -1,0 +1,146 @@
+@import '../variables.scss';
+
+.logged-in-nav {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 15px 20px 35px 20px;
+    font-size: $button-font-size;
+    font-weight: $semibold;
+}
+
+.logo-logged-in {
+    color: $logo-red;
+    padding-top: 8px;
+    padding-top: 24px;
+}
+
+.logged-in-nav-left {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 15%;
+    
+    .home-button {
+        display:flex; 
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        border-radius: 24px;
+        background-color: $text-default;
+        width: 70px;
+        height: 50px;
+        text-align: center;
+    }
+}
+
+.logged-in-create {
+    padding-top: 18px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+
+    i {
+        padding: 5px 0 0 8px;
+        -webkit-text-stroke: 1px $text-default;
+    }
+
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 65%;
+    height: 50px;
+    padding-bottom: 5px;
+
+    input {
+        background-color: #eeeeee;
+        width: 100%;
+        border: 0px;
+        border-radius: 24px;
+        padding-left: 15px;
+        
+        &:focus {
+            box-shadow: $modal-input-focus 0 0 0 4px;
+            outline: 0;
+        }
+    }
+
+    .fa-magnifying-glass {
+        position: absolute;
+        color: $icon-grey;
+        left: 15px;
+        top: 25px;
+        -webkit-text-stroke: 0.6px $icon-grey;
+        
+    }
+}
+
+
+.logged-in-nav-right {
+    padding-top: 12px;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 20%;
+
+    .logged-in-socials {
+        color: $icon-grey;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 70%;
+        padding-top: 12px;
+
+        .fa-github {
+            cursor: pointer;
+        }
+        .fa-linkedin-in {
+            cursor: pointer;
+        }
+        .fa-user {
+            cursor: pointer;
+        }
+    }
+
+}
+
+.nav-dropdown-arrow {
+    position: relative; 
+    cursor: pointer;
+    color: lightslategrey;
+    -webkit-text-stroke: 0.5px $text-default;
+
+    i {
+        padding: 10px 0px 0px 5px;
+    }
+}
+
+.dropdown-menu {
+    position: absolute; 
+    display: none;
+    z-index: 1;  
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+}
+
+.dropdown-menu:focus .dropdown-menu {
+    display: block;
+}
+
+.demo-user-pic {
+    border-radius: 50%;
+    height: 23px; 
+    width: 23px;
+}
+
+
+

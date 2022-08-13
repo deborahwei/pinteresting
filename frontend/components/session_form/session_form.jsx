@@ -9,7 +9,7 @@ const SessionForm = props => {
 
     const update = (field) => {
         return e => setState({
-          [field]: e.currentTarget.value
+          ...state, [field]: e.currentTarget.value
         });
     }
 
@@ -28,7 +28,7 @@ const SessionForm = props => {
         return(
           <ul>
             {props.errors.map((error, i) => (
-              <li key={`error-${i}`}>
+              <li key={`error-${i}`} className="auth-errors">
                 {error}
               </li>
             ))}
@@ -42,14 +42,14 @@ const SessionForm = props => {
     return (
         <div className="auth-form-modal">
           <div className="auth-form-header">
-            <div className="exit-auth-modal" tabindex="0" onClick={closeModal}>×</div>
-            <i class="fa-brands fa-pinterest fa-2x"></i>
+            <div className="exit-auth-modal" tabIndex="0" onClick={closeModal}>×</div>
+            <i className="fa-brands fa-pinterest fa-2x"></i>
             <h1>Welcome to Pinteresting</h1>
             <h2>{headerText}</h2>
           </div>
           <form onSubmit={handleSubmit}>
               {renderErrors()}
-              <label for='modal-username'>Username
+              <label htmlFor='modal-username'>Username
               </label>
               <input id="modal-username" type="text"
               value={state.username}
@@ -57,7 +57,7 @@ const SessionForm = props => {
               placeholder='Username'
               />
                   
-              <label for="modal-password">Password
+              <label htmlFor="modal-password">Password
               </label>
               <input id="modal-password" type="password"
               value={state.password}
