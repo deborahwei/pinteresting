@@ -1,6 +1,9 @@
 @import '../variables.scss';
 
 .logged-out-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
     display: flex; 
     flex-direction: row;
     justify-content: space-between;

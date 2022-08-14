@@ -143,6 +143,58 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./frontend/components/dropdown/close_dropdown.js":
+/*!********************************************************!*\
+  !*** ./frontend/components/dropdown/close_dropdown.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "closeDropdown": () => (/* binding */ closeDropdown)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var closeDropdown = function closeDropdown(el, initialState) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var pageClickEvent = function pageClickEvent(e) {
+      if (el.current != null && el.current.contains(e.target)) {
+        setOpen(!open);
+      }
+    };
+
+    if (open) {
+      window.addEventListener('click', pageClickEvent);
+    }
+
+    return function () {
+      window.removeEventListener('click', pageClickEvent);
+    };
+  }, [open, el]);
+  return [open, setOpen];
+};
+
+/***/ }),
+
 /***/ "./frontend/components/modal/modal.jsx":
 /*!*********************************************!*\
   !*** ./frontend/components/modal/modal.jsx ***!
@@ -234,6 +286,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -242,6 +308,16 @@ __webpack_require__.r(__webpack_exports__);
 var Nav = function Nav(props) {
   var currentUser = props.currentUser,
       logout = props.logout;
+  var dropdownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null); // const [open, setOpen] = closeDropdown(dropdownRef, false) 
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      open = _useState2[0],
+      setOpen = _useState2[1];
+
+  var handleDropdownClick = function handleDropdownClick() {
+    return setOpen(!open);
+  };
 
   var openModal = function openModal(formType) {
     return function (e) {
@@ -291,9 +367,13 @@ var Nav = function Nav(props) {
       className: "home-button"
     }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-create"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
-      className: "fa-solid fa-chevron-down fa-xs"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Create", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-chevron-down fa-xs create-button"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-dropdown"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-pin"
+    }, "Create pin"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "search-bar"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "magnifying-glass"
@@ -318,15 +398,30 @@ var Nav = function Nav(props) {
       src: "https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/77394087_2657883290901597_1574328616060190720_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=FFw571rR0cEAX-UAyBS&tn=EeugKIMY21Uo19AW&_nc_ht=scontent-lga3-1.xx&oh=00_AT8yV4GQRPV53WtaEBFXmpBlwKHbQPonWkFS-8sb5I2ZMw&oe=631D17A2",
       alt: ""
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "nav-dropdown-arrow"
+      className: "menu-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onClick: handleDropdownClick,
+      className: "menu-trigger"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa-solid fa-chevron-down fa-xs"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "dropdown-menu"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", {
+      ref: dropdownRef,
+      className: "menu ".concat(open ? 'open' : 'closed')
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "menu-dropdown"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Currently in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "dropdown-user"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+      src: "https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/77394087_2657883290901597_1574328616060190720_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=FFw571rR0cEAX-UAyBS&tn=EeugKIMY21Uo19AW&_nc_ht=scontent-lga3-1.xx&oh=00_AT8yV4GQRPV53WtaEBFXmpBlwKHbQPonWkFS-8sb5I2ZMw&oe=631D17A2",
+      alt: ""
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "dropdown-user-text"
+    }, currentUser.username, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Personal"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "dropdown-more-options"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "More options"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logout-button",
       onClick: logout
-    }, "Log out"))));
+    }, "Log out")))))));
   };
 
   return currentUser ? loggedIn() : loggedOut();

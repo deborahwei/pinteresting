@@ -1,0 +1,147 @@
+@import '../variables.scss';
+
+.menu-container {
+    position: relative; 
+    display: inline-block;
+}
+
+.menu {
+    position: absolute; 
+    z-index: 1;  
+    left: -240px;
+    top: 30px;
+    position: absolute;
+    background-color: white;
+    border-radius: 15px;
+    width: 250px;
+    height: 180px;
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 8px;
+    opacity: 0;
+
+}
+
+.menu.open {
+    opacity: 1; 
+    visibility: visible;
+}
+
+.menu-dropdown {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+
+    .dropdown-user {
+        cursor: pointer;
+        display: flex; 
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 80px;
+
+        &:hover {
+            background-color: $search-bar-grey;
+            border-radius: 8px;
+        }
+    }
+
+    .dropdown-more-options {
+        display: flex; 
+        flex-direction: column;
+        justify-content: space-between;
+        height: 30%;
+        width: 100%;
+
+        .logout-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 30px;
+            cursor: pointer;
+            text-indent: 8px;
+
+
+            &:hover {
+                background-color: $search-bar-grey;
+                border-radius: 8px;
+            }
+        }
+    }
+
+    .dropdown-user-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        color: $modal-footer-text-grey;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 12px;
+        font-weight: normal;
+        text-indent: 8px;
+    }
+
+    img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+    }
+}
+
+.menu-trigger {
+    cursor: pointer;
+    color: lightslategrey;
+    -webkit-text-stroke: 0.5px $text-default;
+
+    i {
+        padding: 10px 0px 0px 5px;
+    }
+
+    &:hover {
+        filter: brightness(0.95)
+    }
+
+    &:active {
+        color: $text-default
+    }
+}
+
+.create-button {
+    position: relative;
+    display: inline-block;
+}
+
+.create-dropdown { 
+    display: none;
+    top: 70px;
+    position: absolute;
+    border-radius: 15px;
+    height: 50px; 
+    width: 150px;
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .create-pin {
+        height: 80%;
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        text-indent: 15px;
+        border-radius: 8px;
+
+        &:hover {
+            background: $search-bar-grey;
+        }
+    }
+}
+
+.logged-in-create:hover .create-dropdown {
+    display: block;
+}
