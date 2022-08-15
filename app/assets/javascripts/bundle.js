@@ -322,8 +322,6 @@ var Nav = function Nav(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "create-pin"
     }, "Create pin"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      "search-container": true
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "search-bar"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "magnifying-glass"
@@ -331,7 +329,7 @@ var Nav = function Nav(props) {
       className: "fa-solid fa-magnifying-glass fa-sm"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "text"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-nav-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-socials"
@@ -345,8 +343,7 @@ var Nav = function Nav(props) {
       className: "user-profile-icon"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "demo-user-pic",
-      src: "https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/77394087_2657883290901597_1574328616060190720_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=FFw571rR0cEAX-UAyBS&tn=EeugKIMY21Uo19AW&_nc_ht=scontent-lga3-1.xx&oh=00_AT8yV4GQRPV53WtaEBFXmpBlwKHbQPonWkFS-8sb5I2ZMw&oe=631D17A2",
-      alt: ""
+      src: window.demoUserUrl
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "menu-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -362,8 +359,8 @@ var Nav = function Nav(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Currently in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "dropdown-user"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-      src: "",
-      alt: ""
+      className: "demo-user-pic",
+      src: window.demoUserUrl
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "dropdown-user-text"
     }, currentUser.username, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Personal"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {

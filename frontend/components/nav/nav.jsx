@@ -61,14 +61,13 @@ const Nav = (props) => {
                     </div>
                 </div>
             </div>
-            <div search-container>
-                <div className='search-bar'>
-                    <div className='magnifying-glass'>
-                        <i className="fa-solid fa-magnifying-glass fa-sm"></i>
-                    </div>
-                    <input type="text"/>
+            <div className='search-bar'>
+                <div className='magnifying-glass'>
+                    <i className="fa-solid fa-magnifying-glass fa-sm"></i>
                 </div>
+                <input type="text"/>
             </div>
+
             <div className="logged-in-nav-right">
                 <div className="logged-in-socials">
                     <i className="fa-brands fa-github fa-xl"></i>
@@ -76,7 +75,7 @@ const Nav = (props) => {
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
                 <div className='user-profile-icon'>
-                    <img className="demo-user-pic" src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/77394087_2657883290901597_1574328616060190720_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=FFw571rR0cEAX-UAyBS&tn=EeugKIMY21Uo19AW&_nc_ht=scontent-lga3-1.xx&oh=00_AT8yV4GQRPV53WtaEBFXmpBlwKHbQPonWkFS-8sb5I2ZMw&oe=631D17A2" alt="" />
+                    <img className="demo-user-pic" src={window.demoUserUrl} />
                 </div>
                 <div className="menu-container">
                     <div onClick={handleDropdownClick} className="menu-trigger">
@@ -86,7 +85,7 @@ const Nav = (props) => {
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
                             <div className='dropdown-user'>
-                                <img src="" alt="" />
+                                <img className="demo-user-pic" src={window.demoUserUrl} />
                                 <div className='dropdown-user-text'>
                                     { currentUser.username }
                                     <h2>Personal</h2>
