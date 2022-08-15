@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import signup_form_container from '../session_form/signup_form_container'
 import { connect } from 'react-redux'
+import SplashPage from './splash_page'
+import { splashInfo } from './fetch_splash_info'
 
 const Splash = (props) => {
 
     const { currentUser } = props
+    const pageRef = useRef(null)
+
+    const transitionPages = () => {
+        
+    }
+
+    const setPagesInterval = () => {
+        const timerId = setInterval(transitionPages, 4000)
+    }
 
     return (
         <div className='splash-container'>
-            <div className='splash-text-container'>
-                <div className='get-your-next'>
-                    Get your next 
-                </div>
-                <div className='splash-prompt-container'>
-                    <div className="snowboarding-words animated">powder portrait</div>
-                    {/* div className='sunset-words'>sunset snapshot</div>
-                    <div className='pie-words'>piece of pie</div>
-                    <div className='interior-words'>interior inspiration</div> */}
-                </div>
-            </div>
+            <div className='splash-text-container' >Get your next</div>
+            { splashInfo.map( (page, i) => <SplashPage title={page.title} photoUrls = {page.photoUrls} key={i} /> )
+            }
         </div>
     )
 
@@ -32,8 +35,6 @@ const mSTP = ({session, entities: { users }}) => {
 
 const mDTP = dispatch => {
     return {
-        logout: () => dispatch(logout()),
-        openModal: (formType) => dispatch(openModal(formType)),
     }
 }
 

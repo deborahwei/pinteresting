@@ -15,13 +15,36 @@
     text-align: center;
     margin: auto;
 
-    .splash-prompt-container {
-        padding-top: 25px;
+}
 
-        .snowboarding-words {
-            color: rgb(102, 154, 206)
-        }
+.splash-prompt-container {
+    font-weight: 600;
+    font-size: 60px;
+    text-align: center;
+    margin: auto;
+
+    .powder-words {
+        color: rgb(102, 154, 206);
+        z-index: 2;
+        opacity: 1
     }
 
+    .interior-words {
+        color: green;
+        z-index: 0;
+        opacity: 0;
+    }
+
+    .sunset-words {
+        color: orange;
+        z-index: 0;
+        opacity: 0;
+    }
+
+    .piece-words {
+        color: red;
+        z-index: 0;
+        opacity: 0;
+    }
 }
 
