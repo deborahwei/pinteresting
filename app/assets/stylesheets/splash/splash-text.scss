@@ -1,0 +1,27 @@
+@import '../variables.scss';
+
+.splash-container {
+    width: 100%;
+    height: 85%;
+}
+
+.splash-text-container {
+    padding-top: 200px;
+    display: flex; 
+    flex-direction: column;
+    height: calc(30vh + 140px);
+    font-weight: 600;
+    font-size: 60px;
+    text-align: center;
+    margin: auto;
+
+    .splash-prompt-container {
+        padding-top: 25px;
+
+        .snowboarding-words {
+            color: rgb(102, 154, 206)
+        }
+    }
+
+}
+

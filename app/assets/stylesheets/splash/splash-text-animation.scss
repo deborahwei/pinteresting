@@ -1,0 +1,22 @@
+.animated {
+    animation: fade-in-move-up 1s;
+}
+ 
+ @keyframes fade-in-move-up {
+    0% {
+        opacity: 0;
+        transform: translateY(80px)
+    }
+
+    70% {
+        opacity: 1; 
+        transform: translateY(0px)
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px)
+    }
+ }
+
+
+

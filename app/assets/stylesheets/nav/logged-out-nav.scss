@@ -12,7 +12,7 @@
 }
 
 .logged-out-nav-right {
-    color: $text-default;
+    color: $heading-color;
     display: flex; 
     flex-direction: row;
     justify-content: flex-end;
@@ -93,7 +93,7 @@
 
     a {
         text-decoration: none;
-        color: $text-default;
+        color: $heading-color;
 
         &:hover {
             text-decoration: underline;

@@ -10,13 +10,15 @@ import LoginFormContainer from './session_form/login_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import NavContainer from './nav/nav.jsx'
 import ModalContainer from './modal/modal'
+import SplashContainer from './splash/splash'
 
 const App = () => (
     <div>
-    <header>
-      <NavContainer/>
-      <ModalContainer/>
-    </header>
+      <header>
+        <NavContainer/>
+        <ModalContainer/>
+      </header>
+      <SplashContainer/>
     <Switch>
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />

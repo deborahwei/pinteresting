@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
-import { closeDropdown } from '../dropdown/close_dropdown'
+// import { closeDropdown } from '../dropdown/close_dropdown'
 
 
 const Nav = (props) => {
