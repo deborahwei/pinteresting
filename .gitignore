@@ -32,3 +32,6 @@ node_modules
 npm.debug.log
 byebug_history
 .ruby-version
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
