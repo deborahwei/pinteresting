@@ -1,20 +1,53 @@
+.show-page {
+    animation-duration: 6s;
+    animation-name: slidein;
+}
 
- 
- @keyframes fade-in-move-up {
-    0% {
+@keyframes slidein {
+    from {
+        transform: translateY(0px);
         opacity: 0;
-        transform: translateY(80px)
     }
-
-    70% {
-        opacity: 1; 
-        transform: translateY(0px)
-    }
-    100% {
+    
+    10% {
+        transform: translateY(0px);
         opacity: 0;
-        transform: translateY(-80px)
     }
- }
+    
+    20% {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+  
+    to {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+  }
 
+  
+.leaving-page {
+    animation-duration: 6s;
+    animation-name: slideout;
+}
 
+@keyframes slideout { 
+    from {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
 
+    10% {
+        transform: translateY(-33px);
+        opacity: 0;
+    }
+    
+    to { 
+        transform: translateY(-33px);
+        opacity: 0;
+    }
+}
+
+.hidden-page {
+    opacity: 0;
+}

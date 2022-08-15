@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import signup_form_container from '../session_form/signup_form_container'
 import { connect } from 'react-redux'
 import SplashPage from './splash_page'
@@ -7,23 +7,40 @@ import { splashInfo } from './fetch_splash_info'
 const Splash = (props) => {
 
     const { currentUser } = props
-    const pageRef = useRef(null)
 
-    const transitionPages = () => {
-        
-    }
+    const [currentPage, setCurrentPage] = useState(0)
 
-    const setPagesInterval = () => {
-        const timerId = setInterval(transitionPages, 4000)
-    }
+    useEffect( () => {
+        const interval = setInterval(() => {
+            setCurrentPage( (prevPage) => prevPage+1 )
+        }, 6000);
 
-    return (
+        return () => clearInterval(interval)
+    }, [])
+
+    const splashPage = () => (
         <div className='splash-container'>
-            <div className='splash-text-container' >Get your next</div>
-            { splashInfo.map( (page, i) => <SplashPage title={page.title} photoUrls = {page.photoUrls} key={i} /> )
-            }
+            <div className='splash-page-container' >
+                <div className='splash-text'>
+                    <h1>Get your next</h1>
+                </div>
+                {
+                    splashInfo.map( (page, i) => <SplashPage title={page.title}
+                                                            photoUrls = {page.photoUrls} 
+                                                            key={i}
+                                                            shouldShow={currentPage % 4 === i}
+                                                            shouldLeave={(currentPage - 1) % 4 === i}
+                                                            /> )
+                }
+            </div>
         </div>
     )
+
+    const noSplash = () => (
+        ""
+    )
+
+    return currentUser ? noSplash() : splashPage()
 
 }
 
