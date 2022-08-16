@@ -36,10 +36,10 @@
 .splash-arrow {
     cursor: pointer;
     border-radius: 50%;
-    top: 140px;
+    top: 540px;
     height: 50px;
     width: 50px;
-    position: relative;
+    position: absolute;
     animation-name: bouncing-arrow;
     animation-duration: 2s;
     animation-iteration-count: infinite;
