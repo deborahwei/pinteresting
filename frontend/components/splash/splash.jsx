@@ -20,7 +20,7 @@ const Splash = (props) => {
 
     const splashPage = () => (
         <div className='splash-container'>
-            <div className='splash-page-container' >
+            <section className='splash-page-container' >
                 <div className='splash-text'>
                     <h1> Get your next</h1>
                 </div>
@@ -34,8 +34,8 @@ const Splash = (props) => {
                                                                 /> )
                     }
                 </div>
-            </div>
-            <div className="second-page">
+            </section>
+            <section className="second-page">
                 <div className='second-page-background'>
                 </div>
                 <div className='second-page-background'>
@@ -44,7 +44,7 @@ const Splash = (props) => {
                 <div className="splash-signup">
                     <SignupFormContainer stationary={true}/>
                 </div>
-            </div>
+            </section>
         </div>
     )
 

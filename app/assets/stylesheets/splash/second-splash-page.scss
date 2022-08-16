@@ -1,7 +1,7 @@
 .second-page {
-    height: 110vh;
+    height: 100vh;
     width: 100%;
-    top: 90vh;
+    top: 100vh;
     z-index: 2;
 }
 
@@ -11,9 +11,9 @@
 
 .second-page-background {
     position: absolute; 
-    height: 110vh; 
+    height: 100vh; 
     width: 100%;
-    top: 90vh;
+    top: 100vh;
     background: rgba(0, 0, 0, 0.3);
     z-index: 4;
 }
@@ -29,6 +29,3 @@
     display: none;
 }
 
-// scroll snap 
-
-.
