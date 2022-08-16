@@ -37,8 +37,12 @@ const Splash = (props) => {
                 </div>
             </section>
             <section className="one-and-half-page">
-                    <div className="one-and-half-background">
-
+                    <div className="one-and-half-picture-container">
+                        <img src="https://fs-pinteresting-dev.s3.amazonaws.com/andreas-dress-wg9hUuor3yg-unsplash.jpg" alt="" />
+                    </div>
+                    <div className="one-and-half-text-container">
+                        <h1>See it, make it, try it, do it</h1>
+                        <p>The best part of Pinteresting is discovering new things and ideas from people around the word</p>
                     </div>
             </section>
             <section className="second-page">
@@ -46,10 +50,12 @@ const Splash = (props) => {
                 <div className='second-page-photo-background'>
                     <DiscoverPins photoNumber={28} />
                 </div>
+                <div className="second-page-text-container">
+                    <h1>Sign up to get your ideas</h1>
+                </div>
                 <div className="splash-signup">
                     <SignupFormContainer stationary={true}/>
                 </div>
-
             </section>
         </div>
     )

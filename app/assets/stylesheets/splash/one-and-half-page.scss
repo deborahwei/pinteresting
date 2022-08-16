@@ -2,6 +2,47 @@
     height: 100vh;
     width: 100%;
     top: 100vh;
-    background: pink;
-    z-index: 5
+    background: #e7d6bb;
+    z-index: 5;
+    display: flex; 
+    flex-direction: row;
+}
+
+.one-and-half-text-container{
+    width: 70%;
+    height: 100%;
+}
+
+.one-and-half-picture-container{
+    width: 30%; 
+    height: 100%;
+
+    img {
+        height: 100%;
+    }
+}
+
+
+.one-and-half-text-container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    h1 {
+        width: 450px;
+        font-size: 60px; 
+        font-weight: bold;
+        color: #e4a32b;
+        line-height: 1.3;
+        padding-bottom: 20px
+    }
+    
+    p {
+        width: 450px;
+        color: #b79557;
+        font-size: 24px;
+        word-spacing: 3px;
+    }
 }

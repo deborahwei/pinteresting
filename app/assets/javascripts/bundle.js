@@ -859,8 +859,13 @@ var Splash = function Splash(props) {
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
       className: "one-and-half-page"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "one-and-half-background"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      className: "one-and-half-picture-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+      src: "https://fs-pinteresting-dev.s3.amazonaws.com/andreas-dress-wg9hUuor3yg-unsplash.jpg",
+      alt: ""
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "one-and-half-text-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "See it, make it, try it, do it"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "The best part of Pinteresting is discovering new things and ideas from people around the word"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
       className: "second-page"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-background"
@@ -869,6 +874,8 @@ var Splash = function Splash(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pin_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
       photoNumber: 28
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "second-page-text-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Sign up to get your ideas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-signup"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
       stationary: true
