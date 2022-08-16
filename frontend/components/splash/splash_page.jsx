@@ -1,9 +1,9 @@
-import React, { useEffect, useState }from 'react'
+import React, { useEffect, useState}from 'react'
 import SplashPhoto from './splash_photo'
 
 const SplashPage = props => {
 
-    const {title, photoUrls, shouldShow, shouldLeave} = props
+    const {title, photoUrls, shouldShow, shouldLeave, handleDownArrow} = props
 
     const [currentPhoto, setCurrentPhoto] = useState(0)
 
@@ -36,7 +36,7 @@ const SplashPage = props => {
                                                             />)
                 }
             </div>
-            <div className={`${title.split(" ")[0]}-arrow splash-arrow ${shouldShow ? "show-arrow" : "hidden-arrow"}`}>
+            <div onClick={handleDownArrow} className={`${title.split(" ")[0]}-arrow splash-arrow ${shouldShow ? "show-arrow" : "hidden-arrow"}`}>
                 <i className="fa-solid fa-chevron-down fa-lg"></i>
              </div>
         </div>

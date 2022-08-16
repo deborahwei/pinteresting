@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef  } from 'react'
 import { connect } from 'react-redux'
 import SplashPage from './splash_page'
 import { splashInfo} from './fetch_splash_info'
@@ -10,6 +10,12 @@ const Splash = (props) => {
     const { currentUser } = props
 
     const [currentPage, setCurrentPage] = useState(0)
+    
+    const buttonRef = useRef(null)
+
+    const handleDownArrow = () => {
+        buttonRef.current?.scrollIntoView({behavior: 'smooth'})
+    }
 
     useEffect( () => {
         const interval = setInterval(() => {
@@ -28,11 +34,12 @@ const Splash = (props) => {
                 <div className="splash-page-carousel">
                     {
                         splashInfo.map( (page, i) => <SplashPage title={page.title}
-                                                                photoUrls = {page.photoUrls} 
-                                                                key={i}
-                                                                shouldShow={currentPage % 4 === i}
-                                                                shouldLeave={(currentPage - 1) % 4 === i}
-                                                                /> )
+                        handleDownArrow = {handleDownArrow}
+                        photoUrls = {page.photoUrls} 
+                        key={i}
+                        shouldShow={currentPage % 4 === i}
+                        shouldLeave={(currentPage - 1) % 4 === i}
+                        /> )
                     }
                 </div>
             </section>
@@ -45,7 +52,7 @@ const Splash = (props) => {
                         <p>The best part of Pinteresting is discovering new things and ideas from people around the word</p>
                     </div>
             </section>
-            <section className="second-page">
+            <section ref={buttonRef} className="second-page">
                 <div className='second-page-background'></div>
                 <div className='second-page-photo-background'>
                     <DiscoverPins photoNumber={28} />

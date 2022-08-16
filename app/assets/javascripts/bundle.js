@@ -828,6 +828,16 @@ var Splash = function Splash(props) {
       currentPage = _useState2[0],
       setCurrentPage = _useState2[1];
 
+  var buttonRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var handleDownArrow = function handleDownArrow() {
+    var _buttonRef$current;
+
+    (_buttonRef$current = buttonRef.current) === null || _buttonRef$current === void 0 ? void 0 : _buttonRef$current.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var interval = setInterval(function () {
       setCurrentPage(function (prevPage) {
@@ -851,6 +861,7 @@ var Splash = function Splash(props) {
     }, _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.splashInfo.map(function (page, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_page__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: page.title,
+        handleDownArrow: handleDownArrow,
         photoUrls: page.photoUrls,
         key: i,
         shouldShow: currentPage % 4 === i,
@@ -866,6 +877,7 @@ var Splash = function Splash(props) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "one-and-half-text-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "See it, make it, try it, do it"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "The best part of Pinteresting is discovering new things and ideas from people around the word"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      ref: buttonRef,
       className: "second-page"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-background"
@@ -934,7 +946,8 @@ var SplashPage = function SplashPage(props) {
   var title = props.title,
       photoUrls = props.photoUrls,
       shouldShow = props.shouldShow,
-      shouldLeave = props.shouldLeave;
+      shouldLeave = props.shouldLeave,
+      handleDownArrow = props.handleDownArrow;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -969,6 +982,7 @@ var SplashPage = function SplashPage(props) {
       showPhoto: i < currentPhoto
     });
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleDownArrow,
     className: "".concat(title.split(" ")[0], "-arrow splash-arrow ").concat(shouldShow ? "show-arrow" : "hidden-arrow")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
     className: "fa-solid fa-chevron-down fa-lg"
