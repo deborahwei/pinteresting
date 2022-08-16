@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import SplashPage from './splash_page'
-import { splashInfo } from './fetch_splash_info'
+import { splashInfo, allPhotos } from './fetch_splash_info'
 import SignupFormContainer from '../session_form/signup_form_container'
 
 const Splash = (props) => {
@@ -17,6 +17,11 @@ const Splash = (props) => {
 
         return () => clearInterval(interval)
     }, [])
+
+    const randomPhoto = () => {
+        const photoIndex = Math.floor(Math.random() * 51)
+        return allPhotos[photoIndex]
+    }
 
     const splashPage = () => (
         <div className='splash-container'>
@@ -36,10 +41,9 @@ const Splash = (props) => {
                 </div>
             </section>
             <section className="second-page">
-                <div className='second-page-background'>
-                </div>
+                <div className='second-page-background'></div>
                 <div className='second-page-photo-background'>
-
+                    
                 </div>
                 <div className="splash-signup">
                     <SignupFormContainer stationary={true}/>

@@ -657,6 +657,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "allPhotos": () => (/* binding */ allPhotos),
 /* harmony export */   "splashInfo": () => (/* binding */ splashInfo)
 /* harmony export */ });
 var splashInfo = [{
@@ -672,6 +673,7 @@ var splashInfo = [{
   "title": "piece of pie",
   "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-aV9qf-Zy3E0-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-aX_ljOOyWJY-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-KnS4CDYUUoI-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/bruna-branco-IK2ep3jMnHA-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/danae-alexandri-8BFIyFaRWoA-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/didi-miam-ftrv8LiVZso-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/foodie-flavours-lnrkFexHGbU-unsplash+(1).jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/levi-guzman-ZUb3YN8B5K4-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/monika-grabkowska-neu4T59mTcY-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/priscilla-du-preez-HG1pJiQHXzs-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/ram-ho-PWlbT-5v1OE-unsplash+(1).jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/uliana-kopanytsia-2FA0VJzwc0g-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/whitney-wright-qVQep55VTR4-unsplash.jpg"]
 }];
+var allPhotos = splashInfo[0].photoUrls.concat(splashInfo[1].photoUrls).concat(splashInfo[2].photoUrls).concat(splashInfo[3].photoUrls);
 
 /***/ }),
 
@@ -728,6 +730,11 @@ var Splash = function Splash(props) {
       return clearInterval(interval);
     };
   }, []);
+
+  var randomPhoto = function randomPhoto() {
+    var photoIndex = Math.floor(Math.random() * 51);
+    return _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.allPhotos[photoIndex];
+  };
 
   var splashPage = function splashPage() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {

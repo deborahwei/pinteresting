@@ -72,3 +72,5 @@ export const splashInfo = [
         ]
     }
 ]
+
+export const allPhotos = splashInfo[0].photoUrls.concat(splashInfo[1].photoUrls).concat(splashInfo[2].photoUrls).concat(splashInfo[3].photoUrls)
