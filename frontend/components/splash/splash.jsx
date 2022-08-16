@@ -38,7 +38,7 @@ const Splash = (props) => {
             <section className="second-page">
                 <div className='second-page-background'>
                 </div>
-                <div className='second-page-background'>
+                <div className='second-page-photo-background'>
 
                 </div>
                 <div className="splash-signup">

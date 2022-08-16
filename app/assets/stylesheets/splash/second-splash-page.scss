@@ -3,6 +3,10 @@
     width: 100%;
     top: 100vh;
     z-index: 2;
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .second-page-photo-background {
@@ -16,13 +20,12 @@
     top: 100vh;
     background: rgba(0, 0, 0, 0.3);
     z-index: 4;
+
 }
 
 .splash-signup {
-    position: absolute;
     z-index: 5;
-    right: 300px;
-    top: 1200px;
+    padding-right: 200px;
 }
 
 .stationary-form {

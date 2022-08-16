@@ -751,7 +751,7 @@ var Splash = function Splash(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-background"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "second-page-background"
+      className: "second-page-photo-background"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-signup"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
