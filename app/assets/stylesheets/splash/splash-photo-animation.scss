@@ -1,0 +1,53 @@
+.show-photo {
+    animation-duration: 10s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    
+    1% {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    
+    4% {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+  
+    to {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+  }
+
+  
+.leaving-photo {
+    animation-duration: 6s;
+    animation-name: slideout;
+}
+
+@keyframes slideout { 
+    from {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+
+    10% {
+        transform: translateY(-33px);
+        opacity: 0;
+    }
+    
+    to { 
+        transform: translateY(-33px);
+        opacity: 0;
+    }
+}
+
+.hidden-photo {
+    opacity: 0;
+}

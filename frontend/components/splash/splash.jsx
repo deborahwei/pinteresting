@@ -22,16 +22,18 @@ const Splash = (props) => {
         <div className='splash-container'>
             <div className='splash-page-container' >
                 <div className='splash-text'>
-                    <h1>Get your next</h1>
+                    <h1> Get your next</h1>
                 </div>
-                {
-                    splashInfo.map( (page, i) => <SplashPage title={page.title}
-                                                            photoUrls = {page.photoUrls} 
-                                                            key={i}
-                                                            shouldShow={currentPage % 4 === i}
-                                                            shouldLeave={(currentPage - 1) % 4 === i}
-                                                            /> )
-                }
+                <div className="splash-page-carousel">
+                    {
+                        splashInfo.map( (page, i) => <SplashPage title={page.title}
+                                                                photoUrls = {page.photoUrls} 
+                                                                key={i}
+                                                                shouldShow={currentPage % 4 === i}
+                                                                shouldLeave={(currentPage - 1) % 4 === i}
+                                                                /> )
+                    }
+                </div>
             </div>
         </div>
     )

@@ -659,16 +659,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var splashInfo = [{
   "title": "powder portrait",
-  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/valentin-chretien-Auewhfdwzj4-unsplash-min.jpg"]
+  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/valentin-chretien-Auewhfdwzj4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/nic-y-c-YvUT4BtBbn8-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/jorg-angeli-cCzeLwUCmnM-unsplash.jpg"]
 }, {
   "title": "interior inspiration",
-  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/valentin-chretien-Auewhfdwzj4-unsplash-min.jpg"]
+  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/interior/11806f92bc257b424e11d8133e207800.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/11e2d8e2bf3cfb532a68c1c70c351c81.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/2c4b506b48a78e5a119b50a509c8b6f7.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/37404ee5575bdf24c1b77b8bee583436.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/3c7b90f24c417a97551c42ab156f3a12.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/57d94e16c7b01a951f3c7c65ef3bd317.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/88c7fdbb087256bf78432b4a6e727778.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707d3165dcfbbdf3771fb91a6dee1d+(1).jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707d3165dcfbbdf3771fb91a6dee1d.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/c1f6abc92752b425d40882d8f1495aaa.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/c24477938b8f0a63aef9c12c542f8d88.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/e31c7ad154535e3ddee9d3a42cbb0eb8.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/interior/fd44085497fdde427c62a17f42b9af13.jpg"]
 }, {
   "title": "sunset snapshot",
-  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/valentin-chretien-Auewhfdwzj4-unsplash-min.jpg"]
+  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/sunset/caleb-russell-V18GNaBeZqM-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/dewang-gupta-ESEnXckWlLY-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/gontran-isnard-0w6hGFGZpfI-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/karol-kaczorek-mWxhlAxJies-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/kylefromthenorth-GUddL1Nyl_U-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/luca-micheli-r9RW20TrQ0Y-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/martin-edholm-7lkDXfdfOC8-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/muzammil-soorma-KTdzeb28jyo-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/nikhita-singhal-yi1Hd1I3V3Y-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/simon-berger-UqCnDyc_3vA-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/simon-marsault-Y3cmorOBse0-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/stories-HRX5WXFyB64-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/sunset/timo-wagner-fT6-YkB0nfg-unsplash.jpg"]
 }, {
   "title": "piece of pie",
-  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/valentin-chretien-Auewhfdwzj4-unsplash-min.jpg"]
+  "photoUrls": ["https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-aV9qf-Zy3E0-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-aX_ljOOyWJY-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-KnS4CDYUUoI-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/bruna-branco-IK2ep3jMnHA-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/danae-alexandri-8BFIyFaRWoA-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/didi-miam-ftrv8LiVZso-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/foodie-flavours-lnrkFexHGbU-unsplash+(1).jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/levi-guzman-ZUb3YN8B5K4-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/monika-grabkowska-neu4T59mTcY-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/priscilla-du-preez-HG1pJiQHXzs-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/ram-ho-PWlbT-5v1OE-unsplash+(1).jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/uliana-kopanytsia-2FA0VJzwc0g-unsplash.jpg", "https://fs-pinteresting-dev.s3.amazonaws.com/pie/whitney-wright-qVQep55VTR4-unsplash.jpg"]
 }];
 
 /***/ }),
@@ -734,7 +734,9 @@ var Splash = function Splash(props) {
       className: "splash-page-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-text"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Get your next")), _fetch_splash_info__WEBPACK_IMPORTED_MODULE_4__.splashInfo.map(function (page, i) {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, " Get your next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "splash-page-carousel"
+    }, _fetch_splash_info__WEBPACK_IMPORTED_MODULE_4__.splashInfo.map(function (page, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"], {
         title: page.title,
         photoUrls: page.photoUrls,
@@ -742,7 +744,7 @@ var Splash = function Splash(props) {
         shouldShow: currentPage % 4 === i,
         shouldLeave: (currentPage - 1) % 4 === i
       });
-    })));
+    }))));
   };
 
   var noSplash = function noSplash() {
@@ -781,6 +783,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _splash_photo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./splash_photo */ "./frontend/components/splash/splash_photo.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 var SplashPage = function SplashPage(props) {
@@ -788,6 +804,23 @@ var SplashPage = function SplashPage(props) {
       photoUrls = props.photoUrls,
       shouldShow = props.shouldShow,
       shouldLeave = props.shouldLeave;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      currentPhoto = _useState2[0],
+      setCurrentPhoto = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var interval = setInterval(function () {
+      setCurrentPhoto(function (prevPhoto) {
+        return prevPhoto + 1;
+      });
+    }, 250);
+    return function () {
+      setCurrentPhoto(0);
+      clearInterval(interval);
+    };
+  }, [shouldShow]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "splash-changing-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -795,11 +828,55 @@ var SplashPage = function SplashPage(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "".concat(title.split(" ")[0], "-words")
   }, title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "splash-photo-container"
-  }));
+    className: "splash-photo-container  ".concat(shouldShow ? "show-page" : shouldLeave ? "leaving-page" : "hidden-page")
+  }, photoUrls.map(function (photoUrl, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_photo__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      photoUrl: photoUrl,
+      key: i,
+      photoId: i,
+      showPhoto: i < currentPhoto
+    });
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "".concat(title.split(" ")[0], "-arrow splash-arrow ").concat(shouldShow ? "show-arrow" : "hidden-arrow")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+    className: "fa-solid fa-chevron-down fa-lg"
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SplashPage);
+
+/***/ }),
+
+/***/ "./frontend/components/splash/splash_photo.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/splash/splash_photo.jsx ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SplashPhoto = function SplashPhoto(props) {
+  var photoUrl = props.photoUrl,
+      photoId = props.photoId,
+      showPhoto = props.showPhoto,
+      leavingPhoto = props.leavingPhoto;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "splash-individual-photo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "splash-photo-".concat(photoId, " ").concat(showPhoto ? "show-photo" : "leaving-photo"),
+    src: photoUrl,
+    alt: ""
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SplashPhoto);
 
 /***/ }),
 

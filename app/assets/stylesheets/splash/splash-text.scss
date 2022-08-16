@@ -14,28 +14,28 @@
 
 
 .splash-prompt-container {
+    top: 120px;
     font-weight: 600;
     font-size: 60px;
-    padding-top: 40px;
     text-align: center;
     margin: auto;
     position: absolute;
     height: 20%;
 
     .powder-words {
-        color: rgb(102, 154, 206);
+        color: rgb(105, 164, 222);
     }
 
     .interior-words {
-        color: green;
+        color: rgb(60, 154, 60);
     }
 
     .sunset-words {
-        color: orange;
+        color: rgb(241, 159, 52);
     }
 
     .piece-words {
-        color: red;
+        color: rgb(255, 62, 62);
     }
 }
 

@@ -1,0 +1,89 @@
+.splash-photo-container {
+
+    height: 350px;
+    width: 236px;
+    position: relative;
+    
+    img {
+        height: 100%;
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    .splash-photo-0 {
+        position: absolute;
+        right: 750px;  
+    }
+
+    .splash-photo-1 {
+        position: absolute;
+        top: 367px;
+        right: 750px;
+    }
+
+    .splash-photo-2 {
+        position: absolute;
+        top: 155px;
+        right: 500px;
+    }
+
+    .splash-photo-3 {
+        position: absolute;
+        top: 522px;
+        right: 500px; 
+
+    }
+
+    .splash-photo-4 {
+        position: absolute;
+        top: 220px;
+        right: 250px;
+    }
+
+    .splash-photo-5 {
+        position: absolute;
+        top: 587px;
+        right: 250px;
+    }
+
+    .splash-photo-6 {
+        position: absolute;
+        top: 390px;
+    }
+
+    .splash-photo-7 {
+        position: absolute;
+        top: 220px;
+        right: -250px;
+    }
+
+    .splash-photo-8 {
+        position: absolute;
+        top: 587px;
+        right:-250px;
+    }
+
+    .splash-photo-9 {
+        position: absolute;
+        top: 155px;
+        right: -500px;
+    }
+
+    .splash-photo-10 {
+        position: absolute;
+        top: 522px;
+        right: -500px;
+    }
+
+    
+    .splash-photo-11 {
+        position: absolute;
+        right: -750px;
+    }
+
+    .splash-photo-12 {
+        position: absolute;
+        top: 367px;
+        right: -750px;
+    }
+}

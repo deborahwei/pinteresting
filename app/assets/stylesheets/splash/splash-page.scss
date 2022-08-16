@@ -3,16 +3,78 @@
     height: 100%;
 }
 
+.splash-page-carousel {
+    position: absolute;
+    height: 70vh;
+    bottom: 100px;
+    width: 100%; 
+}
+
 .splash-page-container {
     position: relative;
     height: 100%;
 }
 .splash-changing-container {
-    height: 72%;
+    height: 100%;
     width: 100%;
     position: absolute;
     margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.splash-arrow {
+    cursor: pointer;
+    border-radius: 50%;
+    top: 180px;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    animation-name: bouncing-arrow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+    i {
+        right: 17px;
+        bottom: 25px;
+        color: white;
+        position: absolute;
+        -webkit-text-stroke: 1px white;
+    }
+
+}
+
+.powder-arrow {
+    background-color: rgb(105, 164, 222);
+}
+
+.interior-arrow {
+   background-color: rgb(60, 154, 60);
+}
+
+.sunset-arrow {
+   background-color: rgb(241, 159, 52);
+}
+
+.piece-arrow {
+   background-color: rgb(255, 62, 62);
+}   
+
+@keyframes bouncing-arrow {
+    0% {transform: translateY(0)}
+    20% {transform: translateY(0);}
+    50% {transform: translateY(0);}
+    40% {transform: translateY(-20px);} 
+    60% {transform: translateY(-10px);} 
+    80% {transform: translateY(0px);} 
+    100% {transform: translateY(0);} 
+}
+
+.show-arrow {
+    opacity: 1;
+}
+
+.hidden-arrow {
+    opacity: 0;
 }
