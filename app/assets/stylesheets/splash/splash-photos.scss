@@ -1,7 +1,9 @@
+@import '../variables.scss';
+
 .splash-photo-container {
 
-    height: 350px;
-    width: 236px;
+    height: $pin-height;
+    width: $pin-width;
     position: relative;
     
     img {
@@ -50,6 +52,7 @@
     .splash-photo-6 {
         position: absolute;
         top: 380px;
+        right: 0px;
     }
 
     .splash-photo-7 {

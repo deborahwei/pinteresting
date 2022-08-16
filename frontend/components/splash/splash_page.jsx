@@ -31,6 +31,7 @@ const SplashPage = props => {
                 photoUrls.map( (photoUrl, i) => <SplashPhoto photoUrl={photoUrl} 
                                                             key={i} 
                                                             photoId = {i}
+                                                            stationaryPhoto={false}
                                                             showPhoto = {i < currentPhoto}
                                                             />)
                 }

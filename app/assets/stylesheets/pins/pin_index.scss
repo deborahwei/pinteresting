@@ -1,0 +1,35 @@
+@import '../variables.scss';
+
+.pin-container {
+    margin: auto;
+    width: 100%; 
+    height: 100%;
+
+}
+
+
+.masonry-grid {
+    width: 90%;
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; 
+    justify-content: center;
+}
+
+.splash-background-grid {
+    div:nth-child(even) {
+        height: 100vh;
+        margin-top: -200px;
+    }
+}    
+
+
+
+.pin-photo {
+    height: $pin-height; 
+    width: $pin-width;
+    border-radius: 24px;
+    margin: 7px;
+
+}

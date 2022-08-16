@@ -397,6 +397,112 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/pins/pin_index.jsx":
+/*!************************************************!*\
+  !*** ./frontend/components/pins/pin_index.jsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _splash_fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../splash/fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
+/* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+var DiscoverPins = function DiscoverPins(props) {
+  var photoNumber = props.photoNumber;
+
+  var randomPhotos = function randomPhotos() {
+    var allPhotosDup = _toConsumableArray(_splash_fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__.allPhotos);
+
+    var photoUrlArray = [];
+    var totalPhotos = 51;
+
+    for (var i = 0; i < photoNumber; i++) {
+      var photoIndex = Math.floor(Math.random() * totalPhotos);
+      totalPhotos -= 1;
+      photoUrlArray.push(allPhotosDup[photoIndex]);
+      allPhotosDup.splice(photoIndex, 1);
+    }
+
+    return photoUrlArray;
+  };
+
+  var breakpoints = {
+    "default": 7,
+    1850: 6,
+    1630: 5,
+    1340: 4,
+    1080: 3
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+    className: "pins-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "masonry-grid ".concat(photoNumber === 28 ? "splash-background-grid" : ""),
+    breakpointCols: breakpoints,
+    columnClassName: "masonry-grid-column"
+  }, randomPhotos().map(function (photoUrl, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      photoUrl: photoUrl,
+      key: i,
+      photoId: i
+    });
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscoverPins);
+
+/***/ }),
+
+/***/ "./frontend/components/pins/pin_item.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/pins/pin_item.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var PinPhotoContainer = function PinPhotoContainer(props) {
+  var photoUrl = props.photoUrl;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "pin-photo",
+    src: photoUrl,
+    alt: ""
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PinPhotoContainer);
+
+/***/ }),
+
 /***/ "./frontend/components/root.jsx":
 /*!**************************************!*\
   !*** ./frontend/components/root.jsx ***!
@@ -694,6 +800,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splash_page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash_page */ "./frontend/components/splash/splash_page.jsx");
 /* harmony import */ var _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
+/* harmony import */ var _pins_pin_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pins/pin_index */ "./frontend/components/pins/pin_index.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -705,6 +812,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -731,11 +839,6 @@ var Splash = function Splash(props) {
     };
   }, []);
 
-  var randomPhoto = function randomPhoto() {
-    var photoIndex = Math.floor(Math.random() * 51);
-    return _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.allPhotos[photoIndex];
-  };
-
   var splashPage = function splashPage() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-container"
@@ -754,12 +857,18 @@ var Splash = function Splash(props) {
         shouldLeave: (currentPage - 1) % 4 === i
       });
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      className: "one-and-half-page"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "one-and-half-background"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
       className: "second-page"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-background"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-photo-background"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pin_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      photoNumber: 28
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-signup"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
       stationary: true
@@ -849,6 +958,7 @@ var SplashPage = function SplashPage(props) {
       photoUrl: photoUrl,
       key: i,
       photoId: i,
+      stationaryPhoto: false,
       showPhoto: i < currentPhoto
     });
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -880,8 +990,7 @@ __webpack_require__.r(__webpack_exports__);
 var SplashPhoto = function SplashPhoto(props) {
   var photoUrl = props.photoUrl,
       photoId = props.photoId,
-      showPhoto = props.showPhoto,
-      leavingPhoto = props.leavingPhoto;
+      showPhoto = props.showPhoto;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "splash-individual-photo"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
@@ -34286,6 +34395,233 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/react-masonry-css/dist/react-masonry-css.module.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+const defaultProps = {
+  breakpointCols: undefined,
+  // optional, number or object { default: number, [key: number]: number }
+  className: undefined,
+  // required, string
+  columnClassName: undefined,
+  // optional, string
+  // Any React children. Typically an array of JSX items
+  children: undefined,
+  // Custom attributes, however it is advised against
+  // using these to prevent unintended issues and future conflicts
+  // ...any other attribute, will be added to the container
+  columnAttrs: undefined,
+  // object, added to the columns
+  // Deprecated props
+  // The column property is deprecated.
+  // It is an alias of the `columnAttrs` property
+  column: undefined
+};
+const DEFAULT_COLUMNS = 2;
+
+class Masonry extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
+  constructor(props) {
+    super(props); // Correct scope for when methods are accessed externally
+
+    this.reCalculateColumnCount = this.reCalculateColumnCount.bind(this);
+    this.reCalculateColumnCountDebounce = this.reCalculateColumnCountDebounce.bind(this); // default state
+
+    let columnCount;
+
+    if (this.props.breakpointCols && this.props.breakpointCols.default) {
+      columnCount = this.props.breakpointCols.default;
+    } else {
+      columnCount = parseInt(this.props.breakpointCols) || DEFAULT_COLUMNS;
+    }
+
+    this.state = {
+      columnCount
+    };
+  }
+
+  componentDidMount() {
+    this.reCalculateColumnCount(); // window may not be available in some environments
+
+    if (window) {
+      window.addEventListener('resize', this.reCalculateColumnCountDebounce);
+    }
+  }
+
+  componentDidUpdate() {
+    this.reCalculateColumnCount();
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.removeEventListener('resize', this.reCalculateColumnCountDebounce);
+    }
+  }
+
+  reCalculateColumnCountDebounce() {
+    if (!window || !window.requestAnimationFrame) {
+      // IE10+
+      this.reCalculateColumnCount();
+      return;
+    }
+
+    if (window.cancelAnimationFrame) {
+      // IE10+
+      window.cancelAnimationFrame(this._lastRecalculateAnimationFrame);
+    }
+
+    this._lastRecalculateAnimationFrame = window.requestAnimationFrame(() => {
+      this.reCalculateColumnCount();
+    });
+  }
+
+  reCalculateColumnCount() {
+    const windowWidth = window && window.innerWidth || Infinity;
+    let breakpointColsObject = this.props.breakpointCols; // Allow passing a single number to `breakpointCols` instead of an object
+
+    if (typeof breakpointColsObject !== 'object') {
+      breakpointColsObject = {
+        default: parseInt(breakpointColsObject) || DEFAULT_COLUMNS
+      };
+    }
+
+    let matchedBreakpoint = Infinity;
+    let columns = breakpointColsObject.default || DEFAULT_COLUMNS;
+
+    for (let breakpoint in breakpointColsObject) {
+      const optBreakpoint = parseInt(breakpoint);
+      const isCurrentBreakpoint = optBreakpoint > 0 && windowWidth <= optBreakpoint;
+
+      if (isCurrentBreakpoint && optBreakpoint < matchedBreakpoint) {
+        matchedBreakpoint = optBreakpoint;
+        columns = breakpointColsObject[breakpoint];
+      }
+    }
+
+    columns = Math.max(1, parseInt(columns) || 1);
+
+    if (this.state.columnCount !== columns) {
+      this.setState({
+        columnCount: columns
+      });
+    }
+  }
+
+  itemsInColumns() {
+    const currentColumnCount = this.state.columnCount;
+    const itemsInColumns = new Array(currentColumnCount); // Force children to be handled as an array
+
+    const items = react__WEBPACK_IMPORTED_MODULE_0___default().Children.toArray(this.props.children);
+
+    for (let i = 0; i < items.length; i++) {
+      const columnIndex = i % currentColumnCount;
+
+      if (!itemsInColumns[columnIndex]) {
+        itemsInColumns[columnIndex] = [];
+      }
+
+      itemsInColumns[columnIndex].push(items[i]);
+    }
+
+    return itemsInColumns;
+  }
+
+  renderColumns() {
+    const {
+      column,
+      columnAttrs = {},
+      columnClassName
+    } = this.props;
+    const childrenInColumns = this.itemsInColumns();
+    const columnWidth = `${100 / childrenInColumns.length}%`;
+    let className = columnClassName;
+
+    if (className && typeof className !== 'string') {
+      this.logDeprecated('The property "columnClassName" requires a string'); // This is a deprecated default and will be removed soon.
+
+      if (typeof className === 'undefined') {
+        className = 'my-masonry-grid_column';
+      }
+    }
+
+    const columnAttributes = _objectSpread(_objectSpread(_objectSpread({}, column), columnAttrs), {}, {
+      style: _objectSpread(_objectSpread({}, columnAttrs.style), {}, {
+        width: columnWidth
+      }),
+      className
+    });
+
+    return childrenInColumns.map((items, i) => {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({}, columnAttributes, {
+        key: i
+      }), items);
+    });
+  }
+
+  logDeprecated(message) {
+    console.error('[Masonry]', message);
+  }
+
+  render() {
+    const _this$props = this.props,
+          {
+      // ignored
+      children,
+      breakpointCols,
+      columnClassName,
+      columnAttrs,
+      column,
+      // used
+      className
+    } = _this$props,
+          rest = _objectWithoutProperties(_this$props, ["children", "breakpointCols", "columnClassName", "columnAttrs", "column", "className"]);
+
+    let classNameOutput = className;
+
+    if (typeof className !== 'string') {
+      this.logDeprecated('The property "className" requires a string'); // This is a deprecated default and will be removed soon.
+
+      if (typeof className === 'undefined') {
+        classNameOutput = 'my-masonry-grid';
+      }
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({}, rest, {
+      className: classNameOutput
+    }), this.renderColumns());
+  }
+
+}
+
+Masonry.defaultProps = defaultProps;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Masonry);
 
 
 /***/ }),
