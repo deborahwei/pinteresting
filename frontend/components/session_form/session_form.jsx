@@ -42,7 +42,7 @@ const SessionForm = props => {
     return (
         <div className="auth-form-modal">
           <div className="auth-form-header">
-            <div className="exit-auth-modal" tabIndex="0" onClick={closeModal}>×</div>
+            <div className={`exit-auth-modal ${props.stationary ? "stationary-form" : ""}`} tabIndex="0" onClick={closeModal}>×</div>
             <i className="fa-brands fa-pinterest fa-2x"></i>
             <h1>Welcome to Pinteresting</h1>
             <h2>{headerText}</h2>
@@ -73,7 +73,9 @@ const SessionForm = props => {
           <footer>
             <p> By continuing, you agree this is just a Pinterest Clone. </p>
             <div className="auth-form-line-break"></div>
-            {props.footerForm}
+            <div className={`${props.stationary ? "stationary-form" : ""}`}>
+              {props.footerForm}
+            </div>
           </footer>
         </div>
     )

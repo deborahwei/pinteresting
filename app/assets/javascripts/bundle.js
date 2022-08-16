@@ -556,7 +556,7 @@ var SessionForm = function SessionForm(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "auth-form-header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "exit-auth-modal",
+    className: "exit-auth-modal ".concat(props.stationary ? "stationary-form" : ""),
     tabIndex: "0",
     onClick: closeModal
   }, "\xD7"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
@@ -587,7 +587,9 @@ var SessionForm = function SessionForm(props) {
     className: "modal-demo-user-button"
   }, "Continue with Demo User")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("footer", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, " By continuing, you agree this is just a Pinterest Clone. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "auth-form-line-break"
-  }), props.footerForm));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "".concat(props.stationary ? "stationary-form" : "")
+  }, props.footerForm)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SessionForm);
@@ -686,10 +688,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _splash_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./splash_page */ "./frontend/components/splash/splash_page.jsx");
-/* harmony import */ var _fetch_splash_info__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _splash_page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash_page */ "./frontend/components/splash/splash_page.jsx");
+/* harmony import */ var _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
+/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -736,14 +738,24 @@ var Splash = function Splash(props) {
       className: "splash-text"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, " Get your next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-page-carousel"
-    }, _fetch_splash_info__WEBPACK_IMPORTED_MODULE_4__.splashInfo.map(function (page, i) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_page__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }, _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.splashInfo.map(function (page, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_page__WEBPACK_IMPORTED_MODULE_2__["default"], {
         title: page.title,
         photoUrls: page.photoUrls,
         key: i,
         shouldShow: currentPage % 4 === i,
         shouldLeave: (currentPage - 1) % 4 === i
       });
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "second-page"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "second-page-background"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "second-page-background"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "splash-signup"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      stationary: true
     }))));
   };
 
@@ -762,11 +774,7 @@ var mSTP = function mSTP(_ref) {
   };
 };
 
-var mDTP = function mDTP(dispatch) {
-  return {};
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(Splash));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, null)(Splash));
 
 /***/ }),
 

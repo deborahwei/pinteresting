@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import signup_form_container from '../session_form/signup_form_container'
 import { connect } from 'react-redux'
 import SplashPage from './splash_page'
 import { splashInfo } from './fetch_splash_info'
+import SignupFormContainer from '../session_form/signup_form_container'
 
 const Splash = (props) => {
 
@@ -35,6 +35,16 @@ const Splash = (props) => {
                     }
                 </div>
             </div>
+            <div className="second-page">
+                <div className='second-page-background'>
+                </div>
+                <div className='second-page-background'>
+
+                </div>
+                <div className="splash-signup">
+                    <SignupFormContainer stationary={true}/>
+                </div>
+            </div>
         </div>
     )
 
@@ -52,9 +62,5 @@ const mSTP = ({session, entities: { users }}) => {
     }
 }
 
-const mDTP = dispatch => {
-    return {
-    }
-}
 
-export default connect(mSTP, mDTP)(Splash)
+export default connect(mSTP, null)(Splash)
