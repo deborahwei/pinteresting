@@ -38,7 +38,7 @@ const SplashPage = props => {
             </div>
             <div onClick={handleArrow} className={`${title.split(" ")[0]}-arrow first-page-arrow splash-arrow ${shouldShow ? "show-arrow" : "hidden-arrow"}`}>
                 <i className="fa-solid fa-chevron-down fa-lg"></i>
-             </div>
+            </div>
         </div>
     )
 }
