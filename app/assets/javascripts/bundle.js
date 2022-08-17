@@ -40,6 +40,7 @@ var closeModal = function closeModal() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CLEAR_ERRORS": () => (/* binding */ CLEAR_ERRORS),
 /* harmony export */   "LOGOUT_CURRENT_USER": () => (/* binding */ LOGOUT_CURRENT_USER),
 /* harmony export */   "RECEIVE_CURRENT_USER": () => (/* binding */ RECEIVE_CURRENT_USER),
 /* harmony export */   "RECEIVE_SESSION_ERRORS": () => (/* binding */ RECEIVE_SESSION_ERRORS),
@@ -55,6 +56,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 var LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+var CLEAR_ERRORS = 'CLEAR_ERRORS';
 var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   return {
     type: RECEIVE_CURRENT_USER,
@@ -72,12 +74,19 @@ var receiveErrors = function receiveErrors(errors) {
     errors: errors
   };
 };
+
+var clearErrors = function clearErrors() {
+  return {
+    type: CLEAR_ERRORS
+  };
+};
+
 var signup = function signup(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__.signup(user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (err) {
-      return dispatch(receiveErrors(err.responseJSON));
+      return dispatch(receiveErrors(err.responseJSON), dispatch(clearErrors()));
     });
   };
 };
@@ -273,17 +282,27 @@ var Nav = function Nav(props) {
       profileClicked = _useState6[0],
       setProfileClicked = _useState6[1];
 
+  var handleLogout = function handleLogout() {
+    setOpen(false);
+    setHomeClicked(true);
+    setProfileClicked(false);
+    logout();
+  };
+
   var handleDropdownClick = function handleDropdownClick() {
     return setOpen(!open);
   };
 
   var handleProfileClick = function handleProfileClick() {
     setHomeClicked(false);
-    setProfileClicked(true);
+    setProfileClicked(true); // um not sure if this works
+
+    userProfilePath = "/user/".concat(currentUser.id);
   };
 
   var handleHomeClick = function handleHomeClick() {
     setHomeClicked(true);
+    setProfileClicked(false);
   };
 
   var openModal = function openModal(formType) {
@@ -363,7 +382,7 @@ var Nav = function Nav(props) {
       className: "user-profile-icon",
       onClick: handleProfileClick
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-      className: "demo-user-pic",
+      className: "demo-user-pic".concat(profileClicked ? "-clicked" : ""),
       src: window.demoUserUrl
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "menu-container"
@@ -389,7 +408,7 @@ var Nav = function Nav(props) {
       className: "dropdown-more-options"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "More options"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logout-button",
-      onClick: logout
+      onClick: handleLogout
     }, "Log out")))))));
   };
 
@@ -597,6 +616,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     closeModal: function closeModal() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.closeModal)());
     },
+    login: function login(user) {
+      return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.login)(user));
+    },
     footerForm: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
       className: "footer-form-div",
       onClick: function onClick() {
@@ -669,6 +691,16 @@ var SessionForm = function SessionForm(props) {
     props.processForm(user);
   };
 
+  var handleDemoUser = function handleDemoUser(e) {
+    e.preventDefault();
+    var demoUser = {
+      username: 'demo-user',
+      password: 'password'
+    };
+    setState(demoUser);
+    props.login(demoUser);
+  };
+
   var renderErrors = function renderErrors() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, props.errors.map(function (error, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
@@ -713,6 +745,7 @@ var SessionForm = function SessionForm(props) {
     type: "submit",
     value: props.formType
   }, " ", userAuthText, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, "OR"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: handleDemoUser,
     className: "modal-demo-user-button"
   }, "Continue with Demo User")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("footer", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, " By continuing, you agree this is just a Pinterest Clone. "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "auth-form-line-break"
@@ -764,6 +797,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     closeModal: function closeModal() {
       return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.closeModal)());
     },
+    login: function (_login) {
+      function login(_x) {
+        return _login.apply(this, arguments);
+      }
+
+      login.toString = function () {
+        return _login.toString();
+      };
+
+      return login;
+    }(function (user) {
+      return dispatch(login(user));
+    }),
     footerForm: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
       className: "footer-form-div",
       onClick: function onClick() {
@@ -890,7 +936,7 @@ var Splash = function Splash() {
     }
 
     return function () {
-      console.log("CLEANUP: ", updateInterval, interval);
+      // console.log("CLEANUP: ",updateInterval, interval);
       clearInterval(interval);
     };
   }, [updateInterval]);
@@ -1224,6 +1270,9 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CURRENT_USER:
       return [];
+
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__.CLEAR_ERRORS:
+      return _nullErrors;
 
     default:
       return state;

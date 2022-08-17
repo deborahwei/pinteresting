@@ -123,7 +123,15 @@
     height: 23px; 
     width: 23px;
     cursor: pointer;
+}
 
+.demo-user-pic-clicked {
+    border: 2px solid white;
+    outline: 2px solid black;
+    border-radius: 50%;
+    height: 19px; 
+    width: 19px;
+    cursor: pointer;
 }
 
 

@@ -39,7 +39,7 @@ const Splash = () => {
         }
         
         return () => {
-            console.log("CLEANUP: ",updateInterval, interval);
+            // console.log("CLEANUP: ",updateInterval, interval);
             clearInterval(interval)
         }
     }, [updateInterval])

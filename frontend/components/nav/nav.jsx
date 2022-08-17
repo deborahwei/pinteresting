@@ -8,22 +8,32 @@ import { openModal } from '../../actions/modal_actions'
 const Nav = (props) => {
     
     const { currentUser, logout} = props
-
+    
     const dropdownRef = useRef(null)
     // const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const [open, setOpen] = useState(false)
     const [homeClicked, setHomeClicked] = useState(true)
     const [profileClicked, setProfileClicked] = useState(false)
-
+    
+    const handleLogout = () => {
+        setOpen(false)
+        setHomeClicked(true)
+        setProfileClicked(false)
+        logout()
+    }
+    
     const handleDropdownClick = () => setOpen(!open)
 
     const handleProfileClick = () => {
         setHomeClicked(false)
         setProfileClicked(true)
+        // um not sure if this works
+        userProfilePath = `/user/${currentUser.id}`
     }
 
     const handleHomeClick = () => {
         setHomeClicked(true)
+        setProfileClicked(false)
     }
 
     const openModal = (formType) => {
@@ -86,8 +96,8 @@ const Nav = (props) => {
                     <i className="fa-brands fa-linkedin-in fa-xl"></i>
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
-                <div className='user-profile-icon' onClick={handleProfileClick}>
-                    <img className="demo-user-pic" src={window.demoUserUrl} />
+            <div className={`user-profile-icon`} onClick={handleProfileClick}>
+                    <img className={`demo-user-pic${profileClicked ? "-clicked" : ""}`} src={window.demoUserUrl} />
                 </div>
                 <div className="menu-container">
                     <div onClick={handleDropdownClick} className="menu-trigger">
@@ -105,7 +115,7 @@ const Nav = (props) => {
                             </div>
                             <div className='dropdown-more-options'>
                                 <p>More options</p> 
-                                <div className="logout-button" onClick={logout}> 
+                                <div className="logout-button" onClick={handleLogout}> 
                                     Log out 
                                 </div>
                             </div>

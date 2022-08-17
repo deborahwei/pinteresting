@@ -24,6 +24,13 @@ const SessionForm = props => {
         props.processForm(user)
     }
 
+    const handleDemoUser = (e) => {
+      e.preventDefault()
+      const demoUser = {username: 'demo-user', password: 'password'}
+      setState(demoUser)
+      props.login(demoUser)
+    }
+
     const renderErrors = () => {
         return(
           <ul>
@@ -67,7 +74,7 @@ const SessionForm = props => {
             
               <button className="modal-form-button" type="submit" value={props.formType}> {userAuthText} </button>
               <span>OR</span>
-              <button className="modal-demo-user-button">Continue with Demo User</button>
+              <button onClick={handleDemoUser} className="modal-demo-user-button">Continue with Demo User</button>
 
           </form>
           <footer>
