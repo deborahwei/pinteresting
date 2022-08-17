@@ -1,5 +1,6 @@
 import React from 'react'
 import ProfilePicture from './profile_picture'
+import { connect, Connect } from 'react-redux'
 
 const UserShowContainer = (props) => {
 
@@ -16,5 +17,16 @@ const UserShowContainer = (props) => {
 
 }
 
+const mSTP = ({session, entities: {users}}) => {
+    return {
+        currentUser: users[session.id],
+    }
+}
+
+const mDTP = dispatch => {
+
+}
 
 export default UserShowContainer
+
+// export default connect(mSTP, mDTP)(UserShowContainer)

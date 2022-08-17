@@ -5,7 +5,7 @@ export const closeDropdown = (el, initialState) => {
 
     useEffect(() => {
         const pageClickEvent = (e) => {
-            if (el.current != null && el.current.contains(e.target)) {
+            if (el.current != null && !el.current.contains(e.target)) {
                 setOpen(!open)
             }
         }

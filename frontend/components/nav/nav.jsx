@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
 import { Link, useLocation } from 'react-router-dom'
 import ProfilePicture from '../users/profile_picture'
-
-// import { closeDropdown } from '../dropdown/close_dropdown'
+import { closeDropdown } from '../dropdown/close_dropdown'
 
 
 const Nav = (props) => {
@@ -13,15 +12,35 @@ const Nav = (props) => {
     const { currentUser, logout} = props
     
     const dropdownRef = useRef(null)
-    // const [open, setOpen] = closeDropdown(dropdownRef, false) 
-
+    const [open, setOpen] = closeDropdown(dropdownRef, false) 
+    const createRef = useRef(null)
+    const [createOpen, setCreateOpen] = closeDropdown(createRef, false)
+    console.log(createOpen)
+    
     const onHome = useLocation().pathname === "/"
     const onProfile = useLocation().pathname.split('/')[1] === "users"
-       
-    const [open, setOpen] = useState(false)
+    
+
     const [homeClicked, setHomeClicked] = useState(onHome)
     const [profileClicked, setProfileClicked] = useState(onProfile)
     
+    useEffect(() => {
+        const pageClickEvent = (e) => {
+            console.log(dropdownRef.current, e.target)
+            if (dropdownRef.current != null && !dropdownRef.current.contains(e.target)) {
+                setOpen(!open)
+            }
+        }
+
+        if (open) {
+            window.addEventListener('click', pageClickEvent)
+        }
+
+        return () => {
+            window.removeEventListener('click', pageClickEvent)
+        }
+    }, [open])
+
     const handleLogout = () => {
         setOpen(false)
         setHomeClicked(true)
@@ -29,7 +48,8 @@ const Nav = (props) => {
         logout()
     }
     
-    const handleDropdownClick = () => setOpen(!open)
+    const handleDropdownClick = () => {setOpen(!open)}
+    const handleCreateClick = () => setCreateOpen(!createOpen)
 
     const handleProfileClick = () => {
         setHomeClicked(false)
@@ -76,15 +96,17 @@ const Nav = (props) => {
     const loggedIn = () => (
         <div className="logged-in-nav">
             <div className='logged-in-nav-left'>
-                <i className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
+                <Link to="/">
+                    <i onClick={handleHomeClick} className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
+                </Link>
                 <Link to="/">
                     <div className={`home-button ${homeClicked ? "home-button-clicked" : ""}`} onClick={handleHomeClick}>Home</div>
                 </Link>
-                <div className="logged-in-create">
-                    <div>
+                <div className="nav-create-container">
+                    <div ref={createRef} onClick={handleCreateClick} className="nav-create-trigger">
                         Create
                         <i className="fa-solid fa-chevron-down fa-xs create-button"></i>
-                        <div className='create-dropdown'>
+                        <div className={`nav-create-menu ${createOpen ? 'open' : 'closed'}`}>
                             <div className='create-pin'>Create pin</div>
                         </div>
                     </div>
@@ -109,10 +131,10 @@ const Nav = (props) => {
                     </Link>
                 </div>
                 <div className="menu-container">
-                    <div onClick={handleDropdownClick} className="menu-trigger">
+                    <div  ref={dropdownRef} onClick={handleDropdownClick} className="menu-trigger">
                         <i className="fa-solid fa-chevron-down fa-xs"></i>
                     </div>
-                    <nav ref={dropdownRef} className={`menu ${open ? 'open' : 'closed'}`}>
+                    <nav className={`menu ${open ? 'open' : 'closed'}`}>
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
                             <Link to={`/users/${currentUser.id}` } >
