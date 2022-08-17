@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
@@ -15,7 +15,6 @@ const Nav = (props) => {
     const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const createRef = useRef(null)
     const [createOpen, setCreateOpen] = closeDropdown(createRef, false)
-    console.log(createOpen)
     
     const onHome = useLocation().pathname === "/"
     const onProfile = useLocation().pathname.split('/')[1] === "users"
@@ -24,23 +23,6 @@ const Nav = (props) => {
     const [homeClicked, setHomeClicked] = useState(onHome)
     const [profileClicked, setProfileClicked] = useState(onProfile)
     
-    useEffect(() => {
-        const pageClickEvent = (e) => {
-            console.log(dropdownRef.current, e.target)
-            if (dropdownRef.current != null && !dropdownRef.current.contains(e.target)) {
-                setOpen(!open)
-            }
-        }
-
-        if (open) {
-            window.addEventListener('click', pageClickEvent)
-        }
-
-        return () => {
-            window.removeEventListener('click', pageClickEvent)
-        }
-    }, [open])
-
     const handleLogout = () => {
         setOpen(false)
         setHomeClicked(true)
@@ -126,7 +108,7 @@ const Nav = (props) => {
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
             <div className={`user-profile-icon user-avatar${profileClicked ? "-clicked" : ""}`} onClick={handleProfileClick}>
-                    <Link to={`/users/${currentUser.id}` } >
+                    <Link to={`/users/${currentUser.username}` } >
                         <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 
                     </Link>
                 </div>
@@ -137,7 +119,7 @@ const Nav = (props) => {
                     <nav className={`menu ${open ? 'open' : 'closed'}`}>
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
-                            <Link to={`/users/${currentUser.id}` } >
+                            <Link to={`/users/${currentUser.username}` } >
                                 <div className='dropdown-user' onClick={handleProfileClick}>
                                     <div className="dropdown-user-pic">
                                         <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 

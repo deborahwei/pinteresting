@@ -39,7 +39,6 @@ const Splash = () => {
         }
         
         return () => {
-            // console.log("CLEANUP: ",updateInterval, interval);
             clearInterval(interval)
         }
     }, [updateInterval])
@@ -97,10 +96,6 @@ const Splash = () => {
                 </div>
             </section>
         </div>
-    )
-
-    const noSplash = () => (
-        ""
     )
 
     return splashPage()

@@ -152,3 +152,59 @@
     opacity: 1; 
     visibility: visible;
 }
+
+.plus-menu {
+    background-color: white;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    border-radius: 15px;
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+    height: 100px; 
+    width: 150px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-indent: 15px; 
+    right: 0px;
+    top: 50px;
+
+    p {
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    div {
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        font-weight: $semibold;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 30px;
+
+        &:hover {
+            background: $search-bar-grey;
+        }
+    }
+}
+
+.plus-menu.open {
+    opacity: 1; 
+    visibility: visible;
+}
+
+.plus-circle-clicked {
+    background-color: black;
+    border-radius: 50%;
+    height: 46px;
+    width: 46px;
+}
+
+.plus-clicked {
+    color: white;
+}
