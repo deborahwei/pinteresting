@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .splash-container {
     display: flex; 
     flex-direction: column;
@@ -18,6 +20,9 @@
 }
 
 .splash-page-container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
     padding-top: 100px;
     overflow: hidden;
     position: relative;
@@ -28,6 +33,7 @@
 .splash-changing-container {
     height: 100%;
     width: 100%;
+    top: 270px;
     position: absolute;
     margin: auto;
     display: flex;
@@ -37,6 +43,7 @@
 
 .splash-arrow {
     cursor: pointer;
+    background: $pinterest-red;
     border-radius: 50%;
     margin: 68px;
     height: 50px;
@@ -54,6 +61,14 @@
         -webkit-text-stroke: 1px white;
     }
 
+}
+
+.second-page-arrow {
+    margin-bottom: 600px;
+    z-index: 5;
+    animation: bouncing-down-arrow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
 .powder-arrow {
@@ -82,10 +97,54 @@
     100% {transform: translateY(0);} 
 }
 
+@keyframes bouncing-down-arrow {
+    0% {transform: translateY(0)}
+    20% {transform: translateY(0);}
+    50% {transform: translateY(0);}
+    40% {transform: translateY(-10px);} 
+    60% {transform: translateY(-20px);} 
+    80% {transform: translateY(0px);} 
+    100% {transform: translateY(0);} 
+}
+
 .show-arrow {
     opacity: 1;
 }
 
 .hidden-arrow {
     opacity: 0;
+}
+
+.page-nav-buttons {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    
+    div {
+        z-index: 3;
+        margin: 5px;
+        cursor: pointer;
+        margin-bottom: 425px;
+        border-radius: 50%; 
+        width: 10px; 
+        height: 10px;
+        background-color: rgb(225, 225, 225);
+    }
+
+    .powder-page-button {
+        background-color: rgb(105, 164, 222);
+    }
+    
+    .interior-page-button {
+       background-color: rgb(60, 154, 60);
+    }
+    
+    .sunset-page-button {
+       background-color: rgb(241, 159, 52);
+    }
+    
+    .piece-page-button {
+       background-color: rgb(255, 62, 62);
+    }  
+
 }

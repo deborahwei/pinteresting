@@ -828,14 +828,28 @@ var Splash = function Splash(props) {
       currentPage = _useState2[0],
       setCurrentPage = _useState2[1];
 
-  var buttonRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var arrowDownRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var arrowUpRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var pageButtons = ["0", "1", "2", "3"];
 
   var handleDownArrow = function handleDownArrow() {
-    var _buttonRef$current;
+    var _arrowDownRef$current;
 
-    (_buttonRef$current = buttonRef.current) === null || _buttonRef$current === void 0 ? void 0 : _buttonRef$current.scrollIntoView({
+    (_arrowDownRef$current = arrowDownRef.current) === null || _arrowDownRef$current === void 0 ? void 0 : _arrowDownRef$current.scrollIntoView({
       behavior: 'smooth'
     });
+  };
+
+  var handleUpArrow = function handleUpArrow() {
+    var _arrowUpRef$current;
+
+    (_arrowUpRef$current = arrowUpRef.current) === null || _arrowUpRef$current === void 0 ? void 0 : _arrowUpRef$current.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
+  var handlePageNav = function handlePageNav(page) {
+    setCurrentPage(parseInt(page));
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -847,16 +861,27 @@ var Splash = function Splash(props) {
     return function () {
       return clearInterval(interval);
     };
-  }, []);
+  }, [currentPage]);
 
   var splashPage = function splashPage() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      ref: arrowUpRef,
       className: "splash-page-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-text"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, " Get your next")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "page-nav-buttons"
+    }, pageButtons.map(function (pageButton) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        key: pageButton,
+        onClick: function onClick() {
+          return handlePageNav(pageButton);
+        },
+        className: currentPage % 4 === parseInt(pageButton) ? "".concat(_fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.splashInfo[parseInt(pageButton)].title.split(" ")[0], "-page-button") : ""
+      });
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-page-carousel"
     }, _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__.splashInfo.map(function (page, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_page__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -877,7 +902,7 @@ var Splash = function Splash(props) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "one-and-half-text-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "See it, make it, try it, do it"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "The best part of Pinteresting is discovering new things and ideas from people around the word"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
-      ref: buttonRef,
+      ref: arrowDownRef,
       className: "second-page"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-background"
@@ -888,6 +913,11 @@ var Splash = function Splash(props) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-text-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Sign up to get your ideas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onClick: handleUpArrow,
+      className: "second-page-arrow splash-arrow"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-chevron-up fa-lg"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "splash-signup"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
       stationary: true
