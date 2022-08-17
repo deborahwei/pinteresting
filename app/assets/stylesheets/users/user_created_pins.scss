@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.no-saved-container {
+.no-created-container {
     height: 55%;
     width: 100%;
     display: flex; 
@@ -11,11 +11,14 @@
 
     h1 {
         text-align: center;
+        font-weight: $semibold;
+        font-size: 28px;
     }
 
     div {
-        background-color:#f0f0f0;
-        width: 100px;
+        background-color: $pinterest-red;
+        color: white;
+        width: 80px;
         height: 50px;
         border-radius: 24px;
         display: flex; 
@@ -26,11 +29,11 @@
         cursor: pointer;
 
         &:hover {
-            background-color: #dadada;
+            background-color: $hover-red;
         }
 
         h1 {
-            font-weight: $semibold;
+            font-size: 16px;
         }
     }
 }

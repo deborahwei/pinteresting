@@ -1,26 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const UserShowSavedContainer = (props) => {
+const UserShowSavedContainer = () => {
 
-    const {anyPins} = props
-
-    const savedPins= () => {
-
-    }
-
-    const noPins = () => {
+    const noPinsSaved = () => {
         
         return (
             <div className="no-saved-container">
                 <h1>You haven't saved any Pins yet</h1>
-                <div className="find-ideas-button">
-                    Find ideas
-                </div>
+                <Link to="/">
+                    <div className="find-ideas-button">
+                        <h1>Find ideas</h1>
+                    </div>
+                </Link>
             </div>
         )
     }
 
-    return anyPins ? noPins() : savedPins()
+    // return anyPins ? noPins() : savedPins()
+    return noPinsSaved()
 }
 
 export default UserShowSavedContainer

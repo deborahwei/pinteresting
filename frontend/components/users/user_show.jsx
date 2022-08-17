@@ -11,7 +11,6 @@ const UserShowContainer = (props) => {
 
     const plusRef = useRef(null)
     const [plus, setPlus] = closeDropdown(plusRef, false)
-    console.log(plus)
     const handlePlusClick = () => {
         setPlus(!plus)
     }
@@ -42,9 +41,6 @@ const UserShowContainer = (props) => {
                         <div>Create pin</div>
                         <div>Create board</div>
                     </div>
-                </div>
-                <div className="user-show-created-saved">
-                    
                 </div>
                 <div>
 
