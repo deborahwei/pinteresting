@@ -1,5 +1,11 @@
 @import '../variables.scss';
 
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
 .logged-in-nav {
     background-color: white;
     position: fixed;
@@ -118,20 +124,40 @@
 
 }
 
-.demo-user-pic {
+.user-avatar {
     border-radius: 50%;
     height: 23px; 
     width: 23px;
     cursor: pointer;
 }
 
-.demo-user-pic-clicked {
+.user-avatar-clicked {
     border: 2px solid white;
     outline: 2px solid black;
     border-radius: 50%;
     height: 19px; 
     width: 19px;
     cursor: pointer;
+}
+
+.user-profile-icon {
+    font-size: 10px;
+}
+
+.profile-picture, .default-picture {
+    text-align: center;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.default-picture {
+    background-color: $search-bar-grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1px;
 }
 
 

@@ -6,9 +6,9 @@ const ProfilePicture = (props) => {
 
     const defaultPhoto = () => {
         return (
-            <div className="avatar-container">
-            
-            </div>
+            <div className="default-picture">
+                {currentUser.username[0].toUpperCase()}
+            </div>  
         )
     }
 
