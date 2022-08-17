@@ -31,12 +31,15 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        color: white;
         border-radius: 24px;
-        background-color: $text-default;
         width: 70px;
         height: 50px;
         text-align: center;
+    }
+
+    .home-button-clicked {
+        color: white;
+        background-color: $text-default;
     }
 }
 

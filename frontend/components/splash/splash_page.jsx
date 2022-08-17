@@ -3,13 +3,13 @@ import SplashPhoto from './splash_photo'
 
 const SplashPage = props => {
 
-    const {title, photoUrls, shouldShow, shouldLeave, handleDownArrow} = props
+    const {title, photoUrls, shouldShow, shouldLeave, handleArrow} = props
 
-    const [currentPhoto, setCurrentPhoto] = useState(0)
+    const [currentPhoto, setCurrentPhoto] = useState(0);
 
     useEffect( () => {
         const interval = setInterval(() => {
-            setCurrentPhoto( (prevPhoto) => prevPhoto+1 )
+            setCurrentPhoto( (prevPhoto) => prevPhoto+1)
         }, 250);
 
         return () => {
@@ -36,7 +36,7 @@ const SplashPage = props => {
                                                             />)
                 }
             </div>
-            <div onClick={handleDownArrow} className={`${title.split(" ")[0]}-arrow splash-arrow ${shouldShow ? "show-arrow" : "hidden-arrow"}`}>
+            <div onClick={handleArrow} className={`${title.split(" ")[0]}-arrow first-page-arrow splash-arrow ${shouldShow ? "show-arrow" : "hidden-arrow"}`}>
                 <i className="fa-solid fa-chevron-down fa-lg"></i>
              </div>
         </div>

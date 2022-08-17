@@ -48,10 +48,14 @@
     margin: 68px;
     height: 50px;
     width: 50px;
-    position: relative;
     animation-name: bouncing-arrow;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+
+    .first-page-arrow {
+        position: absolute;
+        top: 300px;
+    }
 
     i {
         right: 17px;
@@ -64,8 +68,8 @@
 }
 
 .second-page-arrow {
-    margin-bottom: 600px;
     z-index: 5;
+    margin-bottom: 600px;
     animation: bouncing-down-arrow;
     animation-duration: 2s;
     animation-iteration-count: infinite;

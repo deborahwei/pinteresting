@@ -3,47 +3,55 @@ import { connect } from 'react-redux'
 import SplashPage from './splash_page'
 import { splashInfo} from './fetch_splash_info'
 import SignupFormContainer from '../session_form/signup_form_container'
-import DiscoverPins from '../pins/pin_index'
+import DiscoverPinsContainer from '../pins/pin_index'
 
-const Splash = (props) => {
-
-    const { currentUser } = props
+const Splash = () => {
+    
     
     const [currentPage, setCurrentPage] = useState(0)
+    const [updateInterval, setUpdateInterval] = useState(0)
     
-    const arrowDownRef = useRef(null)
-    const arrowUpRef = useRef(null)
+    const arrowRef = useRef(null)
     const pageButtons = ["0", "1", "2", "3"]
 
     
-    const handleDownArrow = () => {
-        arrowDownRef.current?.scrollIntoView({behavior: 'smooth'})
-    }
-
-    const handleUpArrow = () => {
-        arrowUpRef.current?.scrollIntoView({behavior: 'smooth'})
+    const handleArrow = () => {
+        arrowRef.current?.scrollIntoView({behavior: 'smooth'})
     }
 
     const handlePageNav = (page) => {
-        setCurrentPage( parseInt(page))
+        setCurrentPage(parseInt(page));
+        setUpdateInterval((prev) => (prev % 3)+1);
     }
 
+    let interval;
     useEffect( () => {
-        const interval = setInterval(() => {
+        interval = setInterval(() => {
             setCurrentPage( (prevPage) => prevPage+1 )
         }, 6000);
-
-        return () => clearInterval(interval)
-    }, [currentPage])
+    }, []);
+    
+    useEffect( () => {
+        if (updateInterval > 0) {
+            interval = setInterval(() => {
+                setCurrentPage( (prevPage) => prevPage+1 )
+            }, 6000);
+        }
+        
+        return () => {
+            console.log("CLEANUP: ",updateInterval, interval);
+            clearInterval(interval)
+        }
+    }, [updateInterval])
 
     const splashPage = () => (
         <div className='splash-container'>
-            <section ref={arrowUpRef} className='splash-page-container' >
+            <section className='splash-page-container' >
                 <div className='splash-text'>
                     <h1> Get your next</h1>
                 </div>
                 <div className="page-nav-buttons">
-                    {pageButtons.map(pageButton => 
+                    {pageButtons.map(pageButton =>
                         <div 
                             key={pageButton} 
                             onClick={ () => handlePageNav(pageButton)} 
@@ -55,7 +63,7 @@ const Splash = (props) => {
                 <div className="splash-page-carousel">
                     {
                         splashInfo.map( (page, i) => <SplashPage title={page.title}
-                        handleDownArrow = {handleDownArrow}
+                        handleArrow = {handleArrow}
                         photoUrls = {page.photoUrls} 
                         key={i}
                         shouldShow={currentPage % 4 === i}
@@ -64,7 +72,7 @@ const Splash = (props) => {
                     }
                 </div>
             </section>
-            <section className="one-and-half-page">
+            <section ref={arrowRef} className="one-and-half-page">
                     <div className="one-and-half-picture-container">
                         <img src="https://fs-pinteresting-dev.s3.amazonaws.com/andreas-dress-wg9hUuor3yg-unsplash.jpg" alt="" />
                     </div>
@@ -73,15 +81,15 @@ const Splash = (props) => {
                         <p>The best part of Pinteresting is discovering new things and ideas from people around the word</p>
                     </div>
             </section>
-            <section ref={arrowDownRef} className="second-page">
+            <section className="second-page">
                 <div className='second-page-background'></div>
                 <div className='second-page-photo-background'>
-                    <DiscoverPins photoNumber={28} />
+                    <DiscoverPinsContainer photoNumber={28} />
                 </div>
                 <div className="second-page-text-container">
                     <h1>Sign up to get your ideas</h1>
                 </div>
-                <div onClick={handleUpArrow} className={`second-page-arrow splash-arrow`}>
+                <div onClick={handleArrow} className={`second-page-arrow splash-arrow`}>
                     <i className="fa-solid fa-chevron-up fa-lg"></i>
                 </div>
                 <div className="splash-signup">
@@ -95,7 +103,7 @@ const Splash = (props) => {
         ""
     )
 
-    return currentUser ? noSplash() : splashPage()
+    return splashPage()
 
 }
 

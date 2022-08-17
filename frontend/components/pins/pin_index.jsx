@@ -3,9 +3,9 @@ import React from 'react'
 import PinPhotoContainer from "./pin_item";
 import Masonry from 'react-masonry-css'
 
-const DiscoverPins = (props) => {
+const DiscoverPinsContainer = (props) => {
 
-    const { photoNumber } = props
+    const { photoNumber = 51 } = props
 
     const randomPhotos = () => {
         const allPhotosDup = [...allPhotos]
@@ -47,5 +47,5 @@ const DiscoverPins = (props) => {
     
 }
 
-export default DiscoverPins
+export default DiscoverPinsContainer
 

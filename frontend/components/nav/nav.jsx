@@ -7,12 +7,24 @@ import { openModal } from '../../actions/modal_actions'
 
 const Nav = (props) => {
     
-    const { currentUser, logout } = props
+    const { currentUser, logout} = props
 
     const dropdownRef = useRef(null)
     // const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const [open, setOpen] = useState(false)
+    const [homeClicked, setHomeClicked] = useState(true)
+    const [profileClicked, setProfileClicked] = useState(false)
+
     const handleDropdownClick = () => setOpen(!open)
+
+    const handleProfileClick = () => {
+        setHomeClicked(false)
+        setProfileClicked(true)
+    }
+
+    const handleHomeClick = () => {
+        setHomeClicked(true)
+    }
 
     const openModal = (formType) => {
         return e => {
@@ -50,7 +62,7 @@ const Nav = (props) => {
         <div className="logged-in-nav">
             <div className='logged-in-nav-left'>
                 <i className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
-                <div className="home-button">Home</div>
+                <div className={`home-button ${homeClicked ? "home-button-clicked" : ""}`} onClick={handleHomeClick}>Home</div>
                 <div className="logged-in-create">
                     <div>
                         Create
@@ -74,7 +86,7 @@ const Nav = (props) => {
                     <i className="fa-brands fa-linkedin-in fa-xl"></i>
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
-                <div className='user-profile-icon'>
+                <div className='user-profile-icon' onClick={handleProfileClick}>
                     <img className="demo-user-pic" src={window.demoUserUrl} />
                 </div>
                 <div className="menu-container">
@@ -84,7 +96,7 @@ const Nav = (props) => {
                     <nav ref={dropdownRef} className={`menu ${open ? 'open' : 'closed'}`}>
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
-                            <div className='dropdown-user'>
+                            <div className='dropdown-user' onClick={handleProfileClick}>
                                 <img className="demo-user-pic" src={window.demoUserUrl} />
                                 <div className='dropdown-user-text'>
                                     { currentUser.username }
@@ -110,7 +122,7 @@ const Nav = (props) => {
 
 const mSTP = ({session, entities: { users }}) => {
     return {
-        currentUser: users[session.id]
+        currentUser: users[session.id],
     }
 }
 
