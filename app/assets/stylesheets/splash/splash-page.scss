@@ -41,7 +41,7 @@
     align-items: center;
 }
 
-.splash-arrow {
+.first-page-arrow {
     cursor: pointer;
     background: $pinterest-red;
     border-radius: 50%;
@@ -51,11 +51,9 @@
     animation-name: bouncing-arrow;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+    position: absolute;
+    top: 300px;
 
-    .first-page-arrow {
-        position: absolute;
-        top: 300px;
-    }
 
     i {
         right: 17px;
@@ -68,11 +66,30 @@
 }
 
 .second-page-arrow {
+    cursor: pointer;
+    background: $pinterest-red;
+    border-radius: 50%;
+    margin: 68px;
+    height: 50px;
+    width: 50px;
+
+    position: absolute;
     z-index: 5;
-    margin-bottom: 600px;
     animation: bouncing-down-arrow;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-bottom: 600px;
+
+    i {
+        right: 17px;
+        bottom: 25px;
+        color: white;
+        position: absolute;
+        -webkit-text-stroke: 1px white;
+    }
 }
 
 .powder-arrow {
