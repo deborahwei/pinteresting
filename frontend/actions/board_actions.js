@@ -22,12 +22,10 @@ export const removeBoard = boardId => ({
 });
 
 
-export const receiveBoardErrors = (errors) => {
-  return {
-      type: RECEIVE_BOARD_ERRORS, 
-      errors
-  }
-}
+export const receiveBoardErrors = (errors) => ({
+  type: RECEIVE_BOARD_ERRORS, 
+  errors
+})
 
 export const fetchBoards = userId => dispatch => (
   BoardAPIUtil.fetchBoards(userId).then(boards => (
@@ -42,18 +40,19 @@ export const fetchBoard = (userId, boardId) => dispatch => (
 );
 
 export const createBoard = (board) => dispatch => (
-  BoardAPIUtil.createBoard(board).then((board) => (
-    dispatch(receiveBoard(board)), 
-    err => (dispatch(receiveBoardErrors(err.responseJSON))
-  )))
-); 
+  BoardAPIUtil.createBoard(board).then((board) => {
+    dispatch(receiveBoard(board))
+  }, err => (dispatch(receiveBoardErrors(err.responseJSON))
+  ))
+);
+ 
 
 export const updateBoard = (board) => dispatch => (
-  BoardAPIUtil.updateBoard(board).then((board) => (
-    dispatch(receiveBoard(board)), 
-    err => (dispatch(receiveBoardErrors(err.responseJSON))
-  )))
-); 
+  BoardAPIUtil.updateBoard(board).then((board) => {
+    dispatch(receiveBoard(board))
+  }, err => (dispatch(receiveBoardErrors(err.responseJSON))
+  ))
+);
 
 export const deleteBoard = (boardId) => dispatch => (
   BoardAPIUtil.deleteBoard(boardId).then(() => (

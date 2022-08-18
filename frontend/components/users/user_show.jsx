@@ -47,7 +47,7 @@ const UserShowContainer = (props) => {
                     <div className={`plus-menu ${ plus ? "open" : "closed"}`}>
                         <p>Create</p>
                         <div>Create pin</div>
-                        <div onClick={openModal('createBoard')}>Create board</div>
+                        <div onClick={openModal('create board')}>Create board</div>
                     </div>
                 </div>
                 <div>
@@ -68,14 +68,10 @@ const mSTP = (state, props) => {
     }
 }
 
-// const mDTP = dispatch => {
-//     const userId = props.match.params.userId // gets userId from route path
+const mDTP = dispatch => {
+    return {
+        openModal: (formType) => dispatch(openModal(formType))
+    }
+}
 
-//     return {
-//         fetchUser: (userId) => dispatch(fetchUser(userId))
-//     }
-// }
-
-export default connect(mSTP, null)(UserShowContainer)
-
-// export default connect(mSTP, mDTP)(UserShowContainer)
+export default connect(mSTP, mDTP)(UserShowContainer)

@@ -71,18 +71,18 @@ var fetchBoard = function fetchBoard(userId, boardId) {
 var createBoard = function createBoard(board) {
   return function (dispatch) {
     return _util_board_api_util__WEBPACK_IMPORTED_MODULE_0__.createBoard(board).then(function (board) {
-      return dispatch(receiveBoard(board)), function (err) {
-        return dispatch(receiveBoardErrors(err.responseJSON));
-      };
+      dispatch(receiveBoard(board));
+    }, function (err) {
+      return dispatch(receiveBoardErrors(err.responseJSON));
     });
   };
 };
 var updateBoard = function updateBoard(board) {
   return function (dispatch) {
     return _util_board_api_util__WEBPACK_IMPORTED_MODULE_0__.updateBoard(board).then(function (board) {
-      return dispatch(receiveBoard(board)), function (err) {
-        return dispatch(receiveBoardErrors(err.responseJSON));
-      };
+      dispatch(receiveBoard(board));
+    }, function (err) {
+      return dispatch(receiveBoardErrors(err.responseJSON));
     });
   };
 };
@@ -188,7 +188,6 @@ var login = function login(user) {
   return function (dispatch) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__.login(user).then(function (user) {
       dispatch(receiveCurrentUser(user));
-      console.log('hi', user);
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
     });
@@ -389,8 +388,9 @@ function Modal(_ref) {
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       break;
 
-    case 'createBoard':
+    case 'create board':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_create_board_form__WEBPACK_IMPORTED_MODULE_5__["default"], null);
+      break;
 
     default:
       return null;
@@ -793,23 +793,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
-var CreateBoardForm = function CreateBoardForm() {
-  var handleSubmit = function handleSubmit(e) {
-    e.preventDefault();
-    var board = Object.assign({}, state);
-    (0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__.createBoard)(board);
+
+var CreateBoardForm = function CreateBoardForm(props) {
+  var createBoard = props.createBoard,
+      errors = props.errors;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    name: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var update = function update(field) {
+    return function (e) {
+      return setState(_objectSpread(_objectSpread({}, state), {}, _defineProperty({}, field, e.currentTarget.value)));
+    };
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null);
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    createBoard(state);
+  };
+
+  var renderErrors = function renderErrors() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, errors.map(function (error, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        key: "error-".concat(i),
+        className: "board-errors auth-errors"
+      }, error);
+    }));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "create-board-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Create board")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "create-board-input-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "modal-board-name"
+  }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    id: "modal-board-name",
+    type: "text",
+    value: state.name,
+    onChange: update('name'),
+    placeholder: "Like \"Places to Go\" or \"Recipes to Make\""
+  })), renderErrors(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "create-board-footer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "".concat(state.name != "" ? "clickable" : "", " board-create-button"),
+    type: "submit"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Create")))));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateBoardForm);
+var mSTP = function mSTP(_ref) {
+  var errors = _ref.errors;
+  return {
+    errors: errors.board
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    createBoard: function createBoard(board) {
+      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__.createBoard)(board));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(CreateBoardForm));
 
 /***/ }),
 
@@ -1491,7 +1567,7 @@ var UserShowContainer = function UserShowContainer(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "plus-menu ".concat(plus ? "open" : "closed")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Create pin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    onClick: openModal('createBoard')
+    onClick: openModal('create board')
   }, "Create board"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null)));
 };
 
@@ -1502,15 +1578,17 @@ var mSTP = function mSTP(state, props) {
     user: state.entities.users[userId],
     currentUser: state.entities.users[state.session.id]
   };
-}; // const mDTP = dispatch => {
-//     const userId = props.match.params.userId // gets userId from route path
-//     return {
-//         fetchUser: (userId) => dispatch(fetchUser(userId))
-//     }
-// }
+};
 
+var mDTP = function mDTP(dispatch) {
+  return {
+    openModal: function openModal(formType) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)(formType));
+    }
+  };
+};
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, null)(UserShowContainer)); // export default connect(mSTP, mDTP)(UserShowContainer)
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(UserShowContainer));
 
 /***/ }),
 
