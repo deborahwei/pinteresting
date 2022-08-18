@@ -24,6 +24,7 @@ const App = () => (
         <ProtectedRoute path="/users/:userId" component={UserShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:userId/saved" component={UserShowSavedContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:userId/created" component={UserShowCreatedContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:userId/boards/:boardId" component={UserShowCreatedContainer}></ProtectedRoute>
         <ProtectedRoute exact path="/" component={DiscoverPinsContainer} />
     </div>
 )

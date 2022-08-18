@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import { createBoard } from '../../actions/board_actions'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 const CreateBoardForm = (props) => {
 
-    const { createBoard, errors} = props
+    const { createBoard, errors, currentUser} = props
   
     const [state, setState] = useState({
         name: ''
@@ -50,18 +51,21 @@ const CreateBoardForm = (props) => {
                 </div>
                 { renderErrors() }
                 <div className="create-board-footer">
-                    <button className={`${state.name != "" ? "clickable" : ""} board-create-button`}type='submit'>
-                        <h1>Create</h1>
-                    </button>
+                    <NavLink to={`/users/${currentUser.username}/boards/${state.name}`}>
+                        <button className={`${state.name != "" ? "clickable" : ""} board-create-button`}type='submit'>
+                            <h1>Create</h1>
+                        </button>
+                    </NavLink>
                 </div>
             </form>
         </div>
     )
 }
 
-const mSTP = ({errors}) => {
+const mSTP = ({errors, entities: {users}, session}) => {
     return {
-        errors: errors.board
+        errors: errors.board,
+        currentUser: users[session.id]
     }
 }
 
