@@ -7,4 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.destroy_all
+Board.destroy_all 
+
 demoUser = User.create({username: 'demo-user', password: 'password'})
+
+snowboarding = Board.create({name: 'Snowboarding', user_username: 'demo-user'})

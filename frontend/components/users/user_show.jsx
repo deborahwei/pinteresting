@@ -3,6 +3,7 @@ import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
+import { openModal } from '../../actions/modal_actions'
 
 const UserShowContainer = (props) => {
 
@@ -13,6 +14,13 @@ const UserShowContainer = (props) => {
     const [plus, setPlus] = closeDropdown(plusRef, false)
     const handlePlusClick = () => {
         setPlus(!plus)
+    }
+
+    const openModal = (formType) => {
+        return e => {
+            e.preventDefault();
+            props.openModal(formType)
+        }
     }
 
     return (
@@ -39,7 +47,7 @@ const UserShowContainer = (props) => {
                     <div className={`plus-menu ${ plus ? "open" : "closed"}`}>
                         <p>Create</p>
                         <div>Create pin</div>
-                        <div>Create board</div>
+                        <div onClick={openModal('createBoard')}>Create board</div>
                     </div>
                 </div>
                 <div>

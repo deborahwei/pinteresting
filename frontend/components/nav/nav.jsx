@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
 
@@ -19,29 +19,12 @@ const Nav = (props) => {
     const onHome = useLocation().pathname === "/"
     const onProfile = useLocation().pathname.split('/')[1] === "users"
     
-
-    const [homeClicked, setHomeClicked] = useState(onHome)
-    const [profileClicked, setProfileClicked] = useState(onProfile)
-    
     const handleLogout = () => {
-        setOpen(false)
-        setHomeClicked(true)
-        setProfileClicked(false)
         logout()
     }
     
     const handleDropdownClick = () => {setOpen(!open)}
     const handleCreateClick = () => setCreateOpen(!createOpen)
-
-    const handleProfileClick = () => {
-        setHomeClicked(false)
-        setProfileClicked(true)
-    }
-
-    const handleHomeClick = () => {
-        setHomeClicked(true)
-        setProfileClicked(false)
-    }
 
     const openModal = (formType) => {
         return e => {
@@ -78,11 +61,11 @@ const Nav = (props) => {
     const loggedIn = () => (
         <div className="logged-in-nav">
             <div className='logged-in-nav-left'>
+                <NavLink to="/">
+                    <i className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
+                </NavLink>
                 <Link to="/">
-                    <i onClick={handleHomeClick} className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
-                </Link>
-                <Link to="/">
-                    <div className={`home-button ${homeClicked ? "home-button-clicked" : ""}`} onClick={handleHomeClick}>Home</div>
+                    <div className={`home-button ${onHome ? "home-button-clicked" : ""}`} >Home</div>
                 </Link>
                 <div className="nav-create-container">
                     <div ref={createRef} onClick={handleCreateClick} className="nav-create-trigger">
@@ -107,7 +90,7 @@ const Nav = (props) => {
                     <i className="fa-brands fa-linkedin-in fa-xl"></i>
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
-            <div className={`user-profile-icon user-avatar${profileClicked ? "-clicked" : ""}`} onClick={handleProfileClick}>
+            <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
                     <Link to={`/users/${currentUser.username}/saved` } >
                         <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 
                     </Link>
@@ -120,7 +103,7 @@ const Nav = (props) => {
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
                             <Link to={`/users/${currentUser.username}/saved` } >
-                                <div className='dropdown-user' onClick={handleProfileClick}>
+                                <div className='dropdown-user'>
                                     <div className="dropdown-user-pic">
                                         <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 
                                     </div>

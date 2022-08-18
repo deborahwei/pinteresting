@@ -1,16 +1,16 @@
 require 'bcrypt'
 
 class User < ApplicationRecord
-    extend FriendlyId
 
     attr_reader :password
 
-    friendly_id :username, use: :slugged
     validates :username, :password_digest, :session_token, presence: true
     validates :username, uniqueness: true
     validates :password, length: { minimum: 6 }, allow_nil: true
   
     after_initialize :ensure_session_token
+
+    has_many :boards, dependent: :destroy
   
     def self.find_by_credentials(username, password) 
         user = User.find_by(username: username)
