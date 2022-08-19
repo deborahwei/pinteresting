@@ -1,19 +1,35 @@
 import React, {useState} from 'react'
 import { updateBoard } from '../../actions/board_actions'
 import { connect } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import { openModal, closeModal } from '../../actions/modal_actions'
 import { fetchBoardByName } from '../../actions/board_actions'
+import LoadingContainer from '../generic/loading'
+import { reverseSearch } from '../../util/function_util'
 
 const EditBoardForm = (props) => {
 
-    const { updateBoard, errors, currentUser, fetchBoardByName } = props
-    const name = useLocation().pathname.split('/')[4]
-  
+    const { updateBoard, errors, currentUser, fetchBoardByName, board} = props
+
+    const [boardLoading, setBoardLoading] = useState(!board)
+    const boardDescription = board.description ?? ""
+    const history = useHistory()
+
+
+    if (!board) {
+        fetchBoardByName(currentUser.id, board.name)
+            .finally(() => {
+                setBoardLoading(false)
+            })
+    }
+
     const [state, setState] = useState({
-        name: name, 
-        description: ''
+        name: board.name, 
+        description: boardDescription, 
+        id: board.id
       })
+
+
 
     const update = (field) => {
         return e => setState({
@@ -23,13 +39,13 @@ const EditBoardForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       updateBoard(state)
+        updateBoard(state)
             .then(()=> {
                 history.push(`/users/${currentUser.username}/boards/${state.name}`);
             })
-                .then(() => {
-                    props.closeModal()
-                });
+            .then(() => {
+                props.closeModal()
+            })
     }
 
     const openModal = (formType) => {
@@ -40,7 +56,7 @@ const EditBoardForm = (props) => {
     }
 
     const renderErrors = () => {
-        return(
+        return (
           <ul>
             {errors.map((error, i) => (
               <li key={`error-${i}`} className="board-errors auth-errors">
@@ -51,7 +67,7 @@ const EditBoardForm = (props) => {
         );
     }
 
-    return (
+    const content = () => (
         <div className='edit-board-container'>
             <div>
                 <h1>Edit your board</h1>
@@ -90,12 +106,31 @@ const EditBoardForm = (props) => {
             </form>
         </div>
     )
+
+    if (boardLoading) {
+        return <LoadingContainer/> 
+    }
+    else {
+        if (!!board) {
+            return content()
+        }
+        else {
+            fetchBoardByName(currentUser.id, board.name).catch(()=>{}).finally(() => {
+                setLoading(false);
+                <Redirect to="/"/>
+            })
+        }
+    }
+
 }
 
-const mSTP = ({errors, session, entities: {users}}) => {
+const mSTP = ({errors, session, entities: {users, boards}, ui}) => {
+    const name = ui.modal.props
     return {
+        board: reverseSearch(boards, "name", name),
         errors: errors.board,
-        currentUser: users[session.id]
+        currentUser: users[session.id], 
+        name: name
     }
 }
 

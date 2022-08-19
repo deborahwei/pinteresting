@@ -94,9 +94,9 @@ var deleteBoard = function deleteBoard(boardId) {
     });
   };
 };
-var fetchBoardByName = function fetchBoardByName(userId, username) {
+var fetchBoardByName = function fetchBoardByName(userId, name) {
   return function (dispatch) {
-    return UserAPIUtil.fetchBoardByName(userId, username).then(function (board) {
+    return _util_board_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchBoardByName(userId, name).then(function (board) {
       return dispatch(receiveBoard(board));
     });
   };
@@ -120,10 +120,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
-var openModal = function openModal(modal) {
+var openModal = function openModal(formType) {
+  var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   return {
     type: OPEN_MODAL,
-    modal: modal
+    modal: {
+      type: formType,
+      props: props
+    }
   };
 };
 var closeModal = function closeModal() {
@@ -286,15 +290,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_nav_nav_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.AuthRoute, {
-    exact: true,
-    path: "/",
-    component: _splash_splash__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.ProtectedRoute, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_nav_nav_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.ProtectedRoute, {
     path: "/users/:username/boards/:boardName",
     component: _boards_board_show__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.ProtectedRoute, {
-    path: "/users/:username",
+    path: "/users/:username/saved",
+    component: _users_user_show__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.ProtectedRoute, {
+    path: "/users/:username/created",
     component: _users_user_show__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.ProtectedRoute, {
     path: "/users/:username/saved",
@@ -306,6 +309,10 @@ var App = function App() {
     exact: true,
     path: "/",
     component: _pins_pin_index__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_1__.AuthRoute, {
+    exact: true,
+    path: "/",
+    component: _splash_splash__WEBPACK_IMPORTED_MODULE_4__["default"]
   }));
 };
 
@@ -451,8 +458,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -478,20 +487,39 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var EditBoardForm = function EditBoardForm(props) {
+  var _board$description;
+
   var updateBoard = props.updateBoard,
       errors = props.errors,
       currentUser = props.currentUser,
-      fetchBoardByName = props.fetchBoardByName;
-  var name = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useLocation)().pathname.split('/')[4];
+      fetchBoardByName = props.fetchBoardByName,
+      board = props.board;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    name: name,
-    description: ''
-  }),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!board),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
+      boardLoading = _useState2[0],
+      setBoardLoading = _useState2[1];
+
+  var boardDescription = (_board$description = board.description) !== null && _board$description !== void 0 ? _board$description : "";
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
+
+  if (!board) {
+    fetchBoardByName(currentUser.id, board.name)["finally"](function () {
+      setBoardLoading(false);
+    });
+  }
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    name: board.name,
+    description: boardDescription,
+    id: board.id
+  }),
+      _useState4 = _slicedToArray(_useState3, 2),
+      state = _useState4[0],
+      setState = _useState4[1];
 
   var update = function update(field) {
     return function (e) {
@@ -524,47 +552,72 @@ var EditBoardForm = function EditBoardForm(props) {
     }));
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "edit-board-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Edit your board")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
-    onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "create-board-input-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    htmlFor: "modal-board-name"
-  }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    id: "modal-board-name",
-    type: "text",
-    value: state.name,
-    onChange: update('name')
-  })), renderErrors(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "create-board-description-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    htmlFor: "modal-board-description"
-  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    id: "modal-board-description",
-    type: "text",
-    value: state.description,
-    placeholder: "What's your board about?",
-    onChange: update('description')
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "delete-board-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Action"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    onClick: openModal('delete board'),
-    className: "delete-board"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Delete board"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Delete this board and all its Pins forever. You can't undo this!"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    type: "submit",
-    className: "".concat(state.name != "" ? "clickable" : "", " board-create-button")
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Done"))));
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "edit-board-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Edit your board")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-board-input-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      htmlFor: "modal-board-name"
+    }, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      id: "modal-board-name",
+      type: "text",
+      value: state.name,
+      onChange: update('name')
+    })), renderErrors(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-board-description-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      htmlFor: "modal-board-description"
+    }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      id: "modal-board-description",
+      type: "text",
+      value: state.description,
+      placeholder: "What's your board about?",
+      onChange: update('description')
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "delete-board-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Action"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onClick: openModal('delete board'),
+      className: "delete-board"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Delete board"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Delete this board and all its Pins forever. You can't undo this!"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      type: "submit",
+      className: "".concat(state.name != "" ? "clickable" : "", " board-create-button")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Done"))));
+  };
+
+  if (boardLoading) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+  } else {
+    if (!!board) {
+      return content();
+    } else {
+      fetchBoardByName(currentUser.id, board.name)["catch"](function () {})["finally"](function () {
+        setLoading(false);
+
+        /*#__PURE__*/
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
+          to: "/"
+        });
+      });
+    }
+  }
 };
 
 var mSTP = function mSTP(_ref) {
   var errors = _ref.errors,
       session = _ref.session,
-      users = _ref.entities.users;
+      _ref$entities = _ref.entities,
+      users = _ref$entities.users,
+      boards = _ref$entities.boards,
+      ui = _ref.ui;
+  var name = ui.modal.props;
   return {
+    board: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_5__.reverseSearch)(boards, "name", name),
     errors: errors.board,
-    currentUser: users[session.id]
+    currentUser: users[session.id],
+    name: name
   };
 };
 
@@ -602,14 +655,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
-/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
-/* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
-/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -632,25 +686,42 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var BoardShowContainer = function BoardShowContainer(props) {
-  var name = props.name,
+  var board = props.board,
       user = props.user,
-      currentUser = props.currentUser;
+      currentUser = props.currentUser,
+      boardName = props.boardName,
+      username = props.username,
+      fetchBoardByName = props.fetchBoardByName,
+      fetchUserByUsername = props.fetchUserByUsername,
+      openModal = props.openModal,
+      modal = props.modal;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!user),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
 
-  if (!user) {
-    (0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUserByUsername)(user.username)["catch"](function () {})["finally"](function () {
-      setLoading(false);
-    });
-  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!user) {
+      fetchUserByUsername(username).then(function (_ref) {
+        var user = _ref.user;
 
+        if (!board && user !== null && user !== void 0 && user.id) {
+          fetchBoardByName(user.id, boardName)["finally"](function () {
+            setLoading(false);
+          });
+        }
+      }).then(function () {
+        setLoading(false);
+      });
+    }
+  }, []);
+  var ownsBoard = currentUser.username === (user === null || user === void 0 ? void 0 : user.username);
   var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
-  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_7__.closeDropdown)(openRef, false),
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_8__.closeDropdown)(openRef, false),
       _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
       open = _closeDropdown2[0],
       setOpen = _closeDropdown2[1];
@@ -659,12 +730,11 @@ var BoardShowContainer = function BoardShowContainer(props) {
     return setOpen(!open);
   };
 
-  var ownsBoard = currentUser.username === user.username;
-
-  var openModal = function openModal(formType) {
+  var handleOpenModal = function handleOpenModal(formType, props) {
     return function (e) {
       e.preventDefault();
-      props.openModal(formType);
+      setOpen(false);
+      openModal(formType, props);
     };
   };
 
@@ -675,7 +745,7 @@ var BoardShowContainer = function BoardShowContainer(props) {
       className: "board-show-header"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-name"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board === null || board === void 0 ? void 0 : board.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board".concat(ownsBoard ? "-show" : "-hide", "-options options-").concat(open ? "clicked" : "unclicked", "\n                        "),
       ref: openRef
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
@@ -683,34 +753,38 @@ var BoardShowContainer = function BoardShowContainer(props) {
     }, "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "options-menu ".concat(open ? "open" : "closed")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Board options"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      onClick: openModal('edit board'),
+      onClick: handleOpenModal('edit board', board === null || board === void 0 ? void 0 : board.name),
       className: "edit-board-option"
     }, "Edit board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.NavLink, {
       to: "/users/".concat(user.username, "/saved")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner-profile"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_7__["default"], {
       user: ownsBoard ? currentUser : user,
       hasPhoto: false
-    }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-show-description ".concat((board === null || board === void 0 ? void 0 : board.description) != "" ? "" : "hide")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, board === null || board === void 0 ? void 0 : board.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-pins"
     }));
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_5__["default"], null) : !!user ? content() : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Redirect, {
-    to: "/"
-  });
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_6__["default"], null) : content();
 };
 
-var mSTP = function mSTP(_ref, props) {
-  var session = _ref.session,
-      users = _ref.entities.users;
+var mSTP = function mSTP(_ref2, props) {
+  var session = _ref2.session,
+      _ref2$entities = _ref2.entities,
+      users = _ref2$entities.users,
+      boards = _ref2$entities.boards;
   return {
+    board: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_3__.reverseSearch)(boards, "name", props.match.params.boardName),
+    boardName: props.match.params.boardName,
     currentUser: users[session.id],
-    name: props.match.params.boardName,
-    user: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_3__.reverseSearch)(users, "username", props.match.params.username)
+    user: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_3__.reverseSearch)(users, "username", props.match.params.username),
+    username: props.match.params.username
   };
 };
 
@@ -719,8 +793,8 @@ var mDTP = function mDTP(dispatch) {
     fetchUserByUsername: function fetchUserByUsername(username) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__.fetchUserByUsername)(username));
     },
-    openModal: function openModal(formType) {
-      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__.openModal)(formType));
+    openModal: function openModal(formType, props) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__.openModal)(formType, props));
     },
     closeModal: function (_closeModal) {
       function closeModal() {
@@ -734,7 +808,10 @@ var mDTP = function mDTP(dispatch) {
       return closeModal;
     }(function () {
       return dispatch(closeModal());
-    })
+    }),
+    fetchBoardByName: function fetchBoardByName(userId, boardName) {
+      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_5__.fetchBoardByName)(userId, boardName));
+    }
   };
 };
 
@@ -879,7 +956,7 @@ function Modal(_ref) {
 
   var component;
 
-  switch (modal) {
+  switch (modal.type) {
     case 'login':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
       break;
@@ -894,6 +971,10 @@ function Modal(_ref) {
 
     case 'edit board':
       component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_boards_board_edit_form__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+      break;
+
+    case 'delete board':
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(DeleteBoardForm, null);
       break;
 
     default:
@@ -1013,9 +1094,11 @@ var Nav = function Nav(props) {
       className: "logged-out-nav"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logo-header"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+      href: ""
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa-brands fa-pinterest fa-2xl logo-pinterest"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "logo-text"
     }, " Pinteresting")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-out-nav-right"
@@ -1929,8 +2012,10 @@ var UserShowContainer = function UserShowContainer(props) {
       loading = _useState2[0],
       setLoading = _useState2[1];
 
+  var isUser = currentUser === user;
+
   if (!user) {
-    fetchUserByUsername(username)["catch"](function () {})["finally"](function () {
+    fetchUserByUsername(username)["finally"](function () {
       setLoading(false);
     });
   }
@@ -1974,7 +2059,7 @@ var UserShowContainer = function UserShowContainer(props) {
       to: "/users/".concat(username, "/saved"),
       activeClassName: "tab-clicked"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Saved"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "user-show-plus-container"
+      className: "user-show-plus-container ".concat(!isUser ? "hide" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "plus-circle-".concat(plus ? "clicked" : "unclicked")
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
@@ -1988,9 +2073,22 @@ var UserShowContainer = function UserShowContainer(props) {
     }, "Create board"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null)));
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_7__["default"], null) : !!user ? content() : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
-    to: "/"
-  });
+  if (loading) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_7__["default"], null);
+  } else {
+    if (!!user) {
+      return content();
+    } else {
+      fetchUserByUsername(username)["finally"](function () {
+        setLoading(false);
+
+        /*#__PURE__*/
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
+          to: "/"
+        });
+      });
+    }
+  }
 };
 
 var mSTP = function mSTP(_ref, props) {
@@ -2045,6 +2143,7 @@ var UserShowCreatedContainer = function UserShowCreatedContainer() {
       className: "idea-pin-button"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Create"))));
   }; // return anyPins ? noPins() : CreatedPins()
+  // create adjustments if they are not current user 
 
 
   return noPinsCreated();
@@ -2080,7 +2179,8 @@ var UserShowSavedContainer = function UserShowSavedContainer() {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "find-ideas-button"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Find ideas"))));
-  }; // return anyPins ? noPins() : savedPins()
+  }; // create adjustments if they are not current user 
+  // return anyPins ? noPins() : savedPins()
 
 
   return noPinsSaved();
@@ -2112,7 +2212,6 @@ var boardErrorsReducer = function boardErrorsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
   var _nullErrors = [];
-  console.log(action);
 
   switch (action.type) {
     case _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_BOARD_ERRORS:
@@ -2526,7 +2625,7 @@ var deleteBoard = function deleteBoard(boardId) {
     url: "/api/boards/".concat(boardId)
   });
 };
-var fetchBoardByName = function fetchBoardByName(name) {
+var fetchBoardByName = function fetchBoardByName(userId, name) {
   return Promise.resolve($.ajax({
     method: 'GET',
     url: "/api/users/".concat(userId, "/boards/name/").concat(name)

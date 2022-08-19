@@ -18,7 +18,7 @@ export const createBoard = (board) => (
       url: `/api/boards`,
       data: {board}
     })
-)
+);
 
 export const updateBoard = (board) => (
     $.ajax({
@@ -26,18 +26,20 @@ export const updateBoard = (board) => (
       url: `/api/boards/${board.id}`,
       data: {board}
     })
-)
+);
 
 export const deleteBoard = (boardId) => (
     $.ajax({
         method: 'PATCH',
         url: `/api/boards/${boardId}`,
       })
-)
+);
 
-export const fetchBoardByName = (name) => (
-  Promise.resolve($.ajax({
+
+export const fetchBoardByName = (userId, name) => {
+  return Promise.resolve($.ajax({
     method: 'GET',
     url: `/api/users/${userId}/boards/name/${name}`
   }))
-)
+};
+

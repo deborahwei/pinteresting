@@ -22,12 +22,13 @@ const App = () => (
         <NavContainer/>
         <ModalContainer/>
       </header>
-        <AuthRoute exact path="/" component={SplashContainer}/>  
         <ProtectedRoute path="/users/:username/boards/:boardName" component={BoardShowContainer}></ProtectedRoute>
-        <ProtectedRoute path="/users/:username" component={UserShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/saved" component={UserShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/created" component={UserShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:username/saved" component={UserShowSavedContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:username/created" component={UserShowCreatedContainer}></ProtectedRoute>
         <ProtectedRoute exact path="/" component={DiscoverPinsContainer} />
+        <AuthRoute exact path="/" component={SplashContainer}/>  
     </div>
 )
 

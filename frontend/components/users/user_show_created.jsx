@@ -18,6 +18,8 @@ const UserShowCreatedContainer = () => {
     }
 
     // return anyPins ? noPins() : CreatedPins()
+    // create adjustments if they are not current user 
+
     return noPinsCreated()
 }
 

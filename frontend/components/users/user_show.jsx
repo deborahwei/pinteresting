@@ -13,10 +13,13 @@ const UserShowContainer = (props) => {
     const { currentUser, fetchUserByUsername, username, user} = props   
 
     const [loading, setLoading] = useState(!user)
+    const isUser = currentUser === user 
+
     if (!user) {
-        fetchUserByUsername(username).catch(()=>{}).finally(() => {
-            setLoading(false)
-        })
+        fetchUserByUsername(username)
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     const plusRef = useRef(null)
@@ -50,7 +53,7 @@ const UserShowContainer = (props) => {
                         <h1>Saved</h1>
                     </NavLink>
                 </div>
-                <div className="user-show-plus-container">
+                <div className={`user-show-plus-container ${!isUser ? "hide" : ""}`}>
                     <div className={`plus-circle-${ plus ? "clicked" : "unclicked"}`}></div>
                         <i ref={plusRef} onClick={handlePlusClick} className={`fa-solid fa-plus fa-2xs plus-${ plus ? "clicked" : "unclicked"}`}></i>
                     <div className={`plus-menu ${ plus ? "open" : "closed"}`}>
@@ -65,8 +68,23 @@ const UserShowContainer = (props) => {
             </div>
         </div>
     )
-    
-    return loading ? <LoadingContainer/> : !!user ? content() : <Redirect to="/"/>
+
+    if (loading) {
+        return <LoadingContainer/> 
+    }
+    else {
+        if (!!user) {
+            return content()
+        }
+        else {
+            fetchUserByUsername(username)
+                .finally(() => {
+                    setLoading(false);
+                    <Redirect to="/"/>
+                })
+        }
+    }
+     
 }
 
 const mSTP = ({session, entities: {users}}, props) => {

@@ -42,16 +42,19 @@ export const fetchBoard = (userId, boardId) => dispatch => (
 export const createBoard = (board) => dispatch => (
   BoardAPIUtil.createBoard(board).then((board) => {
     dispatch(receiveBoard(board))
-  }, err => (dispatch(receiveBoardErrors(err.responseJSON))
-  ))
+  }, err => {
+    return dispatch(receiveBoardErrors(err.responseJSON))
+  })
 );
  
 
 export const updateBoard = (board) => dispatch => (
   BoardAPIUtil.updateBoard(board).then((board) => {
     dispatch(receiveBoard(board))
-  }, err => (dispatch(receiveBoardErrors(err.responseJSON))
-  ))
+  }, err => {
+    return dispatch(receiveBoardErrors(err.responseJSON))
+  }
+  )
 );
 
 export const deleteBoard = (boardId) => dispatch => (
@@ -60,8 +63,10 @@ export const deleteBoard = (boardId) => dispatch => (
     ))
 ); 
 
-export const fetchBoardByName = (userId, username) => dispatch => (
-  UserAPIUtil.fetchBoardByName(userId, username).then(board => (
+export const fetchBoardByName = (userId, name) => dispatch => {
+  return BoardAPIUtil.fetchBoardByName(userId, name).then(board => (
       dispatch(receiveBoard(board))
   ))
-)
+
+}
+

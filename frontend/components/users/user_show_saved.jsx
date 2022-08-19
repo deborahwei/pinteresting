@@ -17,6 +17,8 @@ const UserShowSavedContainer = () => {
         )
     }
 
+    // create adjustments if they are not current user 
+
     // return anyPins ? noPins() : savedPins()
     return noPinsSaved()
 }

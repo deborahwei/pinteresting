@@ -10,4 +10,4 @@ export const fetchUserByUsername = (username) => (
     method: 'GET',
     url: `/api/users/username/${username}`
   }))
-)
+);

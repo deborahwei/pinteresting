@@ -11,7 +11,7 @@ function Modal({modal, closeModal}) {
     return null;
   }
   let component;
-  switch (modal) {
+  switch (modal.type) {
     case 'login':
       component = <LoginFormContainer />;
       break;
@@ -23,6 +23,9 @@ function Modal({modal, closeModal}) {
       break;
     case 'edit board':
       component = <EditBoardForm />;
+      break;
+    case 'delete board':
+      component = <DeleteBoardForm />;
       break;
     default:
       return null;

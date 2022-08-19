@@ -13,8 +13,7 @@ class Api::BoardsController < ApplicationController
 
     def find_by_name
         @board = Board.find_by(name: params[:name])
-        render json: @board
-        # render "api/boards/show"
+        render "api/boards/show"
     end
 
     def create 
@@ -42,7 +41,7 @@ class Api::BoardsController < ApplicationController
         if ensure_owner_user && @board.update(board_params)
             render "api/boards/show"
         else 
-            render json: ["Could not update board"], status: 422
+            render json: @board.errors.full_messages, status: 422
         end
         
     end

@@ -36,7 +36,9 @@ const Nav = (props) => {
     const loggedOut = () => (
         <div className="logged-out-nav">
             <div className='logo-header'>
-                <i className="fa-brands fa-pinterest fa-2xl logo-pinterest"></i>
+                <a href="">
+                    <i className="fa-brands fa-pinterest fa-2xl logo-pinterest"></i>
+                </a>
                 <h1 className="logo-text"> Pinteresting</h1>
             </div>
             <div className="logged-out-nav-right">
