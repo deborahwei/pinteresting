@@ -2,12 +2,12 @@ import React from 'react'
 
 const ProfilePicture = (props) => {
 
-    const { currentUser, hasPhoto} = props
+    const { user, hasPhoto} = props
 
     const defaultPhoto = () => {
         return (
             <div className="default-picture">
-                {currentUser.username[0].toUpperCase()}
+                {user.username[0].toUpperCase()}
             </div>  
         )
     }

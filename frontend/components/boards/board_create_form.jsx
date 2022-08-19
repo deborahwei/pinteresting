@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import { createBoard } from '../../actions/board_actions'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { useHistory } from "react-router-dom"; 
+import { closeModal } from '../../actions/modal_actions';
 
 const CreateBoardForm = (props) => {
 
-    const { createBoard, errors, currentUser} = props
+    const {createBoard, errors, currentUser} = props;
+    const history = useHistory();
   
     const [state, setState] = useState({
         name: ''
@@ -16,9 +18,16 @@ const CreateBoardForm = (props) => {
             ...state, [field]: e.currentTarget.value
         })
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         createBoard(state)
+            .then(()=> {
+                history.push(`/users/${currentUser.username}/boards/${state.name}`);
+            })
+                .then(() => {
+                    props.closeModal()
+                });
     }
 
     const renderErrors = () => {
@@ -50,13 +59,9 @@ const CreateBoardForm = (props) => {
                     />
                 </div>
                 { renderErrors() }
-                <div className="create-board-footer">
-                    <NavLink to={`/users/${currentUser.username}/boards/${state.name}`}>
-                        <button className={`${state.name != "" ? "clickable" : ""} board-create-button`}type='submit'>
-                            <h1>Create</h1>
-                        </button>
-                    </NavLink>
-                </div>
+                <button type="submit" className={`${state.name != "" ? "clickable" : ""} board-create-button`}>
+                    <h1>Create</h1>
+                </button>
             </form>
         </div>
     )
@@ -71,7 +76,8 @@ const mSTP = ({errors, entities: {users}, session}) => {
 
 const mDTP = dispatch => {
     return {
-        createBoard: (board) => dispatch(createBoard(board))
+        createBoard: (board) => dispatch(createBoard(board)),
+        closeModal: () => dispatch(closeModal())
     }
 }
 

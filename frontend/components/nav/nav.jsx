@@ -91,8 +91,8 @@ const Nav = (props) => {
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
-                    <Link to={`/users/${currentUser.username}/saved` } >
-                        <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 
+                    <Link to={`/users/${currentUser.username}/saved/`}>
+                        <ProfilePicture user={currentUser} hasPhoto={false}/> 
                     </Link>
                 </div>
                 <div className="menu-container">
@@ -102,10 +102,10 @@ const Nav = (props) => {
                     <nav className={`menu ${open ? 'open' : 'closed'}`}>
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
-                            <Link to={`/users/${currentUser.username}/saved` } >
+                            <Link to={`/users/${currentUser.username}/saved`} >
                                 <div className='dropdown-user'>
                                     <div className="dropdown-user-pic">
-                                        <ProfilePicture currentUser={currentUser} hasPhoto={false}/> 
+                                        <ProfilePicture user={currentUser} hasPhoto={false}/> 
                                     </div>
                                     <div className='dropdown-user-text'>
                                         { currentUser.username }

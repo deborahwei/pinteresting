@@ -10,5 +10,6 @@ User.destroy_all
 Board.destroy_all 
 
 demoUser = User.create({username: 'demo-user', password: 'password'})
+user_1 = User.create({username: 'deborah-wei', password: 'password'})
 
-snowboarding = Board.create({name: 'Snowboarding', user_username: 'demo-user'})
+snowboarding = Board.create({name: 'Snowboarding', user_id: demoUser.id})

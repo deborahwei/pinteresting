@@ -1,14 +1,23 @@
-import React, { useRef }  from 'react'
+import React, { useRef, useState }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
+import { fetchUserByUsername} from '../../actions/user_actions'
+import { reverseSearch } from '../../util/function_util'
+import LoadingContainer from '../generic/loading'
 
 const UserShowContainer = (props) => {
+    
+    const { currentUser, fetchUserByUsername, username, user} = props   
 
-    // const userId = props.match.params.userId 
-    const { currentUser } = props
+    const [loading, setLoading] = useState(!user)
+    if (!user) {
+        fetchUserByUsername(username).catch(()=>{}).finally(() => {
+            setLoading(false)
+        })
+    }
 
     const plusRef = useRef(null)
     const [plus, setPlus] = closeDropdown(plusRef, false)
@@ -23,21 +32,21 @@ const UserShowContainer = (props) => {
         }
     }
 
-    return (
+    const content = () => (
         <div className="user-show-container">
             <div className="user-show-header">
                 <div className="user-show-profile-pic">
-                    <ProfilePicture currentUser={currentUser} hasPhoto={false}/>
+                    <ProfilePicture user={currentUser} hasPhoto={false}/>
                 </div>
-                <h1 >{currentUser.username}</h1>
-                <p>{`@${currentUser.username}`}</p>
+                <h1 >{username}</h1>
+                <p>{`@${username}`}</p>
             </div>
             <div className="user-show-content-container">
                 <div className="user-show-content-labels">
-                    <NavLink to={`/users/${currentUser.username}/created`} activeClassName="tab-clicked">
+                    <NavLink to={`/users/${username}/created`} activeClassName="tab-clicked">
                         <h1>Created</h1>
                     </NavLink>
-                    <NavLink to={`/users/${currentUser.username}/saved`} activeClassName="tab-clicked">
+                    <NavLink to={`/users/${username}/saved`} activeClassName="tab-clicked">
                         <h1>Saved</h1>
                     </NavLink>
                 </div>
@@ -56,20 +65,21 @@ const UserShowContainer = (props) => {
             </div>
         </div>
     )
-
+    
+    return loading ? <LoadingContainer/> : !!user ? content() : <Redirect to="/"/>
 }
 
-const mSTP = (state, props) => {
-    const userId = props.match.params.userId // gets userId from route path
-
+const mSTP = ({session, entities: {users}}, props) => {
     return {
-        user: state.entities.users[userId],
-        currentUser: state.entities.users[state.session.id],
+        username: props.match.params.username,
+        user: reverseSearch(users, "username", props.match.params.username),
+        currentUser: users[session.id],
     }
 }
 
 const mDTP = dispatch => {
     return {
+        fetchUserByUsername: (username) => dispatch(fetchUserByUsername(username)),
         openModal: (formType) => dispatch(openModal(formType))
     }
 }

@@ -12,3 +12,9 @@ export const fetchUser = user => dispatch => (
         dispatch(receiveUser(user))
     ))
 )
+
+export const fetchUserByUsername = username => dispatch => (
+    UserAPIUtil.fetchUserByUsername(username).then(user => (
+        dispatch(receiveUser(user))
+    ))
+)

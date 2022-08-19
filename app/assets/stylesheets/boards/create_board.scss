@@ -67,12 +67,6 @@
             padding-left: 33px;
         }
 
-        .create-board-footer {
-            display: flex; 
-            flex-direction: row;
-            justify-content: flex-end;
-        }
-
         .board-create-button {
             background-color: #efefef;
             border: 0;
@@ -81,6 +75,8 @@
             border-radius: 24px;
             margin: 20px;
             color: #767676;
+            margin-left: 420px;
+
 
             h1 {
                 font-family: $default-font;

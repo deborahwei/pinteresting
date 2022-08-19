@@ -6,6 +6,7 @@ const boardErrorsReducer = (state = [], action) => {
     
     const _nullErrors = [];
 
+    console.log(action)
     switch (action.type) {
         case RECEIVE_BOARD_ERRORS:
             return action.errors 

@@ -1,5 +1,7 @@
 class Api::BoardsController < ApplicationController
-    
+
+    before_action :find_by_name, only: [:find_by_name]
+
     def index
         @boards = Board.where(user_id: params[:user_id])
     end
@@ -7,6 +9,12 @@ class Api::BoardsController < ApplicationController
     def show 
         @board = Board.find(params[:id])
         render "api/boards/show"
+    end
+
+    def find_by_name
+        @board = Board.find_by(name: params[:name])
+        render json: @board
+        # render "api/boards/show"
     end
 
     def create 

@@ -2,7 +2,8 @@ import React from 'react';
 import {
     Route,
     Switch,
-    Link
+    Link,
+    Redirect
   } from 'react-router-dom';
   
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
@@ -13,6 +14,7 @@ import DiscoverPinsContainer from './pins/pin_index';
 import UserShowContainer from './users/user_show';
 import UserShowSavedContainer from './users/user_show_saved';
 import UserShowCreatedContainer from './users/user_show_created';
+import BoardShowContainer from './boards/board_show'
 
 const App = () => (
     <div>
@@ -21,10 +23,10 @@ const App = () => (
         <ModalContainer/>
       </header>
         <AuthRoute exact path="/" component={SplashContainer}/>  
-        <ProtectedRoute path="/users/:userId" component={UserShowContainer}></ProtectedRoute>
-        <ProtectedRoute path="/users/:userId/saved" component={UserShowSavedContainer}></ProtectedRoute>
-        <ProtectedRoute path="/users/:userId/created" component={UserShowCreatedContainer}></ProtectedRoute>
-        <ProtectedRoute path="/users/:userId/boards/:boardId" component={UserShowCreatedContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/boards/:boardName" component={BoardShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username" component={UserShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/saved" component={UserShowSavedContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/created" component={UserShowCreatedContainer}></ProtectedRoute>
         <ProtectedRoute exact path="/" component={DiscoverPinsContainer} />
     </div>
 )
