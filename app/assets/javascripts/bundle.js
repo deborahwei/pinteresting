@@ -785,7 +785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _board_preview_cover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_preview_cover */ "./frontend/components/boards/board_preview_cover.jsx");
-/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
 
 
 
@@ -805,8 +805,8 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
   var boardName = function boardName() {
     var boardName = board.name.split("");
 
-    if (boardName.length > _util_function_util__WEBPACK_IMPORTED_MODULE_2__["default"]) {
-      return boardName.splice(0, _util_function_util__WEBPACK_IMPORTED_MODULE_2__["default"]).join("").concat("...");
+    if (boardName.length > _util_constants_util__WEBPACK_IMPORTED_MODULE_2__.MAX_NAME_CHAR) {
+      return boardName.splice(0, _util_constants_util__WEBPACK_IMPORTED_MODULE_2__.MAX_NAME_CHAR).join("").concat("...");
     } else {
       return board.name;
     }
@@ -876,7 +876,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var BoardShowContainer = function BoardShowContainer(props) {
-  console.log(user, username);
   var board = props.board,
       user = props.user,
       currentUser = props.currentUser,
@@ -1204,6 +1203,7 @@ __webpack_require__.r(__webpack_exports__);
 function Modal(_ref) {
   var modal = _ref.modal,
       closeModal = _ref.closeModal;
+  console.log(modal);
 
   if (!modal) {
     return null;
@@ -1682,7 +1682,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       className: "footer-form-div",
       onClick: function onClick() {
         dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.closeModal)());
-        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)('login'));
+        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)('sign up'));
       }
     }, "Not on Pinteresting yet? Sign up")
   };
@@ -2352,19 +2352,19 @@ var UserShowContainer = function UserShowContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_profile_picture__WEBPACK_IMPORTED_MODULE_1__["default"], {
       user: currentUser,
       hasPhoto: false
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "@".concat(username))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "@".concat(username)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-content-labels"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
       onClick: handleClickTab(Tab.CREATED),
-      to: "/users/".concat(username, "/created"),
+      to: "/users/".concat(username, "/created")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "".concat(tab === "created" ? "tab-clicked" : "")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Created")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
+    }, "Created")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
       onClick: handleClickTab(Tab.SAVED),
-      to: "/users/".concat(username, "/saved"),
+      to: "/users/".concat(username, "/saved")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "".concat(tab === "saved" ? "tab-clicked" : "")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Saved"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "user-show-content-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, "Saved"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-plus-container ".concat(!isUser ? "hide" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "plus-circle-".concat(plus ? "clicked" : "unclicked")
@@ -2376,7 +2376,9 @@ var UserShowContainer = function UserShowContainer(props) {
       className: "plus-menu ".concat(plus ? "open" : "closed")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Create pin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       onClick: openModal('create board')
-    }, "Create board"))), childrenContainers[tab]));
+    }, "Create board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "user-show-content-container"
+    }, childrenContainers[tab]));
   };
 
   if (loading) {

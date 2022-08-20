@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
     footerForm: (
       <div className="footer-form-div" onClick={() => {
         dispatch(closeModal())
-        dispatch(openModal('login'))
+        dispatch(openModal('sign up'))
         }}>
         Not on Pinteresting yet? Sign up
       </div>

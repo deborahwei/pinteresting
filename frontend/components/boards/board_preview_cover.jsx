@@ -15,7 +15,7 @@ export const BoardPreviewCover = ({openModal, board, isUser, user}) => {
         <div className="board-preview-cover-container"> 
             <div className="board-cover-pictures">
                 <div className='cover-panel-1'>
-        
+                    
                 </div>
                 <div className='cover-column-2'>
                     <div className='cover-panel-2'>

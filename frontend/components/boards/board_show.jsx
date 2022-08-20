@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { NavLink, Redirect} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { closeModal, openModal } from '../../actions/modal_actions'
 import { reverseSearch } from '../../util/function_util'
@@ -10,8 +10,6 @@ import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
 
 const BoardShowContainer = (props) => {
-
-    console.log(user, username)
    
     const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal} = props 
 

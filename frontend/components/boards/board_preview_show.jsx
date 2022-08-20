@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import BoardPreviewCover from './board_preview_cover'
-import MAX_NAME_CHAR from '../../util/function_util'
+import { MAX_NAME_CHAR } from '../../util/constants_util'
 
 export const BoardPreviewContainer = (props) => {
 

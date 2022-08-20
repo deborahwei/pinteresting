@@ -71,22 +71,20 @@ const UserShowContainer = (props) => {
                 </div>
                 <h1 >{username}</h1>
                 <p>{`@${username}`}</p>
-            </div>
-            <div className="user-show-content-labels">
-                <NavLink 
-                    onClick={handleClickTab(Tab.CREATED)} 
-                    to={`/users/${username}/created`} 
-                    className = {`${tab === "created" ? "tab-clicked" : "" }`}>
-                    <h1>Created</h1>
-                </NavLink>
-                <NavLink 
-                    onClick={handleClickTab(Tab.SAVED)} 
-                    to={`/users/${username}/saved`} 
-                    className = {`${tab === "saved" ? "tab-clicked" : "" }`}>
-                    <h1>Saved</h1>
-                </NavLink>
-            </div>
-            <div className="user-show-content-container">
+                <div className="user-show-content-labels">
+                    <NavLink 
+                        onClick={handleClickTab(Tab.CREATED)} 
+                        to={`/users/${username}/created`} 
+                        >
+                        <h1 className = {`${tab === "created" ? "tab-clicked" : "" }`}>Created</h1>
+                    </NavLink>
+                    <NavLink 
+                        onClick={handleClickTab(Tab.SAVED)} 
+                        to={`/users/${username}/saved`} 
+                        >
+                        <h1 className = {`${tab === "saved" ? "tab-clicked" : "" }`}>Saved</h1>
+                    </NavLink>
+                </div>
                 <div className={`user-show-plus-container ${!isUser ? "hide" : ""}`}>
                     <div className={`plus-circle-${ plus ? "clicked" : "unclicked"}`}></div>
                         <i ref={plusRef} onClick={handlePlusClick} className={`fa-solid fa-plus fa-2xs plus-${ plus ? "clicked" : "unclicked"}`}></i>
@@ -96,6 +94,8 @@ const UserShowContainer = (props) => {
                         <div onClick={openModal('create board')}>Create board</div>
                     </div>
                 </div>
+            </div>
+            <div className="user-show-content-container">
                 {childrenContainers[tab]}
             </div>
         </div>
