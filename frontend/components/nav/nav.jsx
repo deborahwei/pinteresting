@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef} from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
@@ -82,17 +82,20 @@ const Nav = (props) => {
                 </div>
             </div>
             <div className='search-bar'>
+                <input placeholder="Search" type="text"/>
                 <div className='magnifying-glass'>
                     <i className="fa-solid fa-magnifying-glass fa-sm"></i>
                 </div>
-                <input type="text"/>
+                <div className='search-dropdown'>
+                </div>
+                <div className="search-bar-background"></div>
             </div>
 
             <div className="logged-in-nav-right">
                 <div className="logged-in-socials">
-                    <i className="fa-brands fa-github fa-xl"></i>
-                    <i className="fa-brands fa-linkedin-in fa-xl"></i>
-                    <i className="fa-solid fa-user fa-xl"></i>
+                    <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-brands fa-github fa-xl"></i></a>
+                    <a href="https://www.linkedin.com/in/deborah-wei-163b10152/" target="_blank"><i className="fa-brands fa-linkedin-in fa-xl"></i></a>
+                    <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-solid fa-user fa-xl"></i></a>
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
                     <Link to={`/users/${currentUser.username}/`}>
