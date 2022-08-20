@@ -5,15 +5,15 @@ import { useHistory } from "react-router-dom";
 import { openModal, closeModal } from '../../actions/modal_actions';
 
 const DeleteBoardForm = (props) => {
-
-    const {deleteBoard, openModal, closeModal, board, currentUser} = props;
+    
+    const {deleteBoard, openModal, closeModal, board, path} = props;
     const history = useHistory();
 
     const handleDeleteClick = (e) => {
         e.preventDefault();
         deleteBoard(board.id)
             .then(()=> {
-                history.push(`/users/${currentUser.username}/`);
+                history.push(`${path}`);
             })
                 .then(() => {
                     closeModal()
@@ -47,7 +47,7 @@ const DeleteBoardForm = (props) => {
 const mSTP = ({ui: {modal: {props}}}) => {
     return {
         board: props.board,
-        currentUser: props.currentUser
+        path: props.path
     }
 }
 

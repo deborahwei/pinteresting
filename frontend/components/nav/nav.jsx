@@ -33,12 +33,14 @@ const Nav = (props) => {
         }
     }
 
+    const refresh = () => {
+        window.location.reload(false)
+    }
+
     const loggedOut = () => (
         <div className="logged-out-nav">
             <div className='logo-header'>
-                <a href="">
-                    <i className="fa-brands fa-pinterest fa-2xl fa-flip-horizontal logo-pinterest"></i>
-                </a>
+                <i onClick={refresh}className="fa-brands fa-pinterest fa-2xl fa-flip-horizontal logo-pinterest"></i>
                 <h1 className="logo-text"> Pinteresting</h1>
             </div>
             <div className="logged-out-nav-right">

@@ -94,7 +94,13 @@ const EditBoardForm = (props) => {
                 </div>
                 <div className='delete-board-container'>
                     <h3>Action</h3>
-                    <div onClick={handleOpenModal('delete board', {board, currentUser})} className='delete-board'>
+                    <div onClick={handleOpenModal('delete board', 
+                        {
+                            board, 
+                            currentUser, 
+                            path: modalProps.path
+                        })} 
+                        className='delete-board'>
                         <h1>Delete board</h1>
                         <p>Delete this board and all its Pins forever. You can't undo this!</p>
                     </div>

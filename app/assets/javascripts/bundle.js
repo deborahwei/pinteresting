@@ -453,13 +453,13 @@ var DeleteBoardForm = function DeleteBoardForm(props) {
       openModal = props.openModal,
       closeModal = props.closeModal,
       board = props.board,
-      currentUser = props.currentUser;
+      path = props.path;
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
 
   var handleDeleteClick = function handleDeleteClick(e) {
     e.preventDefault();
     deleteBoard(board.id).then(function () {
-      history.push("/users/".concat(currentUser.username, "/"));
+      history.push("".concat(path));
     }).then(function () {
       closeModal();
     });
@@ -488,7 +488,7 @@ var mSTP = function mSTP(_ref) {
   var props = _ref.ui.modal.props;
   return {
     board: props.board,
-    currentUser: props.currentUser
+    path: props.path
   };
 };
 
@@ -649,7 +649,8 @@ var EditBoardForm = function EditBoardForm(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Action"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       onClick: handleOpenModal('delete board', {
         board: board,
-        currentUser: currentUser
+        currentUser: currentUser,
+        path: modalProps.path
       }),
       className: "delete-board"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Delete board"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Delete this board and all its Pins forever. You can't undo this!"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
@@ -777,6 +778,12 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
       user = props.user,
       openModal = props.openModal,
       isUser = props.isUser; // board should have access to its pins and the amount of pins
+
+  if (!board) {
+    window.location.reload(false); // better way to solve this 
+
+    return null;
+  }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/users/".concat(user.username, "/boards/").concat(board.name)
@@ -1310,16 +1317,19 @@ var Nav = function Nav(props) {
     };
   };
 
+  var refresh = function refresh() {
+    window.location.reload(false);
+  };
+
   var loggedOut = function loggedOut() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-out-nav"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logo-header"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
-      href: ""
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      onClick: refresh,
       className: "fa-brands fa-pinterest fa-2xl fa-flip-horizontal logo-pinterest"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "logo-text"
     }, " Pinteresting")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-out-nav-right"
@@ -2262,7 +2272,10 @@ var UserShowContainer = function UserShowContainer(props) {
   var childrenContainers = (_childrenContainers = {}, _defineProperty(_childrenContainers, Tab.SAVED, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_user_show_saved__WEBPACK_IMPORTED_MODULE_9__["default"], {
     user: user,
     isUser: isUser
-  })), _defineProperty(_childrenContainers, Tab.CREATED, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_user_show_created__WEBPACK_IMPORTED_MODULE_8__["default"], null)), _childrenContainers);
+  })), _defineProperty(_childrenContainers, Tab.CREATED, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_user_show_created__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    user: user,
+    isUser: isUser
+  })), _childrenContainers);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!user) {
       fetchUserByUsername(username)["finally"](function () {
@@ -2385,24 +2398,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UserShowCreatedContainer = function UserShowCreatedContainer() {
-  var noPinsCreated = function noPinsCreated() {
+
+
+var UserShowCreatedContainer = function UserShowCreatedContainer(props) {
+  var isUser = props.isUser,
+      user = props.user;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1]; // change when add pins
+
+
+  var noSavedPinsMessage = function noSavedPinsMessage() {
+    return isUser ? "Inspire with an Idea Pin" : "No Idea Pins yet, but there's a ton of potential";
+  };
+
+  var noPins = function noPins() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "no-created-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Inspire with an Idea Pin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, noSavedPinsMessage()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
       to: "/"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "idea-pin-button"
+      className: "idea-pin-button ".concat(isUser ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Create"))));
-  }; // return anyPins ? noPins() : CreatedPins()
-  // create adjustments if they are not current user 
+  };
+
+  var userPinsIndex = function userPinsIndex() {}; //return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
 
 
-  return noPinsCreated();
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_1__["default"], null) : noPins();
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UserShowCreatedContainer);
@@ -2453,8 +2494,7 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
       isUser = props.isUser,
       openModal = props.openModal,
       user = props.user,
-      boards = props.boards,
-      currentUser = props.currentUser;
+      boards = props.boards;
   var boardsEmpty = Object.keys(boards).length === 0;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(boardsEmpty),
@@ -2498,12 +2538,8 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
 };
 
 var mSTP = function mSTP(_ref) {
-  var session = _ref.session,
-      _ref$entities = _ref.entities,
-      boards = _ref$entities.boards,
-      users = _ref$entities.users;
+  var boards = _ref.entities.boards;
   return {
-    currentUser: users[session.id],
     boards: boards
   };
 };

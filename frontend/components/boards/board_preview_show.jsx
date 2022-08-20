@@ -7,6 +7,10 @@ export const BoardPreviewContainer = (props) => {
     const {board, user, openModal, isUser} = props 
     // board should have access to its pins and the amount of pins
 
+    if (!board) {
+        window.location.reload(false) // better way to solve this 
+        return null
+    }
 
     return (
         <Link to={`/users/${user.username}/boards/${board.name}`}>

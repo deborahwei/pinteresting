@@ -8,7 +8,7 @@ import { BoardPreviewContainer } from "../boards/board_preview_show"
 
 const UserShowSavedContainer = (props) => {
     
-    const {fetchBoards, isUser, openModal, user, boards, currentUser} = props
+    const {fetchBoards, isUser, openModal, user, boards} = props
     const boardsEmpty = Object.keys(boards).length === 0
     const [loading, setLoading] = useState(boardsEmpty)
 
@@ -56,9 +56,8 @@ const UserShowSavedContainer = (props) => {
 
 }
 
-const mSTP = ({session, entities: {boards, users}}) => {
+const mSTP = ({entities: {boards}}) => {
     return {
-        currentUser: users[session.id],
         boards
     }
 }

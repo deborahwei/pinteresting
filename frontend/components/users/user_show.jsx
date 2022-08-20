@@ -29,12 +29,15 @@ const UserShowContainer = (props) => {
         setTab(tab)
     }
     
-    const childrenContainers = {
+    const childrenContainers = { // clean this up
         [Tab.SAVED]: <UserShowSavedContainer
         user={user} 
         isUser={isUser}
         />,
-        [Tab.CREATED]: <UserShowCreatedContainer/>,
+        [Tab.CREATED]: <UserShowCreatedContainer
+        user={user} 
+        isUser={isUser}
+        />,
     }
 
     useEffect(() => {

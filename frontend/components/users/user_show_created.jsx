@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import LoadingContainer from '../generic/loading'
 import { Link } from 'react-router-dom'
 
-const UserShowCreatedContainer = () => {
+const UserShowCreatedContainer = (props) => {
 
-    const noPinsCreated = () => {
+    const { isUser, user } = props
+    const [loading, setLoading] = useState(false) // change when add pins
+
+    const noSavedPinsMessage = () => {
+        return isUser 
+            ? "Inspire with an Idea Pin" 
+            : "No Idea Pins yet, but there's a ton of potential"
+    }
+
+    const noPins = () => {
         
         return (
             <div className="no-created-container">
-                <h1>Inspire with an Idea Pin</h1>
+                <h1>{noSavedPinsMessage()}</h1>
                 <Link to="/">
-                    <div className="idea-pin-button">
+                    <div className={`idea-pin-button ${isUser ? "" : "hide"}`}>
                         <h1>Create</h1>
                     </div>
                 </Link>
@@ -17,10 +27,12 @@ const UserShowCreatedContainer = () => {
         )
     }
 
-    // return anyPins ? noPins() : CreatedPins()
-    // create adjustments if they are not current user 
+    const userPinsIndex = () => {
 
-    return noPinsCreated()
+    }
+
+    //return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
+    return loading ? <LoadingContainer/> : noPins()
 }
 
 export default UserShowCreatedContainer
