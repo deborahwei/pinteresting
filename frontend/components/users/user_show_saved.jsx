@@ -2,10 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {fetchBoards} from '../../actions/board_actions'
+import { openModal } from '../../actions/modal_actions'
 import LoadingContainer from '../generic/loading'
+import { BoardPreviewContainer } from "../boards/board_preview_show"
 
-const UserShowSavedContainer = ({fetchBoards, isUser, openModal, user, boards}) => {
+const UserShowSavedContainer = (props) => {
     
+    const {fetchBoards, isUser, openModal, user, boards} = props
     const boardsEmpty = Object.keys(boards).length === 0
     const [loading, setLoading] = useState(boardsEmpty)
 
@@ -18,7 +21,6 @@ const UserShowSavedContainer = ({fetchBoards, isUser, openModal, user, boards}) 
     }, [])
 
     const noBoards = () => {
-        
           return (     
           <div className="no-saved-container">
                 <h1>{noSavedBoardsMessage()}</h1>
@@ -36,23 +38,27 @@ const UserShowSavedContainer = ({fetchBoards, isUser, openModal, user, boards}) 
     const boardsIndex = () => {
         return (
         <div className="boards-index-container">
-            {
-                boards.map( (board, i) => <BoardPreviewContainer
-                board={board}
+            {/* <BoardPreviewContainer/> */}
+            {/* {
+                Object.keys(boards).map( (boardId, i) => <BoardPreviewContainer
+                key={i}
+                board={boards[parseInt(boardId)]}
                 openModal={openModal}
+                user={user}
                 /> )
-            }
+            } */}
         </div>
         )
 
     }
           
+    // return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
+    return loading ? <LoadingContainer/> : boardsIndex()
 
-    return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
-    // return loading ? <LoadingContainer/> : boardsEmpty ? boardsIndex() : noBoards()
 }
 
 const mSTP = ({entities: {boards}}) => {
+    console.log(BoardPreviewContainer)
     return {
         boards
     }

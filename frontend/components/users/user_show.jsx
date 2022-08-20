@@ -25,7 +25,7 @@ const UserShowContainer = (props) => {
     const [tab, setTab] = useState(tabSelected)
     
     const handleClickTab = tab => e => {
-        e.preventDefault
+        e.preventDefault()
         setTab(tab)
     }
     

@@ -713,6 +713,94 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/boards/board_preview_cover.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/boards/board_preview_cover.jsx ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var BoardPreviewCover = function BoardPreviewCover(props) {
+  var board = props.board,
+      user = props.user,
+      openModal = props.openModal; // board should have access to its pins and the amount of pins
+
+  var handleClick = function handleClick(e) {
+    e.preventDefault();
+    history.push("/users/".concat(user.username, "/boards/").concat(board.name));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleClick,
+    className: "board-preview-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "board-preview-cover"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "board-preview-text"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pins")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewCover);
+
+/***/ }),
+
+/***/ "./frontend/components/boards/board_preview_show.jsx":
+/*!***********************************************************!*\
+  !*** ./frontend/components/boards/board_preview_show.jsx ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _board_preview_cover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_preview_cover */ "./frontend/components/boards/board_preview_cover.jsx");
+/* harmony import */ var _buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../buttons/edit_board_button */ "./frontend/components/buttons/edit_board_button.jsx");
+
+
+
+
+var BoardPreviewContainer = function BoardPreviewContainer(props) {
+  // const {board, user, openModal} = props 
+  // board should have access to its pins and the amount of pins
+  var handleClick = function handleClick(e) {
+    e.preventDefault();
+    history.push("/users/".concat(user.username, "/boards/").concat(board.name));
+  };
+
+  return (
+    /*#__PURE__*/
+    // <div onClick={handleClick} className="board-preview-container">
+    //     <div className="board-preview-cover">
+    //         {/* <BoardPreviewCover/> */}
+    //         <div className="preview-board-edit">
+    //             {/* <EditBoardButton/> */}
+    //         </div>
+    //     </div>
+    //     <div className='board-preview-text'>
+    //         {/* <h1>{board.name}</h1> */}
+    //         <p>{`Pins`}</p> 
+    //     </div>
+    // </div>
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "HI")
+  );
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewContainer);
+
+/***/ }),
+
 /***/ "./frontend/components/boards/board_show.jsx":
 /*!***************************************************!*\
   !*** ./frontend/components/boards/board_show.jsx ***!
@@ -887,6 +975,33 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(BoardShowContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/buttons/edit_board_button.jsx":
+/*!***********************************************************!*\
+  !*** ./frontend/components/buttons/edit_board_button.jsx ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var EditBoardButton = function EditBoardButton() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "edit-board-button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+    className: "fa-solid fa-pen"
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditBoardButton);
 
 /***/ }),
 
@@ -2147,7 +2262,7 @@ var UserShowContainer = function UserShowContainer(props) {
 
   var handleClickTab = function handleClickTab(tab) {
     return function (e) {
-      e.preventDefault;
+      e.preventDefault();
       setTab(tab);
     };
   };
@@ -2313,10 +2428,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _boards_board_preview_show__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../boards/board_preview_show */ "./frontend/components/boards/board_preview_show.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2335,12 +2452,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var UserShowSavedContainer = function UserShowSavedContainer(_ref) {
-  var fetchBoards = _ref.fetchBoards,
-      isUser = _ref.isUser,
-      openModal = _ref.openModal,
-      user = _ref.user,
-      boards = _ref.boards;
+
+
+var UserShowSavedContainer = function UserShowSavedContainer(props) {
+  var fetchBoards = props.fetchBoards,
+      isUser = props.isUser,
+      openModal = props.openModal,
+      user = props.user,
+      boards = props.boards;
   var boardsEmpty = Object.keys(boards).length === 0;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(boardsEmpty),
@@ -2359,7 +2478,7 @@ var UserShowSavedContainer = function UserShowSavedContainer(_ref) {
   var noBoards = function noBoards() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "no-saved-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, noSavedBoardsMessage()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, noSavedBoardsMessage()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
       to: "/"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "find-ideas-button ".concat(isUser ? "" : "hide")
@@ -2369,19 +2488,16 @@ var UserShowSavedContainer = function UserShowSavedContainer(_ref) {
   var boardsIndex = function boardsIndex() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "boards-index-container"
-    }, boards.map(function (board, i) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(BoardPreviewContainer, {
-        board: board,
-        openModal: openModal
-      });
-    }));
-  };
+    });
+  }; // return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : boardsEmpty ? noBoards() : boardsIndex(); // return loading ? <LoadingContainer/> : boardsEmpty ? boardsIndex() : noBoards()
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : boardsIndex();
 };
 
-var mSTP = function mSTP(_ref2) {
-  var boards = _ref2.entities.boards;
+var mSTP = function mSTP(_ref) {
+  var boards = _ref.entities.boards;
+  console.log(_boards_board_preview_show__WEBPACK_IMPORTED_MODULE_5__.BoardPreviewContainer);
   return {
     boards: boards
   };
@@ -2392,19 +2508,9 @@ var mDTP = function mDTP(dispatch) {
     fetchBoards: function fetchBoards(userId) {
       return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__.fetchBoards)(userId));
     },
-    openModal: function (_openModal) {
-      function openModal(_x, _x2) {
-        return _openModal.apply(this, arguments);
-      }
-
-      openModal.toString = function () {
-        return _openModal.toString();
-      };
-
-      return openModal;
-    }(function (formType, props) {
-      return dispatch(openModal(formType, props));
-    })
+    openModal: function openModal(formType, props) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.openModal)(formType, props));
+    }
   };
 };
 
