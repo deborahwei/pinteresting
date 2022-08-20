@@ -18,11 +18,48 @@
         margin: 30px;
 
         .board-preview-cover-container {
-            border-radius: 24px;;
+            border-radius: 24px;
             width: 236px;
             height: 157px;
-            background-color: rgb(239, 239, 239);
             position: relative;
+
+            .board-cover-pictures {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                
+                .cover-panel-1 {
+                    width: 155px;
+                    height: 157.33px;
+                    border-top-left-radius: 24px;
+                    border-bottom-left-radius: 24px;
+                    background-color: rgb(239, 239, 239);
+
+                }
+    
+                .cover-column-2 {
+                    height: 157px;
+                    width: 78.66px;
+                    display: flex; 
+                    flex-direction: column;
+                    justify-content: space-between;
+    
+                    .cover-panel-2, .cover-panel-3 {
+                        width: 78.66px;
+                        height: 78.0px;
+                        background-color: rgb(239, 239, 239);
+                    }
+
+                    .cover-panel-2 {
+                        border-top-right-radius: 24px;
+                    }
+
+                    .cover-panel-3 {
+                        border-bottom-right-radius: 24px;
+                    }
+                }
+            }
+
 
             .preview-board-edit {
                 visibility: hidden;

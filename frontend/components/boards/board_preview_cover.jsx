@@ -12,7 +12,20 @@ export const BoardPreviewCover = ({openModal, board, isUser, user}) => {
         })
     }
     return (
-        <div className="board-preview-cover-container">
+        <div className="board-preview-cover-container"> 
+            <div className="board-cover-pictures">
+                <div className='cover-panel-1'>
+        
+                </div>
+                <div className='cover-column-2'>
+                    <div className='cover-panel-2'>
+
+                    </div>
+                    <div className='cover-panel-3'>
+
+                    </div>
+                </div>
+            </div>
             <div onClick={handleEditClick} className={`preview-board-edit ${isUser ? "" : "hide"}`}>
                 <EditBoardButton/>
             </div>

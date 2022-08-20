@@ -2,7 +2,7 @@ import { allPhotos  } from "../splash/fetch_splash_info";
 import React from 'react'
 import PinPhotoContainer from "./pin_item";
 import Masonry from 'react-masonry-css'
-import { breakpoints } from "../../util/constants_util"
+import { BREAKPOINTS } from "../../util/constants_util"
 
 const DiscoverPinsContainer = (props) => {
 
@@ -25,7 +25,7 @@ const DiscoverPinsContainer = (props) => {
         <div className="pins-container">
             <Masonry
                 className={`masonry-grid ${photoNumber === 28 ? "splash-background-grid" : ""}`}
-                breakpointCols={breakpoints}
+                breakpointCols={BREAKPOINTS}
                 columnClassName="masonry-grid-column"
             >
                 {

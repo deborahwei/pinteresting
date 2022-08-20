@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import BoardPreviewCover from './board_preview_cover'
+import MAX_NAME_CHAR from '../../util/function_util'
 
 export const BoardPreviewContainer = (props) => {
 
@@ -14,8 +15,8 @@ export const BoardPreviewContainer = (props) => {
 
     const boardName = () => {
         const boardName = board.name.split("")
-        if (boardName.length > 20) {
-            return boardName.splice(0, 17).join("").concat("...")
+        if (boardName.length > MAX_NAME_CHAR) {
+            return boardName.splice(0, MAX_NAME_CHAR).join("").concat("...")
         }
         else {
             return board.name

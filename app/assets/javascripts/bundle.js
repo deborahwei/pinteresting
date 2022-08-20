@@ -752,6 +752,16 @@ var BoardPreviewCover = function BoardPreviewCover(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-cover-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "board-cover-pictures"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "cover-panel-1"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "cover-column-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "cover-panel-2"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "cover-panel-3"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     onClick: handleEditClick,
     className: "preview-board-edit ".concat(isUser ? "" : "hide")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
@@ -773,8 +783,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _board_preview_cover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_preview_cover */ "./frontend/components/boards/board_preview_cover.jsx");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
+
 
 
 
@@ -793,14 +805,14 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
   var boardName = function boardName() {
     var boardName = board.name.split("");
 
-    if (boardName.length > 20) {
-      return boardName.splice(0, 17).join("").concat("...");
+    if (boardName.length > _util_function_util__WEBPACK_IMPORTED_MODULE_2__["default"]) {
+      return boardName.splice(0, _util_function_util__WEBPACK_IMPORTED_MODULE_2__["default"]).join("").concat("...");
     } else {
       return board.name;
     }
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: "/users/".concat(user.username, "/boards/").concat(board.name)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-container"
@@ -1535,7 +1547,7 @@ var DiscoverPinsContainer = function DiscoverPinsContainer(props) {
     className: "pins-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_3__["default"], {
     className: "masonry-grid ".concat(photoNumber === 28 ? "splash-background-grid" : ""),
-    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_4__.breakpoints,
+    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_4__.BREAKPOINTS,
     columnClassName: "masonry-grid-column"
   }, randomPhotos().map(function (photoUrl, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -3027,15 +3039,17 @@ var fetchBoardByName = function fetchBoardByName(userId, name) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "breakpoints": () => (/* binding */ breakpoints)
+/* harmony export */   "BREAKPOINTS": () => (/* binding */ BREAKPOINTS),
+/* harmony export */   "MAX_NAME_CHAR": () => (/* binding */ MAX_NAME_CHAR)
 /* harmony export */ });
-var breakpoints = {
+var BREAKPOINTS = {
   "default": 7,
   1850: 6,
   1630: 5,
   1340: 4,
   1080: 3
 };
+var MAX_NAME_CHAR = 17;
 
 /***/ }),
 
