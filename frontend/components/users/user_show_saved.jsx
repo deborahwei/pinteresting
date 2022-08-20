@@ -1,50 +1,70 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {fetchBoards} from '../../actions/board_actions'
+import LoadingContainer from '../generic/loading'
 
-const UserShowSavedContainer = ({fetchBoards, isUser, openModal, user}) => {
+const UserShowSavedContainer = ({fetchBoards, isUser, openModal, user, boards}) => {
+    
+    const boardsEmpty = Object.keys(boards).length === 0
+    const [loading, setLoading] = useState(boardsEmpty)
 
     const noSavedBoardsMessage = () => {
         return `${isUser ? "You haven't" : `${user.username} hasn't`} saved any Pins yet`
     }
 
     useEffect( () => {
-        fetchBoards(user.id)
+        fetchBoards(user.id).finally((setLoading(false)))
     }, [])
-
-    console.log("fetched-boards")
 
     const noBoards = () => {
         
-        return (
-            <div className="no-saved-container">
+          return (     
+          <div className="no-saved-container">
                 <h1>{noSavedBoardsMessage()}</h1>
                 <Link to="/">
-                    <div className={`find-ideas-button ${isUser ? "hide" : ""}`}>
+                    <div className={`find-ideas-button ${isUser ? "" : "hide"}`}>
                         <h1>Find ideas</h1>
                     </div>
                 </Link>
             </div>
-        )
+            )
     }
+    
+
 
     const boardsIndex = () => {
+        return (
+        <div className="boards-index-container">
+            {
+                boards.map( (board, i) => <BoardPreviewContainer
+                board={board}
+                openModal={openModal}
+                /> )
+            }
+        </div>
+        )
 
     }
-    // need userId for fetch boards
+          
 
-    // create adjustments if they are not current user 
-
-    // return anyPins ? noPins() : savedPins()
+    return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
+    // return loading ? <LoadingContainer/> : boardsEmpty ? boardsIndex() : noBoards()
 }
+
+const mSTP = ({entities: {boards}}) => {
+    return {
+        boards
+    }
+}
+
 
 
 const mDTP = dispatch => {
     return {
         fetchBoards: (userId) => dispatch(fetchBoards(userId)),
-        openModal: (formType) => dispatch(openModal(formType))
+        openModal: (formType, props) => dispatch(openModal(formType, props))
     }
 }
 
-export default connect(null, mDTP)(UserShowSavedContainer)
+export default connect(mSTP, mDTP)(UserShowSavedContainer)

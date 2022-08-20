@@ -2313,9 +2313,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -2325,31 +2339,52 @@ var UserShowSavedContainer = function UserShowSavedContainer(_ref) {
   var fetchBoards = _ref.fetchBoards,
       isUser = _ref.isUser,
       openModal = _ref.openModal,
-      user = _ref.user;
+      user = _ref.user,
+      boards = _ref.boards;
+  var boardsEmpty = Object.keys(boards).length === 0;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(boardsEmpty),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
 
   var noSavedBoardsMessage = function noSavedBoardsMessage() {
     return "".concat(isUser ? "You haven't" : "".concat(user.username, " hasn't"), " saved any Pins yet");
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetchBoards(user.id);
+    fetchBoards(user.id)["finally"](setLoading(false));
   }, []);
-  console.log("fetched-boards");
 
   var noBoards = function noBoards() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "no-saved-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, noSavedBoardsMessage()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, noSavedBoardsMessage()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
       to: "/"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "find-ideas-button ".concat(isUser ? "hide" : "")
+      className: "find-ideas-button ".concat(isUser ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Find ideas"))));
   };
 
-  var boardsIndex = function boardsIndex() {}; // need userId for fetch boards
-  // create adjustments if they are not current user 
-  // return anyPins ? noPins() : savedPins()
+  var boardsIndex = function boardsIndex() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "boards-index-container"
+    }, boards.map(function (board, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(BoardPreviewContainer, {
+        board: board,
+        openModal: openModal
+      });
+    }));
+  };
 
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : boardsEmpty ? noBoards() : boardsIndex(); // return loading ? <LoadingContainer/> : boardsEmpty ? boardsIndex() : noBoards()
+};
+
+var mSTP = function mSTP(_ref2) {
+  var boards = _ref2.entities.boards;
+  return {
+    boards: boards
+  };
 };
 
 var mDTP = function mDTP(dispatch) {
@@ -2358,7 +2393,7 @@ var mDTP = function mDTP(dispatch) {
       return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__.fetchBoards)(userId));
     },
     openModal: function (_openModal) {
-      function openModal(_x) {
+      function openModal(_x, _x2) {
         return _openModal.apply(this, arguments);
       }
 
@@ -2367,13 +2402,13 @@ var mDTP = function mDTP(dispatch) {
       };
 
       return openModal;
-    }(function (formType) {
-      return dispatch(openModal(formType));
+    }(function (formType, props) {
+      return dispatch(openModal(formType, props));
     })
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mDTP)(UserShowSavedContainer));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(UserShowSavedContainer));
 
 /***/ }),
 
@@ -2783,10 +2818,10 @@ var fetchBoard = function fetchBoard(userId, boardId) {
   });
 };
 var fetchBoards = function fetchBoards(userId) {
-  return $.ajax({
+  return Promise.resolve($.ajax({
     method: 'GET',
     url: "/api/users/".concat(userId, "/boards")
-  });
+  }));
 };
 var createBoard = function createBoard(board) {
   return $.ajax({

@@ -5,12 +5,12 @@ export const fetchBoard = (userId, boardId) => (
     })
 );
 
-export const fetchBoards = (userId) => (
-    $.ajax({
-      method: 'GET',
-      url: `/api/users/${userId}/boards`
-    })
-);
+export const fetchBoards = (userId) => {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: `/api/users/${userId}/boards`
+  }))
+};
 
 export const createBoard = (board) => (
     $.ajax({
