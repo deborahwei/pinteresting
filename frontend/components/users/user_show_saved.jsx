@@ -38,15 +38,14 @@ const UserShowSavedContainer = (props) => {
     const boardsIndex = () => {
         return (
         <div className="boards-index-container">
-            {/* <BoardPreviewContainer/> */}
-            {/* {
+            {
                 Object.keys(boards).map( (boardId, i) => <BoardPreviewContainer
                 key={i}
                 board={boards[parseInt(boardId)]}
                 openModal={openModal}
                 user={user}
                 /> )
-            } */}
+            }
         </div>
         )
 

@@ -1,23 +1,14 @@
 import React from 'react'
+import EditBoardButton from '../buttons/edit_board_button'
 
-const BoardPreviewCover = (props) => {
+export const BoardPreviewCover = (props) => {
 
-    const {board, user, openModal} = props 
-    // board should have access to its pins and the amount of pins
-
-    const handleClick = (e) => {
-        e.preventDefault()
-        history.push(`/users/${user.username}/boards/${board.name}`)
-    }
 
     return (
-        <div onClick={handleClick} className="board-preview-container">
-            <div className="board-preview-cover">
-                
-            </div>
-            <div className='board-preview-text'>
-                <h1>{board.name}</h1>
-                <p>{`Pins`}</p> 
+        <div className="board-preview-cover-container">
+
+            <div className="preview-board-edit">
+                <EditBoardButton/>
             </div>
         </div>
     )

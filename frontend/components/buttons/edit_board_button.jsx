@@ -1,10 +1,10 @@
 import React from 'react'
 
-const EditBoardButton = () => {
+export const EditBoardButton = () => {
 
     return (
         <div className="edit-board-button">
-            <i className="fa-solid fa-pen"></i>
+            <i className="fa-solid fa-xs fa-pen"></i>
         </div>
     )
 

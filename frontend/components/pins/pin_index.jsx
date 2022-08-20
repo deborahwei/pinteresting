@@ -2,6 +2,7 @@ import { allPhotos  } from "../splash/fetch_splash_info";
 import React from 'react'
 import PinPhotoContainer from "./pin_item";
 import Masonry from 'react-masonry-css'
+import { breakpoints } from "../../util/constants_util"
 
 const DiscoverPinsContainer = (props) => {
 
@@ -18,14 +19,6 @@ const DiscoverPinsContainer = (props) => {
             allPhotosDup.splice(photoIndex, 1)
         }
         return photoUrlArray
-    }
-
-    const breakpoints = {
-        default: 7,
-        1850: 6,
-        1630: 5,
-        1340: 4,
-        1080: 3,
     }
 
     return (

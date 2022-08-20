@@ -1,3 +1,16 @@
 .edit-board-button {
-    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.70);
+
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
 }
