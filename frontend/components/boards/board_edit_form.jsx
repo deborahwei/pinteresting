@@ -28,6 +28,14 @@ const EditBoardForm = (props) => {
         id: board.id
       })
 
+    const setPath = () => {
+        if (modalProps.path.split("/")[3] === "boards") {
+            return modalProps.path.concat(state.name)
+        }
+        else {
+            return modalProps.path
+        }
+    }
 
 
     const update = (field) => {
@@ -40,7 +48,7 @@ const EditBoardForm = (props) => {
         e.preventDefault();
         updateBoard(state)
             .then(()=> {
-                history.push(`${modalProps.path}`);
+                history.push(`${setPath()}`);
             })
             .then(() => {
                 props.closeModal()
@@ -122,7 +130,7 @@ const EditBoardForm = (props) => {
         else {
             fetchBoardByName(currentUser.id, board.name).catch(()=>{}).finally(() => {
                 setLoading(false);
-                <Redirect to="/"/>
+                // <Redirect to="/"/>
             })
         }
     }

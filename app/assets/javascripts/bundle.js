@@ -453,6 +453,7 @@ var DeleteBoardForm = function DeleteBoardForm(props) {
       openModal = props.openModal,
       closeModal = props.closeModal,
       board = props.board,
+      currentUser = props.currentUser,
       path = props.path;
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
 
@@ -488,6 +489,7 @@ var mSTP = function mSTP(_ref) {
   var props = _ref.ui.modal.props;
   return {
     board: props.board,
+    currentUser: props.currentUser,
     path: props.path
   };
 };
@@ -589,6 +591,14 @@ var EditBoardForm = function EditBoardForm(props) {
       state = _useState4[0],
       setState = _useState4[1];
 
+  var setPath = function setPath() {
+    if (modalProps.path.split("/")[3] === "boards") {
+      return modalProps.path.concat(state.name);
+    } else {
+      return modalProps.path;
+    }
+  };
+
   var update = function update(field) {
     return function (e) {
       return setState(_objectSpread(_objectSpread({}, state), {}, _defineProperty({}, field, e.currentTarget.value)));
@@ -598,7 +608,7 @@ var EditBoardForm = function EditBoardForm(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     updateBoard(state).then(function () {
-      history.push("".concat(modalProps.path));
+      history.push("".concat(setPath()));
     }).then(function () {
       props.closeModal();
     });
@@ -666,12 +676,7 @@ var EditBoardForm = function EditBoardForm(props) {
       return content();
     } else {
       fetchBoardByName(currentUser.id, board.name)["catch"](function () {})["finally"](function () {
-        setLoading(false);
-
-        /*#__PURE__*/
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
-          to: "/"
-        });
+        setLoading(false); // <Redirect to="/"/>
       });
     }
   }
@@ -785,6 +790,16 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     return null;
   }
 
+  var boardName = function boardName() {
+    var boardName = board.name.split("");
+
+    if (boardName.length > 20) {
+      return boardName.splice(0, 17).join("").concat("...");
+    } else {
+      return board.name;
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/users/".concat(user.username, "/boards/").concat(board.name)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -798,7 +813,7 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     user: user
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pins"))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, boardName()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pins"))));
 };
 
 /***/ }),
@@ -849,6 +864,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var BoardShowContainer = function BoardShowContainer(props) {
+  console.log(user, username);
   var board = props.board,
       user = props.user,
       currentUser = props.currentUser,
@@ -856,8 +872,7 @@ var BoardShowContainer = function BoardShowContainer(props) {
       username = props.username,
       fetchBoardByName = props.fetchBoardByName,
       fetchUserByUsername = props.fetchUserByUsername,
-      openModal = props.openModal,
-      modal = props.modal;
+      openModal = props.openModal;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!user),
       _useState2 = _slicedToArray(_useState, 2),
@@ -926,7 +941,7 @@ var BoardShowContainer = function BoardShowContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Board options"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       onClick: handleOpenModal('edit board', {
         boardName: board === null || board === void 0 ? void 0 : board.name,
-        path: "/users/".concat(user === null || user === void 0 ? void 0 : user.username, "/boards/").concat(board === null || board === void 0 ? void 0 : board.name)
+        path: "/users/".concat(currentUser.username, "/boards/")
       }),
       className: "edit-board-option"
     }, "Edit board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {

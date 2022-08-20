@@ -12,6 +12,16 @@ export const BoardPreviewContainer = (props) => {
         return null
     }
 
+    const boardName = () => {
+        const boardName = board.name.split("")
+        if (boardName.length > 20) {
+            return boardName.splice(0, 17).join("").concat("...")
+        }
+        else {
+            return board.name
+        }
+    }
+
     return (
         <Link to={`/users/${user.username}/boards/${board.name}`}>
             <div className="board-preview-container">
@@ -24,7 +34,7 @@ export const BoardPreviewContainer = (props) => {
                     />
                 </div>
                 <div className='board-preview-text'>
-                    <h1>{board.name}</h1>
+                    <h1>{boardName()}</h1>
                     <p>{`Pins`}</p> 
                 </div>
             </div>

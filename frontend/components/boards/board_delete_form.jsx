@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 import { openModal, closeModal } from '../../actions/modal_actions';
 
 const DeleteBoardForm = (props) => {
-    
-    const {deleteBoard, openModal, closeModal, board, path} = props;
+
+    const {deleteBoard, openModal, closeModal, board, currentUser, path} = props;
     const history = useHistory();
 
     const handleDeleteClick = (e) => {
@@ -47,6 +47,7 @@ const DeleteBoardForm = (props) => {
 const mSTP = ({ui: {modal: {props}}}) => {
     return {
         board: props.board,
+        currentUser: props.currentUser, 
         path: props.path
     }
 }

@@ -10,8 +10,10 @@ import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
 
 const BoardShowContainer = (props) => {
+
+    console.log(user, username)
    
-    const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal, modal } = props 
+    const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal} = props 
 
     const [loading, setLoading] = useState(!user)
     useEffect(() => {
@@ -70,7 +72,7 @@ const BoardShowContainer = (props) => {
                             <div onClick={handleOpenModal('edit board', 
                             {
                                 boardName: board?.name,
-                                path: `/users/${user?.username}/boards/${board?.name}`
+                                path: `/users/${currentUser.username}/boards/`
                             } )} className="edit-board-option">Edit board</div>
                         </div>
                     </div>
