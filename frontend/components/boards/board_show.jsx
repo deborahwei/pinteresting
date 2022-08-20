@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { NavLink, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { openModal } from '../../actions/modal_actions'
+import { closeModal, openModal } from '../../actions/modal_actions'
 import { reverseSearch } from '../../util/function_util'
 import { fetchUserByUsername } from '../../actions/user_actions'
 import { fetchBoardByName } from '../../actions/board_actions'
@@ -27,7 +27,15 @@ const BoardShowContainer = (props) => {
                 setLoading(false)
             })
         }
+        if (!board && user?.id) { // clean this up
+            fetchBoardByName(user.id, boardName)
+                .finally(() => {
+                setLoading(false)
+            })
+        }
+
     }, [])
+
     
     const ownsBoard = currentUser.username === user?.username
 
@@ -38,6 +46,7 @@ const BoardShowContainer = (props) => {
     const handleOpenModal = (formType, props) => {
         return e => {
             e.preventDefault();
+            closeModal()
             setOpen(false)
             openModal(formType, props)
         }

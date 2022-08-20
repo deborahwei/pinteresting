@@ -30,7 +30,7 @@ export const updateBoard = (board) => (
 
 export const deleteBoard = (boardId) => (
     $.ajax({
-        method: 'PATCH',
+        method: 'DELETE',
         url: `/api/boards/${boardId}`,
       })
 );

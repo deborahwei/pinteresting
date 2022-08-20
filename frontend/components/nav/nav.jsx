@@ -37,15 +37,15 @@ const Nav = (props) => {
         <div className="logged-out-nav">
             <div className='logo-header'>
                 <a href="">
-                    <i className="fa-brands fa-pinterest fa-2xl logo-pinterest"></i>
+                    <i className="fa-brands fa-pinterest fa-2xl fa-flip-horizontal logo-pinterest"></i>
                 </a>
                 <h1 className="logo-text"> Pinteresting</h1>
             </div>
             <div className="logged-out-nav-right">
                 <div className="socials">
                     <a href="">Portfolio</a>
-                    <a href="https://github.com/deborahwei/pinteresting">Github</a>
-                    <a href="https://www.linkedin.com/in/deborah-wei-163b10152/">LinkedIn</a>
+                    <a href="https://github.com/deborahwei/pinteresting" target="_blank">Github</a>
+                    <a href="https://www.linkedin.com/in/deborah-wei-163b10152/" target="_blank">LinkedIn</a>
                 </div>
                 <div className="logged-out-buttons">
                     <div className="nav-login" onClick={openModal('login')}>
@@ -64,7 +64,7 @@ const Nav = (props) => {
         <div className="logged-in-nav">
             <div className='logged-in-nav-left'>
                 <NavLink to="/">
-                    <i className="fa-brands fa-pinterest fa-xl logo-logged-in"></i>
+                    <i className="fa-brands fa-pinterest fa-flip-horizontal fa-xl logo-logged-in"></i>
                 </NavLink>
                 <Link to="/">
                     <div className={`home-button ${onHome ? "home-button-clicked" : ""}`} >Home</div>
@@ -93,7 +93,7 @@ const Nav = (props) => {
                     <i className="fa-solid fa-user fa-xl"></i>
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
-                    <Link to={`/users/${currentUser.username}/saved/`}>
+                    <Link to={`/users/${currentUser.username}/`}>
                         <ProfilePicture user={currentUser} hasPhoto={false}/> 
                     </Link>
                 </div>
@@ -104,7 +104,7 @@ const Nav = (props) => {
                     <nav className={`menu ${open ? 'open' : 'closed'}`}>
                         <div className='menu-dropdown'>
                             <p>Currently in</p>
-                            <Link to={`/users/${currentUser.username}/saved`} >
+                            <Link to={`/users/${currentUser.username}/`} >
                                 <div className='dropdown-user'>
                                     <div className="dropdown-user-pic">
                                         <ProfilePicture user={currentUser} hasPhoto={false}/> 

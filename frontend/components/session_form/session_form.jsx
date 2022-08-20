@@ -50,7 +50,7 @@ const SessionForm = props => {
         <div className="auth-form-modal">
           <div className="auth-form-header">
             <div className={`exit-auth-modal ${props.stationary ? "stationary-form" : ""}`} tabIndex="0" onClick={closeModal}>×</div>
-            <i className="fa-brands fa-pinterest fa-2x"></i>
+            <i className="fa-brands fa-flip-horizontal fa-pinterest fa-2x"></i>
             <h1>Welcome to Pinteresting</h1>
             <h2>{headerText}</h2>
           </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState }  from 'react'
+import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
@@ -7,20 +7,45 @@ import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
 import { reverseSearch } from '../../util/function_util'
 import LoadingContainer from '../generic/loading'
+import UserShowCreatedContainer from './user_show_created'
+import UserShowSavedContainer from './user_show_saved'
+
+const Tab = {
+    SAVED: "saved",
+    CREATED: "created"
+}
+
 
 const UserShowContainer = (props) => {
     
-    const { currentUser, fetchUserByUsername, username, user} = props   
-
+    const { currentUser, fetchUserByUsername, username, user, tabSelected} = props   
+    
     const [loading, setLoading] = useState(!user)
-    const isUser = currentUser === user 
-
-    if (!user) {
-        fetchUserByUsername(username)
-            .finally(() => {
-                setLoading(false)
-            })
+    const isUser = currentUser === user
+    const [tab, setTab] = useState(tabSelected)
+    
+    const handleClickTab = tab => e => {
+        e.preventDefault
+        setTab(tab)
     }
+    
+    const childrenContainers = {
+        [Tab.SAVED]: <UserShowSavedContainer
+        user={user} 
+        isUser={isUser}
+        />,
+        [Tab.CREATED]: <UserShowCreatedContainer/>,
+    }
+
+    useEffect(() => {
+        if (!user) {
+            fetchUserByUsername(username)
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+    }, [])
+
 
     const plusRef = useRef(null)
     const [plus, setPlus] = closeDropdown(plusRef, false)
@@ -44,15 +69,21 @@ const UserShowContainer = (props) => {
                 <h1 >{username}</h1>
                 <p>{`@${username}`}</p>
             </div>
+            <div className="user-show-content-labels">
+                <NavLink 
+                    onClick={handleClickTab(Tab.CREATED)} 
+                    to={`/users/${username}/created`} 
+                    className = {`${tabSelected === "created" ? "tab-clicked" : "" }`}>
+                    <h1>Created</h1>
+                </NavLink>
+                <NavLink 
+                    onClick={handleClickTab(Tab.SAVED)} 
+                    to={`/users/${username}/saved`} 
+                    className = {`${tabSelected === "saved" ? "tab-clicked" : "" }`}>
+                    <h1>Saved</h1>
+                </NavLink>
+            </div>
             <div className="user-show-content-container">
-                <div className="user-show-content-labels">
-                    <NavLink to={`/users/${username}/created`} activeClassName="tab-clicked">
-                        <h1>Created</h1>
-                    </NavLink>
-                    <NavLink to={`/users/${username}/saved`} activeClassName="tab-clicked">
-                        <h1>Saved</h1>
-                    </NavLink>
-                </div>
                 <div className={`user-show-plus-container ${!isUser ? "hide" : ""}`}>
                     <div className={`plus-circle-${ plus ? "clicked" : "unclicked"}`}></div>
                         <i ref={plusRef} onClick={handlePlusClick} className={`fa-solid fa-plus fa-2xs plus-${ plus ? "clicked" : "unclicked"}`}></i>
@@ -62,9 +93,7 @@ const UserShowContainer = (props) => {
                         <div onClick={openModal('create board')}>Create board</div>
                     </div>
                 </div>
-                <div>
-
-                </div>
+                {childrenContainers[tab]}
             </div>
         </div>
     )
@@ -88,10 +117,14 @@ const UserShowContainer = (props) => {
 }
 
 const mSTP = ({session, entities: {users}}, props) => {
+    const tabSelected = props.location.pathname.split("/")[3].toLowerCase() === "created"
+                        ? Tab.CREATED
+                        : Tab.SAVED;
     return {
         username: props.match.params.username,
         user: reverseSearch(users, "username", props.match.params.username),
         currentUser: users[session.id],
+        tabSelected
     }
 }
 

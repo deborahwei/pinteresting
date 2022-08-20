@@ -5,6 +5,7 @@ import LoginFormContainer from '../session_form/login_form_container';
 import SignupFormContainer from '../session_form/signup_form_container';
 import CreateBoardForm from '../boards/board_create_form';
 import EditBoardForm from '../boards/board_edit_form'
+import DeleteBoardForm from '../boards/board_delete_form'
 
 function Modal({modal, closeModal}) {
   if (!modal) {

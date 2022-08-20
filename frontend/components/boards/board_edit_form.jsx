@@ -9,7 +9,7 @@ import { reverseSearch } from '../../util/function_util'
 
 const EditBoardForm = (props) => {
 
-    const { updateBoard, errors, currentUser, fetchBoardByName, board} = props
+    const { updateBoard, errors, currentUser, fetchBoardByName, board, openModal } = props
 
     const [boardLoading, setBoardLoading] = useState(!board)
     const boardDescription = board.description ?? ""
@@ -48,10 +48,10 @@ const EditBoardForm = (props) => {
             })
     }
 
-    const openModal = (formType) => {
+    const handleOpenModal = (formType, props) => {
         return e => {
             e.preventDefault();
-            props.openModal(formType)
+            openModal(formType, props)
         }
     }
 
@@ -95,7 +95,7 @@ const EditBoardForm = (props) => {
                 </div>
                 <div className='delete-board-container'>
                     <h3>Action</h3>
-                    <div onClick={openModal('delete board')} className='delete-board'>
+                    <div onClick={handleOpenModal('delete board', {board, currentUser})} className='delete-board'>
                         <h1>Delete board</h1>
                         <p>Delete this board and all its Pins forever. You can't undo this!</p>
                     </div>
@@ -137,7 +137,7 @@ const mSTP = ({errors, session, entities: {users, boards}, ui}) => {
 const mDTP = dispatch => {
     return {
         updateBoard: (board) => dispatch(updateBoard(board)), 
-        openModal: (formType) => dispatch(openModal(formType)),
+        openModal: (formType, props) => dispatch(openModal(formType, props)),
         closeModal: () => dispatch(closeModal()), 
         fetchBoardByName: (userId, boardName) => dispatch(fetchBoardByName(userId, boardName))
     }

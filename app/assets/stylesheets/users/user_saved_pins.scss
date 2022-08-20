@@ -1,13 +1,12 @@
 @import '../variables.scss';
 
 .no-saved-container {
-    height: 55%;
+    height: 80%;
     width: 100%;
     display: flex; 
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 80px;
 
     h1 {
         text-align: center;

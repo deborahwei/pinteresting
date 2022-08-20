@@ -4,7 +4,6 @@ import { signup } from '../../actions/session_actions';
 import SessionForm from './session_form';
 import { openModal, closeModal } from '../../actions/modal_actions'
 
-
 const mapStateToProps = ({ errors }) => {
   return {
     errors: errors.session,
@@ -18,7 +17,10 @@ const mapDispatchToProps = dispatch => {
     closeModal: () => dispatch(closeModal()),
     login: (user) => dispatch(login(user)),
     footerForm: (
-      <div className="footer-form-div" onClick={() => dispatch(openModal('login'))}>
+      <div className="footer-form-div" onClick={() => {
+        dispatch(closeModal())
+        dispatch(openModal('login'))
+        }}>
         Already a member? Log in 
       </div>
     )
