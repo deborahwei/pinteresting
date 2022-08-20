@@ -73,13 +73,13 @@ const UserShowContainer = (props) => {
                 <NavLink 
                     onClick={handleClickTab(Tab.CREATED)} 
                     to={`/users/${username}/created`} 
-                    className = {`${tabSelected === "created" ? "tab-clicked" : "" }`}>
+                    className = {`${tab === "created" ? "tab-clicked" : "" }`}>
                     <h1>Created</h1>
                 </NavLink>
                 <NavLink 
                     onClick={handleClickTab(Tab.SAVED)} 
                     to={`/users/${username}/saved`} 
-                    className = {`${tabSelected === "saved" ? "tab-clicked" : "" }`}>
+                    className = {`${tab === "saved" ? "tab-clicked" : "" }`}>
                     <h1>Saved</h1>
                 </NavLink>
             </div>
@@ -117,7 +117,7 @@ const UserShowContainer = (props) => {
 }
 
 const mSTP = ({session, entities: {users}}, props) => {
-    const tabSelected = props.location.pathname.split("/")[3].toLowerCase() === "created"
+    const tabSelected = props.location.pathname.split("/")[3]?.toLowerCase() === "created"
                         ? Tab.CREATED
                         : Tab.SAVED;
     return {

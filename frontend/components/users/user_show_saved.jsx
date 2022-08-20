@@ -8,7 +8,7 @@ import { BoardPreviewContainer } from "../boards/board_preview_show"
 
 const UserShowSavedContainer = (props) => {
     
-    const {fetchBoards, isUser, openModal, user, boards} = props
+    const {fetchBoards, isUser, openModal, user, boards, currentUser} = props
     const boardsEmpty = Object.keys(boards).length === 0
     const [loading, setLoading] = useState(boardsEmpty)
 
@@ -43,7 +43,8 @@ const UserShowSavedContainer = (props) => {
                 key={i}
                 board={boards[parseInt(boardId)]}
                 openModal={openModal}
-                user={user}
+                user={user} 
+                isUser={isUser}
                 /> )
             }
         </div>
@@ -51,14 +52,13 @@ const UserShowSavedContainer = (props) => {
 
     }
           
-    // return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
-    return loading ? <LoadingContainer/> : boardsIndex()
+    return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
 
 }
 
-const mSTP = ({entities: {boards}}) => {
-    console.log(BoardPreviewContainer)
+const mSTP = ({session, entities: {boards, users}}) => {
     return {
+        currentUser: users[session.id],
         boards
     }
 }

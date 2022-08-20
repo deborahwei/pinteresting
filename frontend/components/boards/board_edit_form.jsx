@@ -9,10 +9,9 @@ import { reverseSearch } from '../../util/function_util'
 
 const EditBoardForm = (props) => {
 
-    const { updateBoard, errors, currentUser, fetchBoardByName, board, openModal } = props
+    const { updateBoard, errors, currentUser, fetchBoardByName, board, openModal, modalProps } = props
 
     const [boardLoading, setBoardLoading] = useState(!board)
-    const boardDescription = board.description ?? ""
     const history = useHistory()
 
 
@@ -25,7 +24,7 @@ const EditBoardForm = (props) => {
 
     const [state, setState] = useState({
         name: board.name, 
-        description: boardDescription, 
+        description: board.description ?? "", 
         id: board.id
       })
 
@@ -41,7 +40,7 @@ const EditBoardForm = (props) => {
         e.preventDefault();
         updateBoard(state)
             .then(()=> {
-                history.push(`/users/${currentUser.username}/boards/${state.name}`);
+                history.push(`${modalProps.path}`);
             })
             .then(() => {
                 props.closeModal()
@@ -124,13 +123,13 @@ const EditBoardForm = (props) => {
 
 }
 
-const mSTP = ({errors, session, entities: {users, boards}, ui}) => {
-    const name = ui.modal.props
+const mSTP = ({errors, session, entities: {users, boards}, ui: {modal}}) => {
     return {
-        board: reverseSearch(boards, "name", name),
+        board: reverseSearch(boards, "name", modal.props.boardName),
         errors: errors.board,
         currentUser: users[session.id], 
-        name: name
+        modalProps: modal.props
+
     }
 }
 

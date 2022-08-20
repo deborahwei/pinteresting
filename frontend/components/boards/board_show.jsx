@@ -67,7 +67,11 @@ const BoardShowContainer = (props) => {
                         <p onClick={handleClick}>...</p>
                         <div className={`options-menu ${ open ? "open" : "closed"}`}>
                             <p>Board options</p>
-                            <div onClick={handleOpenModal('edit board', board?.name)} className="edit-board-option">Edit board</div>
+                            <div onClick={handleOpenModal('edit board', 
+                            {
+                                boardName: board?.name,
+                                path: `/users/${user?.username}/boards/${board?.name}`
+                            } )} className="edit-board-option">Edit board</div>
                         </div>
                     </div>
                 </div>

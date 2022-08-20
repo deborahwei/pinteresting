@@ -564,14 +564,14 @@ var EditBoardForm = function EditBoardForm(props) {
       currentUser = props.currentUser,
       fetchBoardByName = props.fetchBoardByName,
       board = props.board,
-      openModal = props.openModal;
+      openModal = props.openModal,
+      modalProps = props.modalProps;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!board),
       _useState2 = _slicedToArray(_useState, 2),
       boardLoading = _useState2[0],
       setBoardLoading = _useState2[1];
 
-  var boardDescription = (_board$description = board.description) !== null && _board$description !== void 0 ? _board$description : "";
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
 
   if (!board) {
@@ -582,7 +582,7 @@ var EditBoardForm = function EditBoardForm(props) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     name: board.name,
-    description: boardDescription,
+    description: (_board$description = board.description) !== null && _board$description !== void 0 ? _board$description : "",
     id: board.id
   }),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -598,7 +598,7 @@ var EditBoardForm = function EditBoardForm(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     updateBoard(state).then(function () {
-      history.push("/users/".concat(currentUser.username, "/boards/").concat(state.name));
+      history.push("".concat(modalProps.path));
     }).then(function () {
       props.closeModal();
     });
@@ -682,13 +682,12 @@ var mSTP = function mSTP(_ref) {
       _ref$entities = _ref.entities,
       users = _ref$entities.users,
       boards = _ref$entities.boards,
-      ui = _ref.ui;
-  var name = ui.modal.props;
+      modal = _ref.ui.modal;
   return {
-    board: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_5__.reverseSearch)(boards, "name", name),
+    board: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_5__.reverseSearch)(boards, "name", modal.props.boardName),
     errors: errors.board,
     currentUser: users[session.id],
-    name: name
+    modalProps: modal.props
   };
 };
 
@@ -730,11 +729,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../buttons/edit_board_button */ "./frontend/components/buttons/edit_board_button.jsx");
 
 
-var BoardPreviewCover = function BoardPreviewCover(props) {
+var BoardPreviewCover = function BoardPreviewCover(_ref) {
+  var openModal = _ref.openModal,
+      board = _ref.board,
+      isUser = _ref.isUser,
+      user = _ref.user;
+
+  var handleEditClick = function handleEditClick(e) {
+    e.preventDefault();
+    openModal("edit board", {
+      boardName: board.name,
+      path: "/users/".concat(user.username)
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-cover-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "preview-board-edit"
+    onClick: handleEditClick,
+    className: "preview-board-edit ".concat(isUser ? "" : "hide")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewCover);
@@ -754,27 +767,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _board_preview_cover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_preview_cover */ "./frontend/components/boards/board_preview_cover.jsx");
+
 
 
 var BoardPreviewContainer = function BoardPreviewContainer(props) {
   var board = props.board,
       user = props.user,
-      openModal = props.openModal; // board should have access to its pins and the amount of pins
+      openModal = props.openModal,
+      isUser = props.isUser; // board should have access to its pins and the amount of pins
 
-  var handleClick = function handleClick(e) {
-    e.preventDefault();
-    history.push("/users/".concat(user.username, "/boards/").concat(board.name));
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    onClick: handleClick,
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    to: "/users/".concat(user.username, "/boards/").concat(board.name)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-cover"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_board_preview_cover__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_board_preview_cover__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    openModal: openModal,
+    board: board,
+    isUser: isUser,
+    user: user
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pins")));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pins"))));
 };
 
 /***/ }),
@@ -900,7 +917,10 @@ var BoardShowContainer = function BoardShowContainer(props) {
     }, "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "options-menu ".concat(open ? "open" : "closed")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Board options"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      onClick: handleOpenModal('edit board', board === null || board === void 0 ? void 0 : board.name),
+      onClick: handleOpenModal('edit board', {
+        boardName: board === null || board === void 0 ? void 0 : board.name,
+        path: "/users/".concat(user === null || user === void 0 ? void 0 : user.username, "/boards/").concat(board === null || board === void 0 ? void 0 : board.name)
+      }),
       className: "edit-board-option"
     }, "Edit board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner"
@@ -2283,11 +2303,11 @@ var UserShowContainer = function UserShowContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
       onClick: handleClickTab(Tab.CREATED),
       to: "/users/".concat(username, "/created"),
-      className: "".concat(tabSelected === "created" ? "tab-clicked" : "")
+      className: "".concat(tab === "created" ? "tab-clicked" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Created")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
       onClick: handleClickTab(Tab.SAVED),
       to: "/users/".concat(username, "/saved"),
-      className: "".concat(tabSelected === "saved" ? "tab-clicked" : "")
+      className: "".concat(tab === "saved" ? "tab-clicked" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Saved"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-content-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -2324,9 +2344,11 @@ var UserShowContainer = function UserShowContainer(props) {
 };
 
 var mSTP = function mSTP(_ref, props) {
+  var _props$location$pathn;
+
   var session = _ref.session,
       users = _ref.entities.users;
-  var tabSelected = props.location.pathname.split("/")[3].toLowerCase() === "created" ? Tab.CREATED : Tab.SAVED;
+  var tabSelected = ((_props$location$pathn = props.location.pathname.split("/")[3]) === null || _props$location$pathn === void 0 ? void 0 : _props$location$pathn.toLowerCase()) === "created" ? Tab.CREATED : Tab.SAVED;
   return {
     username: props.match.params.username,
     user: (0,_util_function_util__WEBPACK_IMPORTED_MODULE_6__.reverseSearch)(users, "username", props.match.params.username),
@@ -2431,7 +2453,8 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
       isUser = props.isUser,
       openModal = props.openModal,
       user = props.user,
-      boards = props.boards;
+      boards = props.boards,
+      currentUser = props.currentUser;
   var boardsEmpty = Object.keys(boards).length === 0;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(boardsEmpty),
@@ -2465,19 +2488,22 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
         key: i,
         board: boards[parseInt(boardId)],
         openModal: openModal,
-        user: user
+        user: user,
+        isUser: isUser
       });
     }));
-  }; // return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
+  };
 
-
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : boardsIndex();
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : boardsEmpty ? noBoards() : boardsIndex();
 };
 
 var mSTP = function mSTP(_ref) {
-  var boards = _ref.entities.boards;
-  console.log(_boards_board_preview_show__WEBPACK_IMPORTED_MODULE_5__.BoardPreviewContainer);
+  var session = _ref.session,
+      _ref$entities = _ref.entities,
+      boards = _ref$entities.boards,
+      users = _ref$entities.users;
   return {
+    currentUser: users[session.id],
     boards: boards
   };
 };
