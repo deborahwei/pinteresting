@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :pins, only: [:create, :index, :update, :destroy, :show]  
     resources :boards, only: [:create, :update, :destroy]
 
+    get '/pins_user/save/:pin_id', to: 'pins_user#save_pin', as: 'save_pin'
+    get '/pins_user/unsave/:pin_id', to: 'pins#unsave_pin', as: 'unsave_pin'
     resources :pins_user, only: [:create, :destroy, :update]
     resources :board_pins, only: [:index, :create, :destroy]
 

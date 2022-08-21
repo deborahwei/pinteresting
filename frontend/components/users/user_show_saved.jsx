@@ -62,8 +62,6 @@ const mSTP = ({entities: {boards}}) => {
     }
 }
 
-
-
 const mDTP = dispatch => {
     return {
         fetchBoards: (userId) => dispatch(fetchBoards(userId)),

@@ -104,6 +104,43 @@ var fetchBoardByName = function fetchBoardByName(userId, name) {
 
 /***/ }),
 
+/***/ "./frontend/actions/board_pins_actions.js":
+/*!************************************************!*\
+  !*** ./frontend/actions/board_pins_actions.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addPinToBoard": () => (/* binding */ addPinToBoard),
+/* harmony export */   "fetchBoardPins": () => (/* binding */ fetchBoardPins),
+/* harmony export */   "removePinFromBoard": () => (/* binding */ removePinFromBoard)
+/* harmony export */ });
+/* harmony import */ var _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/board_pin_api_util */ "./frontend/util/board_pin_api_util.js");
+/* harmony import */ var _board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _pin_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pin_actions */ "./frontend/actions/pin_actions.js");
+
+
+
+var addPinToBoard = function addPinToBoard(boardId, pinId) {
+  return _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.addPinToBoard(boardId, pinId).then(function (board) {
+    return dispatch((0,_board_actions__WEBPACK_IMPORTED_MODULE_1__.receiveBoard)(board));
+  });
+};
+var removePinFromBoard = function removePinFromBoard(boardId, pinId) {
+  _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.removePinFromBoard(boardId, pinId).then(function (board) {
+    return dispatch((0,_board_actions__WEBPACK_IMPORTED_MODULE_1__.receiveBoard)(board));
+  });
+};
+var fetchBoardPins = function fetchBoardPins(boardId) {
+  _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchBoardPins(boardId).then(function (pins) {
+    return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_2__.receivePins)(pins));
+  });
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -133,6 +170,109 @@ var openModal = function openModal(formType) {
 var closeModal = function closeModal() {
   return {
     type: CLOSE_MODAL
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/pin_actions.js":
+/*!*****************************************!*\
+  !*** ./frontend/actions/pin_actions.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_PIN": () => (/* binding */ RECEIVE_PIN),
+/* harmony export */   "RECEIVE_PINS": () => (/* binding */ RECEIVE_PINS),
+/* harmony export */   "RECEIVE_PIN_ERRORS": () => (/* binding */ RECEIVE_PIN_ERRORS),
+/* harmony export */   "REMOVE_PIN": () => (/* binding */ REMOVE_PIN),
+/* harmony export */   "createPin": () => (/* binding */ createPin),
+/* harmony export */   "fetchCreatedPins": () => (/* binding */ fetchCreatedPins),
+/* harmony export */   "fetchPin": () => (/* binding */ fetchPin),
+/* harmony export */   "fetchPins": () => (/* binding */ fetchPins),
+/* harmony export */   "fetchSavedPins": () => (/* binding */ fetchSavedPins),
+/* harmony export */   "receivePin": () => (/* binding */ receivePin),
+/* harmony export */   "receivePinErrors": () => (/* binding */ receivePinErrors),
+/* harmony export */   "receivePins": () => (/* binding */ receivePins),
+/* harmony export */   "removePin": () => (/* binding */ removePin),
+/* harmony export */   "updatePin": () => (/* binding */ updatePin)
+/* harmony export */ });
+/* harmony import */ var _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/pin_api_util */ "./frontend/util/pin_api_util.js");
+
+var RECEIVE_PINS = 'RECEIVE_PINS';
+var RECEIVE_PIN = 'RECEIVE_PIN';
+var REMOVE_PIN = 'REMOVE_PIN';
+var RECEIVE_PIN_ERRORS = 'RECEIVE_PIN_ERRORS';
+var receivePins = function receivePins(pins) {
+  return {
+    type: RECEIVE_PINS,
+    pins: pins
+  };
+};
+var receivePin = function receivePin(pin) {
+  return {
+    type: RECEIVE_PIN,
+    pin: pin
+  };
+};
+var removePin = function removePin(pinId) {
+  return {
+    type: RECEIVE_PINS,
+    pinId: pinId
+  };
+};
+var receivePinErrors = function receivePinErrors(errors) {
+  return {
+    type: RECEIVE_PIN_ERRORS,
+    errors: errors
+  };
+};
+var fetchPins = function fetchPins() {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchPins().then(function (pins) {
+      return dispatch(receivePins(pins));
+    });
+  };
+};
+var fetchPin = function fetchPin(pinId) {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchPin(pinId).then(function (pin) {
+      return dispatch(receivePin(pin));
+    });
+  };
+};
+var createPin = function createPin(pin) {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.createPin(pin).then(function (pin) {
+      dispatch(receivePin(pin));
+    }, function (err) {
+      return dispatch(receivePinErrors(err.responseJSON));
+    });
+  };
+};
+var updatePin = function updatePin(pin) {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.updatePin(pin).then(function (pin) {
+      dispatch(receivePin(pin));
+    }, function (err) {
+      return dispatch(receivePinErrors(err.responseJSON));
+    });
+  };
+};
+var fetchSavedPins = function fetchSavedPins(userId) {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchSavedPins(userId).then(function (pins) {
+      return dispatch(receivePins(pins));
+    });
+  };
+};
+var fetchCreatedPins = function fetchCreatedPins(userId) {
+  return function (dispatch) {
+    return _util_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchCreatedPins(userId).then(function (pins) {
+      return dispatch(receivePins(pins));
+    });
   };
 };
 
@@ -733,13 +873,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../buttons/edit_board_button */ "./frontend/components/buttons/edit_board_button.jsx");
+/* harmony import */ var _actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_pins_actions */ "./frontend/actions/board_pins_actions.js");
+
 
 
 var BoardPreviewCover = function BoardPreviewCover(_ref) {
   var openModal = _ref.openModal,
       board = _ref.board,
       isUser = _ref.isUser,
-      user = _ref.user;
+      user = _ref.user,
+      fetchBoardPins = _ref.fetchBoardPins;
 
   var handleEditClick = function handleEditClick(e) {
     e.preventDefault();
@@ -766,7 +909,16 @@ var BoardPreviewCover = function BoardPreviewCover(_ref) {
     className: "preview-board-edit ".concat(isUser ? "" : "hide")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_edit_board_button__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewCover);
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchBoardPins: function fetchBoardPins(boardId) {
+      return dispatch((0,_actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__.fetchBoardPins)(boardId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (connect(null, mDTP)(BoardPreviewCover));
 
 /***/ }),
 
@@ -3045,6 +3197,53 @@ var fetchBoardByName = function fetchBoardByName(userId, name) {
 
 /***/ }),
 
+/***/ "./frontend/util/board_pin_api_util.js":
+/*!*********************************************!*\
+  !*** ./frontend/util/board_pin_api_util.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addPinToBoard": () => (/* binding */ addPinToBoard),
+/* harmony export */   "fetchBoardPins": () => (/* binding */ fetchBoardPins),
+/* harmony export */   "removePinFromBoard": () => (/* binding */ removePinFromBoard)
+/* harmony export */ });
+var fetchBoardPins = function fetchBoardPins(boardId) {
+  // fetching board should fetch pins so shouldn't use this
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/board_pins",
+    data: {
+      board_id: boardId
+    }
+  }));
+};
+var addPinToBoard = function addPinToBoard(boardId, pinId) {
+  return Promise.resolve($.ajax({
+    method: 'POST',
+    url: "/api/board_pins",
+    data: {
+      board_id: boardId,
+      pin_id: pinId
+    }
+  }));
+};
+var removePinFromBoard = function removePinFromBoard(boardId, pinId) {
+  return Promise.resolve($.ajax({
+    method: 'DELETE',
+    url: "/api/board_pins/delete",
+    // route needs an id at the end 
+    data: {
+      board_id: boardId,
+      pin_id: pinId
+    }
+  }));
+};
+
+/***/ }),
+
 /***/ "./frontend/util/constants_util.js":
 /*!*****************************************!*\
   !*** ./frontend/util/constants_util.js ***!
@@ -3086,6 +3285,81 @@ var reverseSearch = function reverseSearch(state, lookupKey, val) {
   }
 
   return null;
+};
+
+/***/ }),
+
+/***/ "./frontend/util/pin_api_util.js":
+/*!***************************************!*\
+  !*** ./frontend/util/pin_api_util.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createPin": () => (/* binding */ createPin),
+/* harmony export */   "deletePin": () => (/* binding */ deletePin),
+/* harmony export */   "fetchCreatedPins": () => (/* binding */ fetchCreatedPins),
+/* harmony export */   "fetchPin": () => (/* binding */ fetchPin),
+/* harmony export */   "fetchPins": () => (/* binding */ fetchPins),
+/* harmony export */   "fetchSavedPins": () => (/* binding */ fetchSavedPins),
+/* harmony export */   "updatePin": () => (/* binding */ updatePin)
+/* harmony export */ });
+var fetchPin = function fetchPin(pinId) {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/pins/".concat(pinId)
+  }));
+};
+var fetchPins = function fetchPins() {
+  // home page pins 
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/pins"
+  }));
+};
+var createPin = function createPin(pin) {
+  return Promise.resolve($.ajax({
+    method: 'POST',
+    url: "/api/pins",
+    data: pin,
+    contentType: false,
+    processData: false
+  }));
+};
+var updatePin = function updatePin(pin) {
+  return Promise.resolve($.ajax({
+    method: 'PATCH',
+    url: "/api/pins/".concat(pin.id),
+    data: {
+      pin: pin
+    }
+  }));
+};
+var deletePin = function deletePin(pinId) {
+  return Promise.resolve($.ajax({
+    method: 'DELETE',
+    url: "/api/pins/".concat(pinId)
+  }));
+};
+var fetchSavedPins = function fetchSavedPins(userId) {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/users/saved",
+    data: {
+      user_id: userId
+    }
+  }));
+};
+var fetchCreatedPins = function fetchCreatedPins(userId) {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/users/created",
+    data: {
+      user_id: userId
+    }
+  }));
 };
 
 /***/ }),

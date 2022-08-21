@@ -1,7 +1,8 @@
 import React from 'react'
 import EditBoardButton from '../buttons/edit_board_button'
+import { fetchBoardPins } from '../../actions/board_pins_actions'
 
-export const BoardPreviewCover = ({openModal, board, isUser, user}) => {
+export const BoardPreviewCover = ({openModal, board, isUser, user, fetchBoardPins}) => {
 
     const handleEditClick = (e) => {
         e.preventDefault()
@@ -34,5 +35,11 @@ export const BoardPreviewCover = ({openModal, board, isUser, user}) => {
 
 }
 
+const mDTP = dispatch => {
+    return {
+        fetchBoardPins: (boardId) => dispatch(fetchBoardPins(boardId))
+    }
+}
 
-export default BoardPreviewCover
+
+export default connect(null, mDTP)(BoardPreviewCover)

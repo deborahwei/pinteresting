@@ -1,6 +1,62 @@
 class Api::PinsUserController < ApplicationController 
 
-    def create # only for people saving as non creators and adding creator
+    
+    before_action :save_pin, only: [:save_pin]
+    before_action :create_pin, only: [:create_pin]
+
+    def save_pin 
+        @pin = Pin.find(params[:pin_id])
+        @user = current_user
+        if @pin && @user 
+            if Pin.retrieve_creator(@pin.id) == @user.id # if they are creator then update
+                @pins_user = PinsUser.find_by(user_id: @user.id, pin_id: params[:id])
+                if @pins_user && @pins_user.update(pin_user_params)
+                    @pin = Pin.find(@pins_user.pin_id)
+                    render "api/pins/show"
+                else 
+                    render json: @pinsUser.errors.full_messages, status: 422 
+                end
+            else # if they are not creator then create 
+                pins_user_relation = PinsUser.new({
+                    user_id: @user.id,
+                    pin_id: @pin.id,
+                    created_pin: false,
+                    saved_pin: params[:saved_pin]
+                })
+                if pins_user_relation.save!
+                    render "api/pins/show"
+                else 
+                    render json: pins_user_relation.errors.full_messages, status: 422
+                end
+            end
+        else
+            render json: ["Could not find that pin to save"], status: 422
+        end
+    end
+
+    def unsave_pin 
+        @pin = Pin.find(params[:pin_id])
+        @user = current_user
+        if @pin && @user 
+            @pins_user = PinsUser.find_by(user_id: @user.id, pin_id: params[:id])
+            if Pin.retrieve_creator(@pin.id) == @user.id # if they are creator then update
+                if @pins_user && @pins_user.update(pin_user_params)
+                    @pin = Pin.find(@pins_user.pin_id)
+                    render "api/pins/show"
+                else 
+                    render json: @pinsUser.errors.full_messages, status: 422 
+                end
+            else # if they are not creator then delete
+                if @pins_user && @pins_user.delete
+                    render "api/pins/show"
+                end
+            end
+        else
+            render json: ["Could not find that pin to unsave"], status: 422
+        end
+    end
+
+    def create # only for people saving as non creators 
         @pin = Pin.find(params[:pin_id])
         @user = current_user
 

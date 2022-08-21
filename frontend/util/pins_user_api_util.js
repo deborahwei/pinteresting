@@ -1,4 +1,4 @@
-export const savePin = (pinId) => { 
+export const saveOthersPin = (pinId) => { 
     return Promise.resolve($.ajax({
       method: 'GET',
       url: `/api/pins_user`, 
@@ -22,9 +22,25 @@ export const unsaveOwnPin = (pinId) => {
     }))
 };
 
-export const unsavePin = (pinId) => {  // for people who don't own the pin 
+export const unsaveOthersPin = (pinId) => {  // for people who don't own the pin 
     return Promise.resolve($.ajax({
       method: 'DELETE',
       url: `/api/pins_user/${pinId}`
     }))
 };
+
+export const savePin = (pinId) => {
+  return Promise.resolve($.ajax({
+    method: 'GET', 
+    url: `api/pins_user/save/${pinId}`, 
+    data: {saved_pin: true}
+  }))
+}
+
+export const unsavePin = (pinId) => {
+  return Promise.resolve($.ajax({
+    method: 'GET', 
+    url: `api/pins_user/unsave/${pinId}`, 
+    data: {saved_pin: false}
+  }))
+}
