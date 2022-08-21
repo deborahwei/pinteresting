@@ -67,6 +67,12 @@ export const fetchBoardByName = (userId, name) => dispatch => {
   return BoardAPIUtil.fetchBoardByName(userId, name).then(board => (
       dispatch(receiveBoard(board))
   ))
-
 }
+
+export const fetchUserBoardsByUsername = (username) => dispatch => (
+  BoardAPIUtil.fetchUserBoardsByUsername(username).then(boards => (
+      dispatch(receiveBoards(boards))
+  ))  
+)
+
 

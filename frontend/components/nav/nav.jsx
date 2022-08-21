@@ -1,4 +1,4 @@
-import React, { useRef} from 'react'
+import React, { useRef, useState} from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/session_actions'
 import { openModal } from '../../actions/modal_actions'
@@ -15,12 +15,19 @@ const Nav = (props) => {
     const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const createRef = useRef(null)
     const [createOpen, setCreateOpen] = closeDropdown(createRef, false)
+    const [query, setQuery] = useState("") // looks up pins by tags 
+    const [openSearch, setOpenSearch] = useState(false)
     
     const onHome = useLocation().pathname === "/"
     const onProfile = useLocation().pathname.split('/')[1] === "users"
     
     const handleLogout = () => {
         logout()
+    }
+
+    const handleFocus = (e) => {
+        e.preventDefault()
+        setOpenSearch(true)
     }
     
     const handleDropdownClick = () => {setOpen(!open)}
@@ -82,13 +89,17 @@ const Nav = (props) => {
                 </div>
             </div>
             <div className='search-bar'>
-                <input placeholder="Search" type="text"/>
-                <div className='magnifying-glass'>
+                <input 
+                    onFocus={handleFocus} 
+                    placeholder="Search" 
+                    onChange={e => setQuery(e.target.value)}
+                    type="text"/>
+                <div className={`magnifying-glass ${openSearch ? "" : "hide"}`}>
                     <i className="fa-solid fa-magnifying-glass fa-sm"></i>
                 </div>
-                <div className='search-dropdown'>
+                <div className={`search-dropdown ${openSearch ? "" : "hide"}`}>
                 </div>
-                <div className="search-bar-background"></div>
+                <div className={`search-bar-background ${openSearch ? "" : "hide"}`}></div>
             </div>
 
             <div className="logged-in-nav-right">

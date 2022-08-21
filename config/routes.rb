@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get '/pins/saved', to: 'pins#find_saved_pins', as: 'find_saved_pins'
     get '/pins/created', to: 'pins#find_created_pins', as: 'find_created_pins'
     resources :pins, only: [:create, :index, :update, :destroy, :show]  
+    get '/boards/user/:username', to: 'boards#find_boards_by_username', as: 'find_boards_by_username'
     resources :boards, only: [:create, :update, :destroy]
 
     get '/pins_user/save/:pin_id', to: 'pins_user#save_pin', as: 'save_pin'

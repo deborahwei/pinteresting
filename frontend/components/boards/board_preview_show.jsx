@@ -3,15 +3,9 @@ import { Link } from 'react-router-dom'
 import BoardPreviewCover from './board_preview_cover'
 import { MAX_NAME_CHAR } from '../../util/constants_util'
 
-export const BoardPreviewContainer = (props) => {
+const BoardPreviewContainer = (props) => {
 
     const {board, user, openModal, isUser} = props 
-    // board should have access to its pins and the amount of pins
-
-    if (!board) {
-        window.location.reload(false) // better way to solve this 
-        return null
-    }
 
     const boardName = () => {
         const boardName = board.name.split("")
@@ -43,3 +37,6 @@ export const BoardPreviewContainer = (props) => {
     )
 
 }
+
+
+export default BoardPreviewContainer

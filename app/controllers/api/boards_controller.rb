@@ -1,9 +1,12 @@
 class Api::BoardsController < ApplicationController
 
     before_action :find_by_name, only: [:find_by_name]
+    before_action :find_boards_by_username, only: [:find_boards_by_username]
 
     def index
         @boards = Board.where(user_id: params[:user_id])
+        render "api/boards/index"
+
     end
 
     def show 
@@ -14,6 +17,12 @@ class Api::BoardsController < ApplicationController
     def find_by_name
         @board = Board.find_by(name: params[:name])
         render "api/boards/show"
+    end
+
+    def find_boards_by_username
+        @user = User.find_by(username: params[:username])
+        @boards = @user.boards 
+        render "api/boards/index"
     end
 
     def create 

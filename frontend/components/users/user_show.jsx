@@ -9,6 +9,7 @@ import { reverseSearch } from '../../util/function_util'
 import LoadingContainer from '../generic/loading'
 import UserShowCreatedContainer from './user_show_created'
 import UserShowSavedContainer from './user_show_saved'
+import { fetchUserBoardsByUsername } from '../../actions/board_actions'
 
 const Tab = {
     SAVED: "saved",
@@ -16,9 +17,8 @@ const Tab = {
 }
 
 
-const UserShowContainer = (props) => {
-    
-    const { currentUser, fetchUserByUsername, username, user, tabSelected} = props   
+const UserShowContainer = (props) => {    
+    const { currentUser, fetchUserByUsername, username, user, tabSelected, fetchUserBoardsByUsername} = props   
     
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
@@ -39,15 +39,15 @@ const UserShowContainer = (props) => {
         isUser={isUser}
         />,
     }
-
     useEffect(() => {
         if (!user) {
-            fetchUserByUsername(username)
+            fetchUserByUsername(username).then(fetchUserBoardsByUsername)
                 .finally(() => {
                     setLoading(false)
                 })
         }
     }, [])
+
 
 
     const plusRef = useRef(null)
@@ -127,14 +127,16 @@ const mSTP = ({session, entities: {users}}, props) => {
         username: props.match.params.username,
         user: reverseSearch(users, "username", props.match.params.username),
         currentUser: users[session.id],
-        tabSelected
+        tabSelected, 
     }
 }
+
 
 const mDTP = dispatch => {
     return {
         fetchUserByUsername: (username) => dispatch(fetchUserByUsername(username)),
-        openModal: (formType) => dispatch(openModal(formType))
+        openModal: (formType) => dispatch(openModal(formType)),
+        fetchUserBoardsByUsername: (username) => dispatch(fetchUserBoardsByUsername(username))
     }
 }
 

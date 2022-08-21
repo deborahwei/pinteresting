@@ -1,8 +1,7 @@
 import React from 'react'
 import EditBoardButton from '../buttons/edit_board_button'
-import { fetchBoardPins } from '../../actions/board_pins_actions'
 
-export const BoardPreviewCover = ({openModal, board, isUser, user, fetchBoardPins}) => {
+export const BoardPreviewCover = ({openModal, board, isUser, user, pins}) => {
 
     const handleEditClick = (e) => {
         e.preventDefault()
@@ -12,13 +11,15 @@ export const BoardPreviewCover = ({openModal, board, isUser, user, fetchBoardPin
             path: `/users/${user.username}`
         })
     }
+
     return (
         <div className="board-preview-cover-container"> 
             <div className="board-cover-pictures">
                 <div className='cover-panel-1'>
-                    
+                    <img src="" alt="" />
                 </div>
                 <div className='cover-column-2'>
+                    
                     <div className='cover-panel-2'>
 
                     </div>
@@ -32,14 +33,6 @@ export const BoardPreviewCover = ({openModal, board, isUser, user, fetchBoardPin
             </div>
         </div>
     )
-
 }
 
-const mDTP = dispatch => {
-    return {
-        fetchBoardPins: (boardId) => dispatch(fetchBoardPins(boardId))
-    }
-}
-
-
-export default connect(null, mDTP)(BoardPreviewCover)
+export default BoardPreviewCover

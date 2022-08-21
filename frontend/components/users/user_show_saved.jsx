@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 import {fetchBoards} from '../../actions/board_actions'
 import { openModal } from '../../actions/modal_actions'
 import LoadingContainer from '../generic/loading'
-import { BoardPreviewContainer } from "../boards/board_preview_show"
+import BoardPreviewContainer from "../boards/board_preview_show"
+import { filterUserBoards } from '../../reducers/selector'
 
 const UserShowSavedContainer = (props) => {
-    
+    if (!boards) return null
     const {fetchBoards, isUser, openModal, user, boards} = props
     const boardsEmpty = Object.keys(boards).length === 0
     const [loading, setLoading] = useState(boardsEmpty)
@@ -19,7 +20,7 @@ const UserShowSavedContainer = (props) => {
     useEffect( () => {
         fetchBoards(user.id).finally((setLoading(false)))
     }, [])
-
+    
     const noBoards = () => {
           return (     
           <div className="no-saved-container">
@@ -32,8 +33,6 @@ const UserShowSavedContainer = (props) => {
             </div>
             )
     }
-    
-
 
     const boardsIndex = () => {
         return (
@@ -56,9 +55,15 @@ const UserShowSavedContainer = (props) => {
 
 }
 
-const mSTP = ({entities: {boards}}) => {
+// const mSTP = ({entities: {boards}}) => {
+//     return {
+//         boards: boards
+//     }
+// }
+
+const mSTP = (state, props) => {
     return {
-        boards
+        boards: filterUserBoards(state, props.user.id)
     }
 }
 

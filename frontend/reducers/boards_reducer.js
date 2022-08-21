@@ -14,7 +14,6 @@ const boardsReducer = (state = {}, action) => {
             return nextState
         case RECEIVE_BOARDS: 
             const boards = Object.values(action.boards)
-
             boards.forEach(board => {
                 nextState[board.id] = board;
             })

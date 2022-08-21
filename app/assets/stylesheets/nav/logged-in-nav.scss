@@ -70,7 +70,7 @@ a {
     flex-direction: row;
     flex: 1 1 auto;
     position: relative;
-    width: 70%;
+    width: 65%;
     height: 50px;
     padding-bottom: 5px;
 
@@ -101,12 +101,9 @@ a {
         width:100%;
         height:100%;
         z-index: 2;
-        visibility: hidden;
-
     }
 
     .search-dropdown {
-        visibility: hidden;
         width: 100%;
         top: 55px;
         border-radius: 20px;
@@ -120,9 +117,6 @@ a {
         opacity: 0;
     }
 
-    input:focus ~ .search-dropdown {
-        visibility: visible;
-    }
 
     input:focus ~ .search-bar-background {
         visibility: visible;
@@ -140,18 +134,28 @@ a {
 
 
 .logged-in-nav-right {
-    padding-top: 12px;
+    padding-top: 5px;
     display: flex; 
     flex-direction: row;
     justify-content: space-evenly;
-    width: 15%;
+    width: 20%;
 
     .logged-in-socials {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         width: 70%;
-        padding-top: 5px;
+
+        a {
+            background-color: $search-bar-grey;
+            width: 40px; 
+            height: 40px;
+            border-radius: 50%;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         .fa-github {
             color: $icon-grey;
@@ -168,6 +172,10 @@ a {
     }
 
 }
+.user-profile-icon {
+    cursor: pointer;
+    margin: 7px 0px 0px 0px;
+}
 
 .user-avatar {
     border-radius: 50%;
@@ -175,9 +183,13 @@ a {
     width: 23px;
     cursor: pointer;
 
-    &:hover {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    a {
+        background-color: $search-bar-grey;
+        width: 40px; 
+        height: 40px;
+        border-radius: 50%;
     }
+
 }
 
 .user-avatar-clicked {
@@ -186,7 +198,6 @@ a {
     border-radius: 50%;
     height: 19px; 
     width: 19px;
-    cursor: pointer;
 }
 
 .user-profile-icon {
