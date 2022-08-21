@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SplashContainer from "../splash/splash"
-import DiscoverPinsContainer from "../pins/pin_index";
+import DiscoverPinsContainer from "../splash/splash_pins";
 
 const mSTP = state => {
     return {

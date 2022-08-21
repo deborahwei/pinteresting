@@ -11,8 +11,14 @@ Rails.application.routes.draw do
       resources :boards, only: [:index, :show, :find_by_boardname]
     end
 
-
+    get '/pins/saved', to: 'pins#find_saved_pins', as: 'find_saved_pins'
+    get '/pins/created', to: 'pins#find_created_pins', as: 'find_created_pins'
+    resources :pins, only: [:create, :index, :update, :destroy, :show]  
     resources :boards, only: [:create, :update, :destroy]
+
+    resources :pins_user, only: [:create, :destroy, :update]
+    resources :board_pins, only: [:index, :create, :destroy]
+
 
   end
   

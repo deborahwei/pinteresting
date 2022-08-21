@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_18_040323) do
+ActiveRecord::Schema.define(version: 2022_08_21_004958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2022_08_18_040323) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "board_pins", force: :cascade do |t|
+    t.integer "board_id", null: false
+    t.integer "pin_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_pins_on_board_id"
+    t.index ["pin_id", "board_id"], name: "index_board_pins_on_pin_id_and_board_id", unique: true
+    t.index ["pin_id"], name: "index_board_pins_on_pin_id"
+  end
+
   create_table "boards", force: :cascade do |t|
     t.string "name", null: false
     t.integer "user_id", null: false
@@ -43,6 +53,21 @@ ActiveRecord::Schema.define(version: 2022_08_18_040323) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_boards_on_user_id_and_name", unique: true
+  end
+
+  create_table "pins", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pins_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "pin_id", null: false
+    t.boolean "created_pin", null: false
+    t.boolean "saved_pin", null: false
+    t.index ["user_id", "pin_id"], name: "index_pins_users_on_user_id_and_pin_id"
   end
 
   create_table "users", force: :cascade do |t|

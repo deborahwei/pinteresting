@@ -1,6 +1,6 @@
-import { allPhotos  } from "../splash/fetch_splash_info";
+import { allPhotos  } from "./fetch_splash_info";
 import React from 'react'
-import PinPhotoContainer from "./pin_item";
+import SplashPinContainer from "./splash_pin_item";
 import Masonry from 'react-masonry-css'
 import { BREAKPOINTS } from "../../util/constants_util"
 
@@ -29,7 +29,7 @@ const DiscoverPinsContainer = (props) => {
                 columnClassName="masonry-grid-column"
             >
                 {
-                    randomPhotos().map( (photoUrl, i) => <PinPhotoContainer photoUrl={photoUrl}
+                    randomPhotos().map( (photoUrl, i) => <SplashPinContainer photoUrl={photoUrl}
                                                                         key = {i}
                                                                         photoId = {i}
                                                                             />)

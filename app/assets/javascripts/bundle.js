@@ -1150,7 +1150,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _splash_splash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../splash/splash */ "./frontend/components/splash/splash.jsx");
-/* harmony import */ var _pins_pin_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pins/pin_index */ "./frontend/components/pins/pin_index.jsx");
+/* harmony import */ var _splash_splash_pins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../splash/splash_pins */ "./frontend/components/splash/splash_pins.jsx");
 
 
 
@@ -1164,7 +1164,7 @@ var mSTP = function mSTP(state) {
 
 function SplashOrPass(_ref) {
   var loggedIn = _ref.loggedIn;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pin_index__WEBPACK_IMPORTED_MODULE_3__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_splash__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_splash_pins__WEBPACK_IMPORTED_MODULE_3__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_splash__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP)(SplashOrPass));
@@ -1203,7 +1203,6 @@ __webpack_require__.r(__webpack_exports__);
 function Modal(_ref) {
   var modal = _ref.modal,
       closeModal = _ref.closeModal;
-  console.log(modal);
 
   if (!modal) {
     return null;
@@ -1502,108 +1501,6 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
-/***/ "./frontend/components/pins/pin_index.jsx":
-/*!************************************************!*\
-  !*** ./frontend/components/pins/pin_index.jsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _splash_fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../splash/fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
-/* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
-/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-
-
-
-var DiscoverPinsContainer = function DiscoverPinsContainer(props) {
-  var _props$photoNumber = props.photoNumber,
-      photoNumber = _props$photoNumber === void 0 ? 51 : _props$photoNumber;
-
-  var randomPhotos = function randomPhotos() {
-    var allPhotosDup = _toConsumableArray(_splash_fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__.allPhotos);
-
-    var photoUrlArray = [];
-    var totalPhotos = 51;
-
-    for (var i = 0; i < photoNumber; i++) {
-      var photoIndex = Math.floor(Math.random() * totalPhotos);
-      totalPhotos -= 1;
-      photoUrlArray.push(allPhotosDup[photoIndex]);
-      allPhotosDup.splice(photoIndex, 1);
-    }
-
-    return photoUrlArray;
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
-    className: "pins-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    className: "masonry-grid ".concat(photoNumber === 28 ? "splash-background-grid" : ""),
-    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_4__.BREAKPOINTS,
-    columnClassName: "masonry-grid-column"
-  }, randomPhotos().map(function (photoUrl, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      photoUrl: photoUrl,
-      key: i,
-      photoId: i
-    });
-  })));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscoverPinsContainer);
-
-/***/ }),
-
-/***/ "./frontend/components/pins/pin_item.jsx":
-/*!***********************************************!*\
-  !*** ./frontend/components/pins/pin_item.jsx ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var PinPhotoContainer = function PinPhotoContainer(props) {
-  var photoUrl = props.photoUrl;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-    className: "pin-photo",
-    src: photoUrl,
-    alt: ""
-  });
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PinPhotoContainer);
-
-/***/ }),
-
 /***/ "./frontend/components/root.jsx":
 /*!**************************************!*\
   !*** ./frontend/components/root.jsx ***!
@@ -1682,7 +1579,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       className: "footer-form-div",
       onClick: function onClick() {
         dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.closeModal)());
-        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)('sign up'));
+        dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)('signup'));
       }
     }, "Not on Pinteresting yet? Sign up")
   };
@@ -1930,7 +1827,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splash_page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash_page */ "./frontend/components/splash/splash_page.jsx");
 /* harmony import */ var _fetch_splash_info__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
-/* harmony import */ var _pins_pin_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pins/pin_index */ "./frontend/components/pins/pin_index.jsx");
+/* harmony import */ var _splash_pins__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./splash_pins */ "./frontend/components/splash/splash_pins.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2045,7 +1942,7 @@ var Splash = function Splash() {
       className: "second-page-background"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-photo-background"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pin_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_pins__WEBPACK_IMPORTED_MODULE_5__["default"], {
       photoNumber: 28
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "second-page-text-container"
@@ -2185,6 +2082,108 @@ var SplashPhoto = function SplashPhoto(props) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SplashPhoto);
+
+/***/ }),
+
+/***/ "./frontend/components/splash/splash_pin_item.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/splash/splash_pin_item.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SplashPinContainer = function SplashPinContainer(props) {
+  var photoUrl = props.photoUrl;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "pin-photo",
+    src: photoUrl,
+    alt: ""
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SplashPinContainer);
+
+/***/ }),
+
+/***/ "./frontend/components/splash/splash_pins.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/splash/splash_pins.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetch_splash_info */ "./frontend/components/splash/fetch_splash_info.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _splash_pin_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash_pin_item */ "./frontend/components/splash/splash_pin_item.jsx");
+/* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+
+var DiscoverPinsContainer = function DiscoverPinsContainer(props) {
+  var _props$photoNumber = props.photoNumber,
+      photoNumber = _props$photoNumber === void 0 ? 51 : _props$photoNumber;
+
+  var randomPhotos = function randomPhotos() {
+    var allPhotosDup = _toConsumableArray(_fetch_splash_info__WEBPACK_IMPORTED_MODULE_0__.allPhotos);
+
+    var photoUrlArray = [];
+    var totalPhotos = 51;
+
+    for (var i = 0; i < photoNumber; i++) {
+      var photoIndex = Math.floor(Math.random() * totalPhotos);
+      totalPhotos -= 1;
+      photoUrlArray.push(allPhotosDup[photoIndex]);
+      allPhotosDup.splice(photoIndex, 1);
+    }
+
+    return photoUrlArray;
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+    className: "pins-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "masonry-grid ".concat(photoNumber === 28 ? "splash-background-grid" : ""),
+    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_4__.BREAKPOINTS,
+    columnClassName: "masonry-grid-column"
+  }, randomPhotos().map(function (photoUrl, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_splash_pin_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      photoUrl: photoUrl,
+      key: i,
+      photoId: i
+    });
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscoverPinsContainer);
 
 /***/ }),
 

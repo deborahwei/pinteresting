@@ -1,11 +1,11 @@
 import React from 'react'
 
-const PinPhotoContainer = (props) => {
-
-    const {photoUrl} = props
+const PinPhotoContainer = ({pin}) => {
 
     return (
-        <img className={`pin-photo`} src={photoUrl} alt="" />
+        <div>
+            <img src={pin.imageUrl}></img>
+        </div>
     )
 
 }

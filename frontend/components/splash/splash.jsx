@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SplashPage from './splash_page'
 import { splashInfo} from './fetch_splash_info'
 import SignupFormContainer from '../session_form/signup_form_container'
-import DiscoverPinsContainer from '../pins/pin_index'
+import DiscoverPinsContainer from './splash_pins'
 
 const Splash = () => {
     

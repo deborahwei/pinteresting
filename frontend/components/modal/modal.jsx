@@ -8,7 +8,6 @@ import EditBoardForm from '../boards/board_edit_form'
 import DeleteBoardForm from '../boards/board_delete_form'
 
 function Modal({modal, closeModal}) {
-  console.log(modal)
   if (!modal) {
     return null;
   }
