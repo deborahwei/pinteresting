@@ -31,13 +31,13 @@ class Api::PinsController < ApplicationController
 
         Pin.transaction do
             if @pin.save!
-                pinsUserRelation = PinsUser.new({
+                pins_user_relation = PinsUser.new({
                     user_id: current_user.id,
                     pin_id: @pin.id,
                     created_pin: true,
                     saved_pin: false
                 })
-                if pinsUserRelation.save!
+                if pins_user_relation.save!
                     render "api/pins/show"
                 end
             else

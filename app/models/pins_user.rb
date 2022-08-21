@@ -14,9 +14,9 @@ class PinsUser < ApplicationRecord
             pin_id: self.pin_id,
             created_pin: true
         }
-        pinsUser = PinsUser.find_by(params)
+        pins_user = PinsUser.find_by(params)
 
-        if pinsUser && pinsUser.user_id == self.user_id
+        if pins_user && pins_user.user_id == self.user_id
             errors.add(:pin_id, "already has a creator")
         end
     end
