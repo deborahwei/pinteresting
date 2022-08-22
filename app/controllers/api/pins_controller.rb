@@ -31,23 +31,14 @@ class Api::PinsController < ApplicationController
         if !current_user 
             render json: "You must be logged in to create Pin"
         end
-        @pin = Pin.new(pin_params)
-
-        Pin.transaction do
-            if @pin.save!
-                @pins_user = PinsUser.new({
-                    user_id: 47,
-                    pin_id: @pin.id,
-                    created_pin: true,
-                    saved_pin: false
-                })
-                if @pins_user.save!
-                    render "api/pins/show"
-                end
-            else
-                render json: @pin.errors.full_messages, status: 422
-            end
+        
+        @pin, error_message = Pin.safe_create(pin_params)
+        if !@pin.nil?
+            render "api/pins/show"
+        else
+            render json: error_message, status: 422
         end
+
     end
 
     def update 

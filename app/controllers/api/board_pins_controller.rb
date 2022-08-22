@@ -1,6 +1,6 @@
 class Api::BoardPinsController < ApplicationController
 
-    def index # gets all pins on board
+    def index 
         if params[:board_id]
             board = Board.find_by(id: params[:board_id])
             @pins = board.pins

@@ -21,73 +21,88 @@ board_3 = Board.create({name: 'pie', user_id: user_1.id})
 board_4 = Board.create({name: 'sunsets', user_id: user_1.id})
 board_5 = Board.create({name: 'trees', user_id: user_1.id})
 
+
 # snowboarding
-pin_1 = Pin.create({title: "OVERVIEW — Alex Strohl Studio", description: "Alex Strohl is a Madrid-born, French photographer whose adventures around the world have informed his unique style of photography..."})
+pin_1 = Pin.safe_create({title: "OVERVIEW — Alex Strohl Studio", description: "Alex Strohl is a Madrid-born, French photographer whose adventures around the world have informed his unique style of photography..."}, user_1.id)[0]
 image_1 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg")
 pin_1.image.attach(io: image_1, filename:"alexandra-luniel-86T5I7ZtjmM-unsplash-min.jpg")
 pin_1.save!
 
-pin_2 = Pin.create({title: "A winter travel guide to Finnish Lapland", description: "Discover the magic of Finnish Lapland from Santa Claus' village to the northern lights. This travel guide shares everything you need to know."})
+pin_2 = Pin.safe_create({title: "A winter travel guide to Finnish Lapland", description: "Discover the magic of Finnish Lapland from Santa Claus' village to the northern lights. This travel guide shares everything you need to know."}, demo_user.id)[0]
 image_2 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg")
 pin_2.image.attach(io: image_2, filename:"benjamin-hayward-uZNH-vYGDIQ-unsplash-min.jpg")
 pin_2.save!
 
-pin_3 = Pin.create({title: "🔥 Magical morning in the forest of Væleren", description: "With whom would you like to visit Switzerland?"})
+pin_3 = Pin.safe_create({title: "🔥 Magical morning in the forest of Væleren", description: "With whom would you like to visit Switzerland?"}, demo_user.id)[0]
 image_3 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg")
 pin_3.image.attach(io: image_3, filename:"benjamin-hayward-YIO9Fb7BJIU-unsplash-min.jpg")
 pin_3.save!
 
-pin_4 = Pin.create({title: "Christmas aesthetic ☃️🌬❄️", description: "sliding into the new year like ⁂"})
+pin_4 = Pin.safe_create({title: "Christmas aesthetic ☃️🌬❄️", description: "sliding into the new year like ⁂"}, demo_user.id)[0]
 image_4 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg")
 pin_4.image.attach(io: image_4, filename:"felipe-giacometti-4i5ToPi4K_c-unsplash-min.jpg")
 pin_4.save!
 
-pin_5 = Pin.create({title: "Ski fits 🎿 🌨🗻", description: "I started skiing January 2022 and went on my first black diamond march 2022"})
+pin_5 = Pin.safe_create({title: "Ski fits 🎿 🌨🗻", description: "I started skiing January 2022 and went on my first black diamond march 2022"}, demo_user.id)[0]
 image_5 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg")
 pin_5.image.attach(io: image_5, filename:"felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg")
 pin_5.save!
 
-pin_6 = Pin.create({title: "My Pretty Universe", description: "All the beautiful things I don´t own any of the pictures I´m posting"})
+pin_6 = Pin.safe_create({title: "My Pretty Universe", description: "All the beautiful things I don´t own any of the pictures I´m posting"}, user_1.id)[0]
 image_6 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/beau-runsten-BgPf2FHePBM-unsplash.jpg")
 pin_6.image.attach(io: image_6, filename:"beau-runsten-BgPf2FHePBM-unsplash.jpg")
 pin_6.save!
 
-pin_7 = Pin.create({title: "COUNTRY TILL I DIE", description: "Male, 54. Born and raised in dairy farm country. Enjoy the country life and the outdoors. Also check out my other blog direwulf63, and WHATEVER i CAN GET AWAY WITH"})
+pin_7 = Pin.safe_create({title: "COUNTRY TILL I DIE", description: "Male, 54. Born and raised in dairy farm country. Enjoy the country life and the outdoors. Also check out my other blog direwulf63, and WHATEVER i CAN GET AWAY WITH"}, user_1.id)[0]
 image_7 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/bradley-dunn-9SGGun3iIig-unsplash.jpg")
 pin_7.image.attach(io: image_7, filename:"bradley-dunn-9SGGun3iIig-unsplash.jpg")
 pin_7.save!
 
-pin_8 = Pin.create({title: "Sun Glowing Over A Snowy Tree Landscape", description: "Stock Image: Sun Glowing Over A Snowy Tree Landscape"})
+pin_8 = Pin.safe_create({title: "Sun Glowing Over A Snowy Tree Landscape", description: "Stock Image: Sun Glowing Over A Snowy Tree Landscape"}, user_1.id)[0]
 image_8 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
 pin_8.image.attach(io: image_8, filename:"felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
 pin_8.save!
 
-pin_9 = Pin.create({title: "snow angel by Viktoria Haack / 500px", description: "Out the front window"})
+pin_9 = Pin.safe_create({title: "snow angel by Viktoria Haack / 500px", description: "Out the front window"}, user_1.id)[0]
 image_9 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
 pin_9.image.attach(io: image_9, filename:"joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
 pin_9.save!
 
-pin_10 = Pin.create({title: "winter cottagecore *chefs kiss*", description: "Cottagecore is an aesthetic depicting a simple, romanticized life in nature. It features themes of farm animals, earthy tones, soft illustrations,..."})
+pin_10 = Pin.safe_create({title: "winter cottagecore *chefs kiss*", description: "Cottagecore is an aesthetic depicting a simple, romanticized life in nature. It features themes of farm animals, earthy tones, soft illustrations,..."}, user_1.id)[0]
 image_10 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
 pin_10.image.attach(io: image_10, filename:"jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
 pin_10.save!
 
-pin_11 = Pin.create({title: "2017-12-18_02-30-40", description: "Monday night update"})
+pin_11 = Pin.safe_create({title: "2017-12-18_02-30-40", description: "Monday night update"}, user_1.id)[0]
 image_11 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
 pin_11.image.attach(io: image_11, filename:"malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
 pin_11.save!
 
-pin_12 = Pin.create({title: "Winter wallpaper by rosemaria4111 - Download on ZEDGE™ | e10e", description: "Download Winter wallpaper by rosemaria4111 on ZEDGE™ now. Browse millions of popular free and premium wallpapers and ringtones on ZEDGE™ and personalize your phone to suit you. Browse now! | e10e"})
+pin_12 = Pin.safe_create({title: "Winter wallpaper by rosemaria4111 - Download on ZEDGE™ | e10e", description: "Download Winter wallpaper by rosemaria4111 on ZEDGE™ now. Browse millions of popular free and premium wallpapers and ringtones on ZEDGE™ and personalize your phone to suit you. Browse now! | e10e"}, user_1.id)[0]
 image_12 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/nic-y-c-YvUT4BtBbn8-unsplash.jpg")
 pin_12.image.attach(io: image_12, filename:"nic-y-c-YvUT4BtBbn8-unsplash.jpg")
 pin_12.save!
 
-pin_13 = Pin.create({title: "Monday night update", description: "All the beautiful things of the world"})
+pin_13 = Pin.safe_create({title: "Monday night update", description: "All the beautiful things of the world"}, user_1.id)[0]
 image_13 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
 pin_13.image.attach(io: image_13, filename:"patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
 pin_13.save!
 
-# pin_14 = Pin.create({title: "Sunset, horizon, clean sky, glacier, mountains, nature, 1080x2160 wallpaper", description: "Download Sunset, horizon, clean sky, glacier, mountains, nature 1080x2160 wallpaper, Honor 7X, Honor 9 Lite, Honor View 10, 18067"})
+board_pin_1 = BoardPin.create({board_id: board_1.id, pin_id: pin_1.id})
+board_pin_2 = BoardPin.create({board_id: board_1.id, pin_id: pin_2.id})
+board_pin_3 = BoardPin.create({board_id: board_1.id, pin_id: pin_3.id})
+board_pin_4 = BoardPin.create({board_id: board_1.id, pin_id: pin_4.id})
+board_pin_5 = BoardPin.create({board_id: board_1.id, pin_id: pin_5.id})
+board_pin_6 = BoardPin.create({board_id: board_1.id, pin_id: pin_6.id})
+board_pin_7 = BoardPin.create({board_id: board_1.id, pin_id: pin_7.id})
+board_pin_8 = BoardPin.create({board_id: board_1.id, pin_id: pin_8.id})
+board_pin_9 = BoardPin.create({board_id: board_1.id, pin_id: pin_9.id})
+board_pin_10 = BoardPin.create({board_id: board_1.id, pin_id: pin_10.id})
+board_pin_11 = BoardPin.create({board_id: board_1.id, pin_id: pin_11.id})
+board_pin_12 = BoardPin.create({board_id: board_1.id, pin_id: pin_12.id})
+board_pin_13 = BoardPin.create({board_id: board_1.id, pin_id: pin_13.id})
+
+# pin_14 = Pin.safe_create({title: "Sunset, horizon, clean sky, glacier, mountains, nature, 1080x2160 wallpaper", description: "Download Sunset, horizon, clean sky, glacier, mountains, nature 1080x2160 wallpaper, Honor 7X, Honor 9 Lite, Honor View 10, 18067"})
 # image_14 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg")
 # pin_14.image.attach(io: image_14, filename:"sirisvisual-SrjF-UxQ69U-unsplash-min.jpg")
 # pin_14.save!
@@ -335,29 +350,23 @@ pin_13.save!
 # pin_61.save!
 
 
-pins_user_1 = PinsUser.create({user_id: user_1.id, pin_id: pin_1.id, created_pin: true, saved_pin: true})
-pins_user_2 = PinsUser.create({user_id: demo_user.id, pin_id: pin_2.id, created_pin: true, saved_pin: true})
-pins_user_3 = PinsUser.create!({user_id: demo_user.id, pin_id: pin_3.id, created_pin: false, saved_pin: true})
-pins_user_4 = PinsUser.create({user_id: user_1.id, pin_id: pin_2.id, created_pin: false, saved_pin: false})
-pins_user_5 = PinsUser.create({user_id: user_1.id, pin_id: pin_3.id, created_pin: false, saved_pin: false})
-pins_user_6 = PinsUser.create({user_id: user_1.id, pin_id: pin_4.id, created_pin: true, saved_pin: true})
-pins_user_7 = PinsUser.create({user_id: user_1.id, pin_id: pin_5.id, created_pin: true, saved_pin: true})
-pins_user_8 = PinsUser.create({user_id: demo_user.id, pin_id: pin_4.id, created_pin: false, saved_pin: false})
-pins_user_9 = PinsUser.create({user_id: demo_user.id, pin_id: pin_5.id, created_pin: false, saved_pin: true})
-
-board_pin_1 = BoardPin.create({board_id: board_1.id, pin_id: pin_1.id})
-board_pin_2 = BoardPin.create({board_id: board_1.id, pin_id: pin_2.id})
-board_pin_3 = BoardPin.create({board_id: board_1.id, pin_id: pin_3.id})
-board_pin_4 = BoardPin.create({board_id: board_1.id, pin_id: pin_4.id})
-board_pin_5 = BoardPin.create({board_id: board_1.id, pin_id: pin_5.id})
-board_pin_6 = BoardPin.create({board_id: board_1.id, pin_id: pin_6.id})
-board_pin_7 = BoardPin.create({board_id: board_1.id, pin_id: pin_7.id})
-board_pin_8 = BoardPin.create({board_id: board_1.id, pin_id: pin_8.id})
-board_pin_9 = BoardPin.create({board_id: board_1.id, pin_id: pin_9.id})
-board_pin_10 = BoardPin.create({board_id: board_1.id, pin_id: pin_10.id})
-board_pin_11 = BoardPin.create({board_id: board_1.id, pin_id: pin_11.id})
-board_pin_12 = BoardPin.create({board_id: board_1.id, pin_id: pin_12.id})
-board_pin_13 = BoardPin.create({board_id: board_1.id, pin_id: pin_13.id})
+# pins_user_1 = PinsUser.create({user_id: user_1.id, pin_id: pin_1.id, created_pin: true, saved_pin: true})
+# pins_user_2 = PinsUser.create({user_id: demo_user.id, pin_id: pin_2.id, created_pin: true, saved_pin: true})
+# pins_user_3 = PinsUser.create!({user_id: demo_user.id, pin_id: pin_3.id, created_pin: false, saved_pin: true})
+# pins_user_4 = PinsUser.create({user_id: user_1.id, pin_id: pin_2.id, created_pin: false, saved_pin: false})
+# pins_user_5 = PinsUser.create({user_id: user_1.id, pin_id: pin_3.id, created_pin: false, saved_pin: false})
+# pins_user_6 = PinsUser.create({user_id: user_1.id, pin_id: pin_4.id, created_pin: true, saved_pin: true})
+# pins_user_7 = PinsUser.create({user_id: user_1.id, pin_id: pin_5.id, created_pin: true, saved_pin: true})
+# pins_user_8 = PinsUser.create({user_id: demo_user.id, pin_id: pin_4.id, created_pin: false, saved_pin: false})
+# pins_user_9 = PinsUser.create({user_id: demo_user.id, pin_id: pin_5.id, created_pin: false, saved_pin: true})
+# pins_user_10 = PinsUser.create({user_id: user_1.id, pin_id: pin_6.id, created_pin: true, saved_pin: true})
+# pins_user_11 = PinsUser.create({user_id: user_1.id, pin_id: pin_7.id, created_pin: true, saved_pin: true})
+# pins_user_12 = PinsUser.create({user_id: user_1.id, pin_id: pin_8.id, created_pin: true, saved_pin: true})
+# pins_user_13 = PinsUser.create({user_id: user_1.id, pin_id: pin_9.id, created_pin: true, saved_pin: true})
+# pins_user_14 = PinsUser.create({user_id: user_1.id, pin_id: pin_10.id, created_pin: true, saved_pin: true})
+# pins_user_15 = PinsUser.create({user_id: user_1.id, pin_id: pin_11.id, created_pin: true, saved_pin: true})
+# pins_user_16 = PinsUser.create({user_id: user_1.id, pin_id: pin_12.id, created_pin: true, saved_pin: true})
+# pins_user_17= PinsUser.create({user_id: user_1.id, pin_id: pin_13.id, created_pin: true, saved_pin: true})
 
 # board_pin_6 = BoardPin.create({board_id: board_2.id, pin_id: pin_17.id})
 # board_pin_7 = BoardPin.create({board_id: board_2.id, pin_id: pin_18.id})

@@ -6,8 +6,7 @@ class PinsUser < ApplicationRecord
     # only one relationship between a pin and a person (no having the same person with the same pin again )
 
     belongs_to :user
-    belongs_to :pin 
-
+    belongs_to :pin
 
     def validate_sole_creator
         params = {

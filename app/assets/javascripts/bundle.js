@@ -417,20 +417,60 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RECEIVE_USER": () => (/* binding */ RECEIVE_USER),
+/* harmony export */   "RECEIVE_USERS": () => (/* binding */ RECEIVE_USERS),
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
 /* harmony export */   "fetchUserByUsername": () => (/* binding */ fetchUserByUsername),
-/* harmony export */   "receiveUser": () => (/* binding */ receiveUser)
+/* harmony export */   "fetchUsers": () => (/* binding */ fetchUsers),
+/* harmony export */   "receiveUser": () => (/* binding */ receiveUser),
+/* harmony export */   "receiveUsers": () => (/* binding */ receiveUsers)
 /* harmony export */ });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-var RECEIVE_USER = "RECEIVE_USER"; // export const fetchUsers = (users) => dispatch => {
-//     return UserAPIUtil.fetchUsers(userIds).then(users => )
-// }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+var RECEIVE_USER = "RECEIVE_USER";
+var RECEIVE_USERS = "RECEIVE_USERS";
 var receiveUser = function receiveUser(user) {
   return {
     type: RECEIVE_USER,
     user: user
+  };
+};
+var receiveUsers = function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users: users
+  };
+};
+var fetchUsers = function fetchUsers(pins, users) {
+  return function (dispatch) {
+    var usersSet = new Set();
+    Object.values(pins).forEach(function (pin) {
+      usersSet.add(pin.creator);
+    });
+    var userIds = [];
+
+    var _iterator = _createForOfIteratorHelper(usersSet),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var userId = _step.value;
+        if (!(userId in users)) userIds.push(userId);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchUsers(userIds).then(function (users) {
+      return dispatch(receiveUsers(users));
+    });
   };
 };
 var fetchUser = function fetchUser(user) {
@@ -1006,7 +1046,6 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
       openModal = props.openModal,
       isUser = props.isUser,
       pins = props.pins;
-  console.log(board);
   if (!board) return null;
 
   var boardName = function boardName() {
@@ -1099,7 +1138,7 @@ var BoardShowContainer = function BoardShowContainer(props) {
       fetchUserByUsername = props.fetchUserByUsername,
       openModal = props.openModal;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!user),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
@@ -1114,17 +1153,12 @@ var BoardShowContainer = function BoardShowContainer(props) {
             setLoading(false);
           });
         }
-      }).then(function () {
-        setLoading(false);
       });
     }
 
-    if (!board && user !== null && user !== void 0 && user.id) {
-      // clean this up
-      fetchBoardByName(user.id, boardName)["finally"](function () {
-        setLoading(false);
-      });
-    }
+    fetchBoardByName(user.id, boardName)["finally"](function () {
+      setLoading(false);
+    });
   }, []);
   var ownsBoard = currentUser.username === (user === null || user === void 0 ? void 0 : user.username);
   var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
@@ -1266,12 +1300,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
-  var isUser = props.isUser,
+  var ownsBoard = props.ownsBoard,
       user = props.user,
       boardName = props.boardName,
-      boards = props.boards,
-      pins = props.pins,
+      board = props.board,
       fetchBoardPins = props.fetchBoardPins,
+      pins = props.pins,
       fetchBoardByName = props.fetchBoardByName;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
@@ -1280,28 +1314,10 @@ var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
       setLoading = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetchBoardByName(user.id, boardName).then(function (resp) {
-      fetchBoardPins(resp.board.id);
-    }).then(function (resp) {})["finally"](setLoading(false));
-  }, [user, boardName]);
-  var currentBoard = Object.values(boards).filter(function (board) {
-    return board.name === boardName && board.user_id === user.id;
-  });
-
-  var currentBoardPins = function currentBoardPins() {
-    var _currentBoard$;
-
-    var filteredPins = [];
-    var currentBoardPins = (_currentBoard$ = currentBoard[0]) === null || _currentBoard$ === void 0 ? void 0 : _currentBoard$.pins;
-    Object.values(pins).forEach(function (pin) {
-      currentBoardPins.forEach(function (boardPin) {
-        if (pin.id === boardPin) {
-          filteredPins.push(pin);
-        }
-      });
+    fetchBoardPins(board.id)["finally"](function () {
+      return setLoading(false);
     });
-    return filteredPins;
-  };
+  }, [user, boardName]);
 
   var addPinButton = function addPinButton() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1317,6 +1333,10 @@ var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Pin")));
   };
 
+  var currentBoardPins = board.pins.map(function (pinId) {
+    return pins[pinId];
+  });
+
   var pinCounter = function pinCounter() {};
 
   var hasNoPins = function hasNoPins() {
@@ -1329,20 +1349,21 @@ var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-pins-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_board_pins_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      pins: currentBoardPins()
+      pins: currentBoardPins
     }));
   };
 
   return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : boardPinsIndex();
 };
 
-var mSTP = function mSTP(_ref) {
-  var _ref$entities = _ref.entities,
-      boards = _ref$entities.boards,
-      pins = _ref$entities.pins;
+var mSTP = function mSTP(_ref, props) {
+  var pins = _ref.entities.pins;
   return {
-    boards: boards,
-    pins: pins
+    pins: pins,
+    board: props.board,
+    user: props.user,
+    boardName: props.boardName,
+    ownsBoard: props.ownsBoard
   };
 };
 
@@ -1888,36 +1909,87 @@ var mDTP = function mDTP(dispatch) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mDTP": () => (/* binding */ mDTP),
+/* harmony export */   "mSTP": () => (/* binding */ mSTP)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
-/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
-/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
 
 
 var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
-  var pins = _ref.pins;
-  if (pins.length === 0) return null;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "board-pins-index-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    className: "masonry-pins-grid",
-    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS,
-    columnClassName: "masonry-pins-column"
-  }, pins.map(function (pin, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      key: i,
-      pin: pin
+  var pins = _ref.pins,
+      users = _ref.users,
+      fetchUsers = _ref.fetchUsers;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchUsers(pins, users)["finally"](function () {
+      return setLoading(false);
     });
-  })));
+  }, []);
+  console.log(pins, users);
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-pins-index-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      className: "masonry-pins-grid",
+      breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_3__.BREAKPOINTS,
+      columnClassName: "masonry-pins-column"
+    }, pins.map(function (pin, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        key: i,
+        pin: pin
+      });
+    })));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_6__["default"], null) : content();
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPinsIndexContainer);
+var mSTP = function mSTP(_ref2) {
+  var users = _ref2.entities.users;
+  return {
+    users: users
+  };
+};
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchUsers: function fetchUsers(users, pins) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__.fetchUsers)(users, pins));
+    }
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(BoardPinsIndexContainer));
 
 /***/ }),
 
@@ -1934,7 +2006,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
 
 
@@ -1955,9 +2026,11 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: pin.imageUrl
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pin-item-hover"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-info"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-title"
@@ -3493,6 +3566,10 @@ var usersReducer = function usersReducer() {
       nextState[action.user.id] = action.user;
       return nextState;
 
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_USERS:
+      Object.assign(nextState, action.users);
+      return nextState;
+
     default:
       return state;
   }
@@ -3950,7 +4027,7 @@ var fetchUsers = function fetchUsers(userIds) {
     method: "GET",
     url: '/api/users',
     data: {
-      userIds: userIds
+      user_ids: userIds
     }
   }));
 };

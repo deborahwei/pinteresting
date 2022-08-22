@@ -7,7 +7,6 @@ import { timeSince } from '../../util/time_util'
 const BoardPreviewContainer = (props) => {
 
     const {board, user, openModal, isUser, pins} = props 
-    console.log(board)
     if (!board) return null
 
     const boardName = () => {

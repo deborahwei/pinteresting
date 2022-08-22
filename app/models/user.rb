@@ -17,6 +17,10 @@ class User < ApplicationRecord
     foreign_key: :user_id, 
     dependent: :destroy
 
+    has_many :pins,
+    through: :pin_user_relationships,
+    source: :pin
+
     has_many :comments, dependent: :destroy
   
     def self.find_by_credentials(username, password) 

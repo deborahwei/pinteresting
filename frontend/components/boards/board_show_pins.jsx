@@ -7,34 +7,13 @@ import BoardPinsIndexContainer from '../pins/board_pins_index'
 
 const BoardShowPinsContainer = (props) => {
 
-    const {isUser, user, boardName, boards, pins, fetchBoardPins, fetchBoardByName} = props
+    const {ownsBoard, user, boardName, board, fetchBoardPins, pins, fetchBoardByName} = props
     const [loading, setLoading] = useState(true)
 
     useEffect( () => {
-        fetchBoardByName(user.id, boardName)
-            .then(resp => {
-                fetchBoardPins(resp.board.id)
-            })
-            .then(resp => {
-                
-            })
-            .finally((setLoading(false)))
+        fetchBoardPins(board.id)
+            .finally(() => setLoading(false))
     }, [user, boardName])
-
-    const currentBoard = Object.values(boards).filter(board => board.name === boardName && board.user_id === user.id)
-    
-    const currentBoardPins = () => {
-        const filteredPins = []
-        const currentBoardPins = currentBoard[0]?.pins
-        Object.values(pins).forEach( (pin) => {
-            currentBoardPins.forEach( (boardPin) => {
-                if (pin.id === boardPin) {
-                    filteredPins.push(pin)
-                }
-            })
-        })
-        return filteredPins
-    }
 
     const addPinButton = () => {
         return (
@@ -48,6 +27,8 @@ const BoardShowPinsContainer = (props) => {
             </div>
         )
     }
+
+    const currentBoardPins = board.pins.map((pinId) => pins[pinId])
 
     const pinCounter = () => {
         
@@ -65,19 +46,24 @@ const BoardShowPinsContainer = (props) => {
         return (
             <div className="board-show-pins-container">
                 <BoardPinsIndexContainer
-                    pins={currentBoardPins()}
+                    pins={currentBoardPins}
                 />
             </div>
         )
     }
 
     return loading ? <LoadingContainer/> : boardPinsIndex()
-}
+    }
 
-const mSTP = ({entities:{ boards, pins}}) => {
+const mSTP = ({entities: {pins}}, props) => {
+
     return {
-        boards,
-        pins
+        pins, 
+        board: props.board, 
+        user: props.user, 
+        boardName: props.boardName, 
+        ownsBoard: props.ownsBoard
+        
     }
 }
 

@@ -16,9 +16,11 @@ const PinPhotoContainer = ({pin}) => {
 
     return (
         <div className='pin-item-container'>
-            <Link>
-                <img src={pin.imageUrl}></img>
-            </Link>
+            {/* <Link> */}
+                <img src={pin.imageUrl}>     
+                </img>
+                <div className="pin-item-hover"></div>
+            {/* </Link> */}
             <div className='pin-item-info'>
                 <div className='pin-item-title'>
                     {shortenedPinTitle()}

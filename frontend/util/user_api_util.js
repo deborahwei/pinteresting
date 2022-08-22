@@ -10,7 +10,7 @@ export const fetchUsers = (userIds) => {
     method: "GET",
     url: '/api/users',
     data: {
-      userIds: userIds
+     user_ids: userIds
     }
   }))
 };

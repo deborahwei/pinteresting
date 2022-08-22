@@ -13,7 +13,7 @@ import BoardShowPinsContainer from './board_show_pins'
 const BoardShowContainer = (props) => {
    
     const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal} = props 
-    const [loading, setLoading] = useState(!user)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         if (!user) {
             fetchUserByUsername(username).then( ( {user} ) => {
@@ -23,20 +23,15 @@ const BoardShowContainer = (props) => {
                         setLoading(false)
                     })
                 }
-            }).then(() => {
-                setLoading(false)
             })
         }
-        if (!board && user?.id) { // clean this up
-            fetchBoardByName(user.id, boardName)
+        
+        fetchBoardByName(user.id, boardName)
                 .finally(() => {
                 setLoading(false)
             })
-        }
-
     }, [])
 
-    
     const ownsBoard = currentUser.username === user?.username
 
     const openRef = useRef(null)

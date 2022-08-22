@@ -29,6 +29,12 @@
     padding-bottom: 20px;
     padding-right: 20px;
 
+    .pin-item-hover {
+        height: 100%;
+        width: 100%;
+        background-color: green;
+    }
+
     .pin-item-info {
         font-size: 14px;
         display: flex;
@@ -46,5 +52,10 @@
         height: 90%;
         display: flex;
         border-radius: $pin-border-radius;
+        cursor: zoom-in;
+
+        &:hover {
+            background-color: black;
+        }
     }
 }
