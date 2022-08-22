@@ -21,8 +21,6 @@ a {
 
 .logo-logged-in {
     color: $logo-red;
-    padding-top: 8px;
-    padding-top: 24px;
     cursor: pointer;
 }
 
@@ -31,6 +29,22 @@ a {
     flex-direction: row;
     justify-content: space-evenly;
     width: 15%;
+
+    .hover-logo {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        margin-top: 5px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: $search-bar-grey;
+        }
+    }
     
     .home-button {
         display:flex; 
@@ -70,7 +84,7 @@ a {
     flex-direction: row;
     flex: 1 1 auto;
     position: relative;
-    width: 65%;
+    width: 70%;
     height: 50px;
     padding-bottom: 5px;
 
@@ -138,7 +152,7 @@ a {
     display: flex; 
     flex-direction: row;
     justify-content: space-evenly;
-    width: 20%;
+    width: 15%;
 
     .logged-in-socials {
         display: flex;
@@ -147,7 +161,6 @@ a {
         width: 70%;
 
         a {
-            background-color: $search-bar-grey;
             width: 40px; 
             height: 40px;
             border-radius: 50%;
@@ -155,6 +168,10 @@ a {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
+            &:hover {
+                background-color: $search-bar-grey;
+            }
         }
 
         .fa-github {
@@ -175,6 +192,10 @@ a {
 .user-profile-icon {
     cursor: pointer;
     margin: 7px 0px 0px 0px;
+
+    &:hover {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    }
 }
 
 .user-avatar {
@@ -182,13 +203,6 @@ a {
     height: 23px; 
     width: 23px;
     cursor: pointer;
-
-    a {
-        background-color: $search-bar-grey;
-        width: 40px; 
-        height: 40px;
-        border-radius: 50%;
-    }
 
 }
 
@@ -217,7 +231,6 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 1px;
 }
 
 

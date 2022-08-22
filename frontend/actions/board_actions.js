@@ -64,6 +64,7 @@ export const deleteBoard = (boardId) => dispatch => (
 ); 
 
 export const fetchBoardByName = (userId, name) => dispatch => {
+  console.log(userId)
   return BoardAPIUtil.fetchBoardByName(userId, name).then(board => (
       dispatch(receiveBoard(board))
   ))

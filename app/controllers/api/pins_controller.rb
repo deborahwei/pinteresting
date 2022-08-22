@@ -9,8 +9,12 @@ class Api::PinsController < ApplicationController
     end
 
     def index # returns all the pins for home page
-        @pins = Pin.all
-        render "api/pins/index" 
+        @pins = Pin.find_pins_by_ids(params[:pin_ids])
+        if @pins
+            render "api/pins/index"
+        else
+            render json: ["Oops, something went wrong"], status: 422
+        end
     end
     
     def find_saved_pins

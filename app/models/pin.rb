@@ -18,10 +18,20 @@ class Pin < ApplicationRecord
     through: :board_to_pin_relationships, 
     source: :board
 
+    has_many :comments, dependent: :destroy
+
     def ensure_image
-        unless self.image.attached?
-          errors[:image] << "must be attached"
-        end
+      unless self.image.attached?
+        errors[:image] << "must be attached"
+      end
+    end
+
+    def self.find_pins_by_ids(pin_ids)
+      return if pin_ids.nil? || pin_ids.empty? 
+
+      Pin.with_attached_image
+         .select("pins.*")
+         .where("pins.id in (#{pin_ids.join(", ")})")
     end
 
     def self.retrieve_creator(pin_id)

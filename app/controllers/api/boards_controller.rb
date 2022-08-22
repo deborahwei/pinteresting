@@ -2,12 +2,17 @@ class Api::BoardsController < ApplicationController
 
     before_action :find_by_name, only: [:find_by_name]
     before_action :find_boards_by_username, only: [:find_boards_by_username]
+    before_action :find_all_boards_pins, only: [:find_all_boards_pins]
 
     def index
         @boards = Board.where(user_id: params[:user_id])
         render "api/boards/index"
-
     end
+
+    # def find_all_boards_pins 
+#     board_ids = params[:board_ids] # array of board_ids
+    #     Board.find()
+    # end
 
     def show 
         @board = Board.find(params[:id])

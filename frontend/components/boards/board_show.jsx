@@ -12,7 +12,6 @@ import { closeDropdown } from '../dropdown/close_dropdown'
 const BoardShowContainer = (props) => {
    
     const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal} = props 
-
     const [loading, setLoading] = useState(!user)
     useEffect(() => {
         if (!user) {

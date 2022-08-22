@@ -27,7 +27,7 @@ export const splashInfo = [
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/3c7b90f24c417a97551c42ab156f3a12.jpg",
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/57d94e16c7b01a951f3c7c65ef3bd317.jpg",
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/88c7fdbb087256bf78432b4a6e727778.jpg",
-            "https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707d3165dcfbbdf3771fb91a6dee1d+(1).jpg",
+            "https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707d3165dcfbbdf3771fb91a6dee1d.jpg",
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707d3165dcfbbdf3771fb91a6dee1d.jpg",
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/c1f6abc92752b425d40882d8f1495aaa.jpg",
             "https://fs-pinteresting-dev.s3.amazonaws.com/interior/c24477938b8f0a63aef9c12c542f8d88.jpg",

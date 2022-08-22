@@ -5,11 +5,10 @@ import {fetchBoards} from '../../actions/board_actions'
 import { openModal } from '../../actions/modal_actions'
 import LoadingContainer from '../generic/loading'
 import BoardPreviewContainer from "../boards/board_preview_show"
-import { filterUserBoards } from '../../reducers/selector'
+import { fetchPins } from "../../actions/pin_actions"
 
 const UserShowSavedContainer = (props) => {
-    if (!boards) return null
-    const {fetchBoards, isUser, openModal, user, boards} = props
+    const {fetchBoards, isUser, openModal, user, boards, pins, fetchPins} = props
     const boardsEmpty = Object.keys(boards).length === 0
     const [loading, setLoading] = useState(boardsEmpty)
 
@@ -18,8 +17,14 @@ const UserShowSavedContainer = (props) => {
     }
 
     useEffect( () => {
-        fetchBoards(user.id).finally((setLoading(false)))
-    }, [])
+        fetchBoards(user.id)
+            .then(resp => {
+                fetchPins(resp.boards, pins)
+            })
+            .finally((setLoading(false)))
+    }, [user])
+    
+    const currentBoards = Object.values(boards).filter( board => board.user_id == user.id )
     
     const noBoards = () => {
           return (     
@@ -38,12 +43,13 @@ const UserShowSavedContainer = (props) => {
         return (
         <div className="boards-index-container">
             {
-                Object.keys(boards).map( (boardId, i) => <BoardPreviewContainer
+                currentBoards.map( (board, i) => <BoardPreviewContainer
                 key={i}
-                board={boards[parseInt(boardId)]}
+                board={board}
                 openModal={openModal}
                 user={user} 
                 isUser={isUser}
+                pins={board.pins.map(id => pins[id])}
                 /> )
             }
         </div>
@@ -55,22 +61,19 @@ const UserShowSavedContainer = (props) => {
 
 }
 
-// const mSTP = ({entities: {boards}}) => {
-//     return {
-//         boards: boards
-//     }
-// }
+const mSTP = ({entities: {boards, pins}}) => {
 
-const mSTP = (state, props) => {
     return {
-        boards: filterUserBoards(state, props.user.id)
+        boards,
+        pins
     }
 }
 
 const mDTP = dispatch => {
     return {
         fetchBoards: (userId) => dispatch(fetchBoards(userId)),
-        openModal: (formType, props) => dispatch(openModal(formType, props))
+        openModal: (formType, props) => dispatch(openModal(formType, props)),
+        fetchPins: (boards, pins) => dispatch(fetchPins(boards, pins))
     }
 }
 

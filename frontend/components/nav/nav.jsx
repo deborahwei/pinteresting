@@ -15,6 +15,7 @@ const Nav = (props) => {
     const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const createRef = useRef(null)
     const [createOpen, setCreateOpen] = closeDropdown(createRef, false)
+
     const [query, setQuery] = useState("") // looks up pins by tags 
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -67,12 +68,10 @@ const Nav = (props) => {
             </div>
         </div>        
     )
-
-
     const loggedIn = () => (
         <div className="logged-in-nav">
             <div className='logged-in-nav-left'>
-                <NavLink to="/">
+                <NavLink to="/" className="hover-logo">
                     <i className="fa-brands fa-pinterest fa-flip-horizontal fa-xl logo-logged-in"></i>
                 </NavLink>
                 <Link to="/">
@@ -109,7 +108,7 @@ const Nav = (props) => {
                     <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-solid fa-user fa-xl"></i></a>
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
-                    <Link to={`/users/${currentUser.username}/`}>
+                    <Link to={`/users/${currentUser.username}/`} className="hover-user-pic">
                         <ProfilePicture user={currentUser} hasPhoto={false}/> 
                     </Link>
                 </div>

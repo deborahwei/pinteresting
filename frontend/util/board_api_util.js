@@ -36,7 +36,7 @@ export const deleteBoard = (boardId) => (
 );
 
 
-export const fetchBoardByName = (name) => {
+export const fetchBoardByName = (userId, name) => {
   return Promise.resolve($.ajax({
     method: 'GET',
     url: `/api/users/${userId}/boards/name/${name}`

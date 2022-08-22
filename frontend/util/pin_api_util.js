@@ -5,10 +5,13 @@ export const fetchPin = (pinId) => (
     }))
 );
 
-export const fetchPins = () => { // home page pins 
+export const fetchPins = (pinIds) => { 
   return Promise.resolve($.ajax({
     method: 'GET',
-    url: `/api/pins`
+    url: `/api/pins`,
+    data: {
+      pin_ids: pinIds
+    }
   }))
 };
 

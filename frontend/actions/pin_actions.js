@@ -33,14 +33,31 @@ export const receivePinErrors = (errors) => {
     }
 }
 
-export const fetchPins = () => dispatch => (
-    PinAPIUtil.fetchPins().then(pins => (
-      dispatch(receivePins(pins))
-    ))
-);
+export const fetchPins = (boards, pins) => dispatch => {
+    const pinsSet = new Set();
+    Object.values(boards).forEach( board => {
+        board.pins.forEach(pinId => pinsSet.add(pinId));
+    })
+    const pinIds = [];
+    for (const pinId of pinsSet) {
+        if (!(pinId in pins))
+            pinIds.push(pinId)
+    }
+    if (pinIds.length > 0) {
+        return PinAPIUtil.fetchPins(pinIds).then(pins => {
+            return dispatch(receivePins(pins))
+        })
+    }
+}
 
 export const fetchPin = pinId => dispatch => (
     PinAPIUtil.fetchPin(pinId).then(pin => (
+      dispatch(receivePin(pin))
+    ))
+);
+
+export const deletePin = pinId => dispatch => (
+    PinAPIUtil.deletePin(pinId).then(() => (
       dispatch(receivePin(pin))
     ))
 );

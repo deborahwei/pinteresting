@@ -5,7 +5,7 @@ import { MAX_NAME_CHAR } from '../../util/constants_util'
 
 const BoardPreviewContainer = (props) => {
 
-    const {board, user, openModal, isUser} = props 
+    const {board, user, openModal, isUser, pins} = props 
 
     const boardName = () => {
         const boardName = board.name.split("")
@@ -26,11 +26,12 @@ const BoardPreviewContainer = (props) => {
                     board={board}
                     isUser={isUser}
                     user={user}
+                    pins={pins.slice(0,3)}
                     />
                 </div>
                 <div className='board-preview-text'>
                     <h1>{boardName()}</h1>
-                    <p>{`Pins`}</p> 
+                    <p>{`${pins.length} Pins`}</p> 
                 </div>
             </div>
         </Link>

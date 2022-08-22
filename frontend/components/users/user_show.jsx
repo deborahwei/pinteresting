@@ -41,7 +41,7 @@ const UserShowContainer = (props) => {
     }
     useEffect(() => {
         if (!user) {
-            fetchUserByUsername(username).then(fetchUserBoardsByUsername)
+            fetchUserByUsername(username)
                 .finally(() => {
                     setLoading(false)
                 })
