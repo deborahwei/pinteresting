@@ -23,7 +23,6 @@ const UserShowSavedContainer = (props) => {
             })
             .finally((setLoading(false)))
     }, [user])
-    
     const currentBoards = Object.values(boards).filter( board => board.user_id == user.id )
     
     const noBoards = () => {
@@ -56,8 +55,19 @@ const UserShowSavedContainer = (props) => {
         )
 
     }
+
+    const content = () => {
+        return (
+            <div className='user-show-content'>
+                <div className='board-or-nah-container'>
+                    {boardsEmpty ? noBoards() : boardsIndex()}
+                </div>
+                <div className="unorganized-ideas" ></div>
+            </div>
+        )
+    }
           
-    return loading ? <LoadingContainer/> : boardsEmpty ? noBoards() : boardsIndex()
+    return loading ? <LoadingContainer/> : content()
 
 }
 

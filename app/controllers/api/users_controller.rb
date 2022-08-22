@@ -2,6 +2,15 @@ class Api::UsersController < ApplicationController
 
     before_action :find_by_username, only: [:find_by_username]
 
+    def index 
+      @users = User.find_users_by_ids(params[:user_ids])
+      if @users 
+        render "api/users/index"
+      else 
+        render json: ["Oops, something went wrong"], status: 422 
+      end
+    end
+
     def create
       @user = User.new(user_params)
   

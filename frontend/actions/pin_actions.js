@@ -33,7 +33,7 @@ export const receivePinErrors = (errors) => {
     }
 }
 
-export const fetchPins = (boards, pins) => dispatch => {
+export const fetchPins = (boards, pins) => dispatch => {  
     const pinsSet = new Set();
     Object.values(boards).forEach( board => {
         board.pins.forEach(pinId => pinsSet.add(pinId));

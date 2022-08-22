@@ -8,6 +8,7 @@ import { fetchBoardByName } from '../../actions/board_actions'
 import LoadingContainer from '../generic/loading'
 import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
+import BoardShowPinsContainer from './board_show_pins'
 
 const BoardShowContainer = (props) => {
    
@@ -86,7 +87,12 @@ const BoardShowContainer = (props) => {
                 </div>
             </div>
             <div className="board-show-pins">
-
+                <BoardShowPinsContainer
+                    ownsBoard={ownsBoard}
+                    user={user}
+                    boardName={boardName}
+                    board={board}
+                />
             </div>
         </div>
     )

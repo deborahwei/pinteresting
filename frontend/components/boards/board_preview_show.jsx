@@ -2,10 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import BoardPreviewCover from './board_preview_cover'
 import { MAX_NAME_CHAR } from '../../util/constants_util'
+import { timeSince } from '../../util/time_util'
 
 const BoardPreviewContainer = (props) => {
 
     const {board, user, openModal, isUser, pins} = props 
+    console.log(board)
+    if (!board) return null
 
     const boardName = () => {
         const boardName = board.name.split("")
@@ -31,7 +34,10 @@ const BoardPreviewContainer = (props) => {
                 </div>
                 <div className='board-preview-text'>
                     <h1>{boardName()}</h1>
-                    <p>{`${pins.length} Pins`}</p> 
+                    <div className='board-preview-subtext'>
+                        <p>{`${pins.length} Pins`}</p> 
+                        <p>{timeSince(board.created_at)}</p>
+                    </div>
                 </div>
             </div>
         </Link>

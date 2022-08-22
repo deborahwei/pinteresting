@@ -7,3 +7,5 @@ export const BREAKPOINTS = {
 }
 
 export const MAX_NAME_CHAR = 17
+
+export const MAX_TITLE_CHAR = 30

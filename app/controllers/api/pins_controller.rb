@@ -8,7 +8,7 @@ class Api::PinsController < ApplicationController
         render "api/pins/show"
     end
 
-    def index # returns all the pins for home page
+    def index 
         @pins = Pin.find_pins_by_ids(params[:pin_ids])
         if @pins
             render "api/pins/index"

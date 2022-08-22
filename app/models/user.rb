@@ -28,6 +28,14 @@ class User < ApplicationRecord
         end
     end
 
+    def self.find_users_by_ids(user_ids)
+        return if user_ids.nil? || user_ids.empty? 
+
+        User
+            .select("users.*")
+            .where("users.id in (#{user_ids.join(", ")})")
+    end
+
     def password=(password)
         @password = password
         self.password_digest = BCrypt::Password.create(password)

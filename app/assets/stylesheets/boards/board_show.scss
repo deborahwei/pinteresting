@@ -88,6 +88,10 @@
     .board-show-pins {
         height: 70%;
         width: 100%;
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 

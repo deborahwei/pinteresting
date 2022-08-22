@@ -56,10 +56,11 @@
 
 .user-show-content-container {
     display: flex; 
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
     height: 60%;
+    padding-left: 100px;
 }
 
 

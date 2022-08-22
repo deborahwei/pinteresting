@@ -97,7 +97,6 @@ var deleteBoard = function deleteBoard(boardId) {
 };
 var fetchBoardByName = function fetchBoardByName(userId, name) {
   return function (dispatch) {
-    console.log(userId);
     return _util_board_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchBoardByName(userId, name).then(function (board) {
       return dispatch(receiveBoard(board));
     });
@@ -107,6 +106,49 @@ var fetchUserBoardsByUsername = function fetchUserBoardsByUsername(username) {
   return function (dispatch) {
     return _util_board_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchUserBoardsByUsername(username).then(function (boards) {
       return dispatch(receiveBoards(boards));
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./frontend/actions/board_pins_actions.js":
+/*!************************************************!*\
+  !*** ./frontend/actions/board_pins_actions.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addPinToBoard": () => (/* binding */ addPinToBoard),
+/* harmony export */   "fetchBoardPins": () => (/* binding */ fetchBoardPins),
+/* harmony export */   "removePinFromBoard": () => (/* binding */ removePinFromBoard)
+/* harmony export */ });
+/* harmony import */ var _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/board_pin_api_util */ "./frontend/util/board_pin_api_util.js");
+/* harmony import */ var _board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _pin_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pin_actions */ "./frontend/actions/pin_actions.js");
+
+
+
+var addPinToBoard = function addPinToBoard(boardId, pinId) {
+  return function (dispatch) {
+    return _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.addPinToBoard(boardId, pinId).then(function (board) {
+      return dispatch((0,_board_actions__WEBPACK_IMPORTED_MODULE_1__.receiveBoard)(board));
+    });
+  };
+};
+var removePinFromBoard = function removePinFromBoard(boardId, pinId) {
+  return function (dispatch) {
+    return _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.removePinFromBoard(boardId, pinId).then(function (board) {
+      return dispatch((0,_board_actions__WEBPACK_IMPORTED_MODULE_1__.receiveBoard)(board));
+    });
+  };
+};
+var fetchBoardPins = function fetchBoardPins(boardId) {
+  return function (dispatch) {
+    return _util_board_pin_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchBoardPins(boardId).then(function (pins) {
+      return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_2__.receivePins)(pins));
     });
   };
 };
@@ -381,7 +423,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
-var RECEIVE_USER = "RECEIVE_USER";
+var RECEIVE_USER = "RECEIVE_USER"; // export const fetchUsers = (users) => dispatch => {
+//     return UserAPIUtil.fetchUsers(userIds).then(users => )
+// }
+
 var receiveUser = function receiveUser(user) {
   return {
     type: RECEIVE_USER,
@@ -945,9 +990,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _board_preview_cover__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_preview_cover */ "./frontend/components/boards/board_preview_cover.jsx");
 /* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+/* harmony import */ var _util_time_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/time_util */ "./frontend/util/time_util.js");
+
 
 
 
@@ -959,6 +1006,8 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
       openModal = props.openModal,
       isUser = props.isUser,
       pins = props.pins;
+  console.log(board);
+  if (!board) return null;
 
   var boardName = function boardName() {
     var boardName = board.name.split("");
@@ -970,7 +1019,7 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     }
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
     to: "/users/".concat(user.username, "/boards/").concat(board.name)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-container"
@@ -984,7 +1033,9 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     pins: pins.slice(0, 3)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, boardName()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "".concat(pins.length, " Pins")))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, boardName()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "board-preview-subtext"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "".concat(pins.length, " Pins")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(board.created_at))))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewContainer);
@@ -1004,7 +1055,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
@@ -1013,6 +1064,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 /* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
 /* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _board_show_pins__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./board_show_pins */ "./frontend/components/boards/board_show_pins.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1024,6 +1076,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -1118,7 +1171,7 @@ var BoardShowContainer = function BoardShowContainer(props) {
       className: "edit-board-option"
     }, "Edit board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.NavLink, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.NavLink, {
       to: "/users/".concat(user.username, "/saved")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner-profile"
@@ -1129,7 +1182,12 @@ var BoardShowContainer = function BoardShowContainer(props) {
       className: "board-show-description ".concat((board === null || board === void 0 ? void 0 : board.description) != "" ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, board === null || board === void 0 ? void 0 : board.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-pins"
-    }));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_board_show_pins__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      ownsBoard: ownsBoard,
+      user: user,
+      boardName: boardName,
+      board: board
+    })));
   };
 
   return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_6__["default"], null) : content();
@@ -1167,6 +1225,143 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(BoardShowContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/boards/board_show_pins.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/boards/board_show_pins.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_pins_actions */ "./frontend/actions/board_pins_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _pins_board_pins_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pins/board_pins_index */ "./frontend/components/pins/board_pins_index.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
+  var isUser = props.isUser,
+      user = props.user,
+      boardName = props.boardName,
+      boards = props.boards,
+      pins = props.pins,
+      fetchBoardPins = props.fetchBoardPins,
+      fetchBoardByName = props.fetchBoardByName;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchBoardByName(user.id, boardName).then(function (resp) {
+      fetchBoardPins(resp.board.id);
+    }).then(function (resp) {})["finally"](setLoading(false));
+  }, [user, boardName]);
+  var currentBoard = Object.values(boards).filter(function (board) {
+    return board.name === boardName && board.user_id === user.id;
+  });
+
+  var currentBoardPins = function currentBoardPins() {
+    var _currentBoard$;
+
+    var filteredPins = [];
+    var currentBoardPins = (_currentBoard$ = currentBoard[0]) === null || _currentBoard$ === void 0 ? void 0 : _currentBoard$.pins;
+    Object.values(pins).forEach(function (pin) {
+      currentBoardPins.forEach(function (boardPin) {
+        if (pin.id === boardPin) {
+          filteredPins.push(pin);
+        }
+      });
+    });
+    return filteredPins;
+  };
+
+  var addPinButton = function addPinButton() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-show-plus-container ".concat(!isUser ? "hide" : "")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "plus-circle-".concat(plus ? "clicked" : "unclicked")
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      ref: plusRef,
+      onClick: handlePlusClick,
+      className: "fa-solid fa-plus fa-2xs plus-".concat(plus ? "clicked" : "unclicked")
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "plus-menu ".concat(plus ? "open" : "closed")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Pin")));
+  };
+
+  var pinCounter = function pinCounter() {};
+
+  var hasNoPins = function hasNoPins() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-show-no-pins"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "There aren't any Pins on this board yet"));
+  };
+
+  var boardPinsIndex = function boardPinsIndex() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-show-pins-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_board_pins_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      pins: currentBoardPins()
+    }));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : boardPinsIndex();
+};
+
+var mSTP = function mSTP(_ref) {
+  var _ref$entities = _ref.entities,
+      boards = _ref$entities.boards,
+      pins = _ref$entities.pins;
+  return {
+    boards: boards,
+    pins: pins
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchBoardPins: function fetchBoardPins(boardId) {
+      return dispatch((0,_actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__.fetchBoardPins)(boardId));
+    },
+    fetchBoardByName: function fetchBoardByName(userId, name) {
+      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_4__.fetchBoardByName)(userId, name));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(BoardShowPinsContainer));
+{
+  /* <div className={`board${ownsBoard ? "-show" : "-hide"}}-number-pins`}></div> */
+} // <div className={`board${ownsBoard ? "-show" : "-hide"}}-add-pins`}></div>
+// import pins and the number of the pins, has a click dropdown, and also return either no pins or has pins
 
 /***/ }),
 
@@ -1681,6 +1876,97 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(Nav));
+
+/***/ }),
+
+/***/ "./frontend/components/pins/board_pins_index.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/pins/board_pins_index.jsx ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
+
+
+
+
+
+var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
+  var pins = _ref.pins;
+  if (pins.length === 0) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "board-pins-index-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    className: "masonry-pins-grid",
+    breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS,
+    columnClassName: "masonry-pins-column"
+  }, pins.map(function (pin, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      key: i,
+      pin: pin
+    });
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPinsIndexContainer);
+
+/***/ }),
+
+/***/ "./frontend/components/pins/pin_item.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/pins/pin_item.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+
+
+
+
+var PinPhotoContainer = function PinPhotoContainer(_ref) {
+  var pin = _ref.pin;
+
+  var shortenedPinTitle = function shortenedPinTitle() {
+    var splitPinTitle = pin.title.split("");
+
+    if (splitPinTitle.length > _util_constants_util__WEBPACK_IMPORTED_MODULE_1__.MAX_TITLE_CHAR) {
+      return splitPinTitle.splice(0, _util_constants_util__WEBPACK_IMPORTED_MODULE_1__.MAX_TITLE_CHAR).join("").concat("...");
+    } else {
+      return pin.title;
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pin-item-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: pin.imageUrl
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pin-item-info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pin-item-title"
+  }, shortenedPinTitle()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pin-item-user"
+  }, "Fabio")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PinPhotoContainer);
 
 /***/ }),
 
@@ -2777,7 +3063,17 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
     }));
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : boardsEmpty ? noBoards() : boardsIndex();
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "user-show-content"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "board-or-nah-container"
+    }, boardsEmpty ? noBoards() : boardsIndex()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "unorganized-ideas"
+    }));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : content();
 };
 
 var mSTP = function mSTP(_ref) {
@@ -3304,6 +3600,52 @@ var fetchUserBoardsByUsername = function fetchUserBoardsByUsername(username) {
 
 /***/ }),
 
+/***/ "./frontend/util/board_pin_api_util.js":
+/*!*********************************************!*\
+  !*** ./frontend/util/board_pin_api_util.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addPinToBoard": () => (/* binding */ addPinToBoard),
+/* harmony export */   "fetchBoardPins": () => (/* binding */ fetchBoardPins),
+/* harmony export */   "removePinFromBoard": () => (/* binding */ removePinFromBoard)
+/* harmony export */ });
+var fetchBoardPins = function fetchBoardPins(boardId) {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/board_pins",
+    data: {
+      board_id: boardId
+    }
+  }));
+};
+var addPinToBoard = function addPinToBoard(boardId, pinId) {
+  return Promise.resolve($.ajax({
+    method: 'POST',
+    url: "/api/board_pins",
+    data: {
+      board_id: boardId,
+      pin_id: pinId
+    }
+  }));
+};
+var removePinFromBoard = function removePinFromBoard(boardId, pinId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/board_pins/delete",
+    // route needs an id at the end 
+    data: {
+      board_id: boardId,
+      pin_id: pinId
+    }
+  });
+};
+
+/***/ }),
+
 /***/ "./frontend/util/constants_util.js":
 /*!*****************************************!*\
   !*** ./frontend/util/constants_util.js ***!
@@ -3314,7 +3656,8 @@ var fetchUserBoardsByUsername = function fetchUserBoardsByUsername(username) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "BREAKPOINTS": () => (/* binding */ BREAKPOINTS),
-/* harmony export */   "MAX_NAME_CHAR": () => (/* binding */ MAX_NAME_CHAR)
+/* harmony export */   "MAX_NAME_CHAR": () => (/* binding */ MAX_NAME_CHAR),
+/* harmony export */   "MAX_TITLE_CHAR": () => (/* binding */ MAX_TITLE_CHAR)
 /* harmony export */ });
 var BREAKPOINTS = {
   "default": 7,
@@ -3324,6 +3667,7 @@ var BREAKPOINTS = {
   1080: 3
 };
 var MAX_NAME_CHAR = 17;
+var MAX_TITLE_CHAR = 30;
 
 /***/ }),
 
@@ -3529,6 +3873,59 @@ var logout = function logout() {
 
 /***/ }),
 
+/***/ "./frontend/util/time_util.js":
+/*!************************************!*\
+  !*** ./frontend/util/time_util.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "timeSince": () => (/* binding */ timeSince)
+/* harmony export */ });
+var timeSinceHelper = function timeSinceHelper(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + "y";
+  }
+
+  interval = seconds / 2592000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + "m";
+  }
+
+  interval = seconds / 86400;
+
+  if (interval > 1) {
+    return Math.floor(interval) + "d";
+  }
+
+  interval = seconds / 3600;
+
+  if (interval > 1) {
+    return Math.floor(interval) + "h";
+  }
+
+  interval = seconds / 60;
+
+  if (interval > 1) {
+    return Math.floor(interval) + "m";
+  }
+
+  return Math.floor(seconds) + "s";
+};
+
+var timeSince = function timeSince(date) {
+  var aDay = 24 * 60 * 60 * 1000;
+  return timeSinceHelper(new Date(date) - aDay);
+};
+
+/***/ }),
+
 /***/ "./frontend/util/user_api_util.js":
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
@@ -3539,13 +3936,23 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
-/* harmony export */   "fetchUserByUsername": () => (/* binding */ fetchUserByUsername)
+/* harmony export */   "fetchUserByUsername": () => (/* binding */ fetchUserByUsername),
+/* harmony export */   "fetchUsers": () => (/* binding */ fetchUsers)
 /* harmony export */ });
 var fetchUser = function fetchUser(userId) {
   return $.ajax({
     method: 'GET',
     url: "/api/users/".concat(userId)
   });
+};
+var fetchUsers = function fetchUsers(userIds) {
+  return Promise.resolve($.ajax({
+    method: "GET",
+    url: '/api/users',
+    data: {
+      userIds: userIds
+    }
+  }));
 };
 var fetchUserByUsername = function fetchUserByUsername(username) {
   return Promise.resolve($.ajax({

@@ -47,45 +47,45 @@ image_5 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/fe
 pin_5.image.attach(io: image_5, filename:"felipe-giacometti-ACbHQqST3sY-unsplash-min.jpg")
 pin_5.save!
 
-# pin_6 = Pin.create({title: "My Pretty Universe", description: "All the beautiful things I don´t own any of the pictures I´m posting"})
-# image_6 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/beau-runsten-BgPf2FHePBM-unsplash.jpg")
-# pin_6.image.attach(io: image_6, filename:"beau-runsten-BgPf2FHePBM-unsplash.jpg")
-# pin_6.save!
+pin_6 = Pin.create({title: "My Pretty Universe", description: "All the beautiful things I don´t own any of the pictures I´m posting"})
+image_6 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/beau-runsten-BgPf2FHePBM-unsplash.jpg")
+pin_6.image.attach(io: image_6, filename:"beau-runsten-BgPf2FHePBM-unsplash.jpg")
+pin_6.save!
 
-# pin_7 = Pin.create({title: "COUNTRY TILL I DIE", description: "Male, 54. Born and raised in dairy farm country. Enjoy the country life and the outdoors. Also check out my other blog direwulf63, and WHATEVER i CAN GET AWAY WITH"})
-# image_7 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/bradley-dunn-9SGGun3iIig-unsplash.jpg")
-# pin_7.image.attach(io: image_7, filename:"bradley-dunn-9SGGun3iIig-unsplash.jpg")
-# pin_7.save!
+pin_7 = Pin.create({title: "COUNTRY TILL I DIE", description: "Male, 54. Born and raised in dairy farm country. Enjoy the country life and the outdoors. Also check out my other blog direwulf63, and WHATEVER i CAN GET AWAY WITH"})
+image_7 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/bradley-dunn-9SGGun3iIig-unsplash.jpg")
+pin_7.image.attach(io: image_7, filename:"bradley-dunn-9SGGun3iIig-unsplash.jpg")
+pin_7.save!
 
-# pin_8 = Pin.create({title: "Sun Glowing Over A Snowy Tree Landscape", description: "Stock Image: Sun Glowing Over A Snowy Tree Landscape"})
-# image_8 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
-# pin_8.image.attach(io: image_8, filename:"felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
-# pin_8.save!
+pin_8 = Pin.create({title: "Sun Glowing Over A Snowy Tree Landscape", description: "Stock Image: Sun Glowing Over A Snowy Tree Landscape"})
+image_8 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
+pin_8.image.attach(io: image_8, filename:"felipe-giacometti-FN4cCdslXuE-unsplash-min.jpg")
+pin_8.save!
 
-# pin_9 = Pin.create({title: "snow angel by Viktoria Haack / 500px", description: "Out the front window"})
-# image_9 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
-# pin_9.image.attach(io: image_9, filename:"joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
-# pin_9.save!
+pin_9 = Pin.create({title: "snow angel by Viktoria Haack / 500px", description: "Out the front window"})
+image_9 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
+pin_9.image.attach(io: image_9, filename:"joel-jasmin-forestbird-CsJVqKdWpl4-unsplash-min.jpg")
+pin_9.save!
 
-# pin_10 = Pin.create({title: "winter cottagecore *chefs kiss*", description: "Cottagecore is an aesthetic depicting a simple, romanticized life in nature. It features themes of farm animals, earthy tones, soft illustrations,..."})
-# image_10 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
-# pin_10.image.attach(io: image_10, filename:"jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
-# pin_10.save!
+pin_10 = Pin.create({title: "winter cottagecore *chefs kiss*", description: "Cottagecore is an aesthetic depicting a simple, romanticized life in nature. It features themes of farm animals, earthy tones, soft illustrations,..."})
+image_10 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
+pin_10.image.attach(io: image_10, filename:"jorg-angeli-cCzeLwUCmnM-unsplash.jpg")
+pin_10.save!
 
-# pin_11 = Pin.create({title: "2017-12-18_02-30-40", description: "Monday night update"})
-# image_11 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
-# pin_11.image.attach(io: image_11, filename:"malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
-# pin_11.save!
+pin_11 = Pin.create({title: "2017-12-18_02-30-40", description: "Monday night update"})
+image_11 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
+pin_11.image.attach(io: image_11, filename:"malte-schmidt-5oh_gv07cBY-unsplash-min.jpg")
+pin_11.save!
 
-# pin_12 = Pin.create({title: "Winter wallpaper by rosemaria4111 - Download on ZEDGE™ | e10e", description: "Download Winter wallpaper by rosemaria4111 on ZEDGE™ now. Browse millions of popular free and premium wallpapers and ringtones on ZEDGE™ and personalize your phone to suit you. Browse now! | e10e"})
-# image_12 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/nic-y-c-YvUT4BtBbn8-unsplash.jpg")
-# pin_12.image.attach(io: image_12, filename:"nic-y-c-YvUT4BtBbn8-unsplash.jpg")
-# pin_12.save!
+pin_12 = Pin.create({title: "Winter wallpaper by rosemaria4111 - Download on ZEDGE™ | e10e", description: "Download Winter wallpaper by rosemaria4111 on ZEDGE™ now. Browse millions of popular free and premium wallpapers and ringtones on ZEDGE™ and personalize your phone to suit you. Browse now! | e10e"})
+image_12 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/nic-y-c-YvUT4BtBbn8-unsplash.jpg")
+pin_12.image.attach(io: image_12, filename:"nic-y-c-YvUT4BtBbn8-unsplash.jpg")
+pin_12.save!
 
-# pin_13 = Pin.create({title: "Monday night update", description: "All the beautiful things of the world"})
-# image_13 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
-# pin_13.image.attach(io: image_13, filename:"patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
-# pin_13.save!
+pin_13 = Pin.create({title: "Monday night update", description: "All the beautiful things of the world"})
+image_13 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
+pin_13.image.attach(io: image_13, filename:"patrick-robert-doyle-svS24gSgqRs-unsplash-min.jpg")
+pin_13.save!
 
 # pin_14 = Pin.create({title: "Sunset, horizon, clean sky, glacier, mountains, nature, 1080x2160 wallpaper", description: "Download Sunset, horizon, clean sky, glacier, mountains, nature 1080x2160 wallpaper, Honor 7X, Honor 9 Lite, Honor View 10, 18067"})
 # image_14 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/sirisvisual-SrjF-UxQ69U-unsplash-min.jpg")
@@ -350,6 +350,14 @@ board_pin_2 = BoardPin.create({board_id: board_1.id, pin_id: pin_2.id})
 board_pin_3 = BoardPin.create({board_id: board_1.id, pin_id: pin_3.id})
 board_pin_4 = BoardPin.create({board_id: board_1.id, pin_id: pin_4.id})
 board_pin_5 = BoardPin.create({board_id: board_1.id, pin_id: pin_5.id})
+board_pin_6 = BoardPin.create({board_id: board_1.id, pin_id: pin_6.id})
+board_pin_7 = BoardPin.create({board_id: board_1.id, pin_id: pin_7.id})
+board_pin_8 = BoardPin.create({board_id: board_1.id, pin_id: pin_8.id})
+board_pin_9 = BoardPin.create({board_id: board_1.id, pin_id: pin_9.id})
+board_pin_10 = BoardPin.create({board_id: board_1.id, pin_id: pin_10.id})
+board_pin_11 = BoardPin.create({board_id: board_1.id, pin_id: pin_11.id})
+board_pin_12 = BoardPin.create({board_id: board_1.id, pin_id: pin_12.id})
+board_pin_13 = BoardPin.create({board_id: board_1.id, pin_id: pin_13.id})
 
 # board_pin_6 = BoardPin.create({board_id: board_2.id, pin_id: pin_17.id})
 # board_pin_7 = BoardPin.create({board_id: board_2.id, pin_id: pin_18.id})
