@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import LoadingContainer from '../generic/loading'
 
-const PinShowContainer = () => {
+const PinShowContainer = (props) => {
 
     const [loading, setLoading] = useState(true)
 

@@ -24,6 +24,7 @@ export const fetchUsers = (pins, users) => dispatch => {
         if (!(userId in users))
             userIds.push(userId)
     }
+    if (userIds.length === 0) return
     return UserAPIUtil.fetchUsers(userIds).then(users => (
         dispatch(receiveUsers(users))
     ))

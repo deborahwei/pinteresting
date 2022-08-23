@@ -91,7 +91,7 @@ const UserShowContainer = (props) => {
                     <div className={`plus-menu ${ plus ? "open" : "closed"}`}>
                         <p>Create</p>
                         <div>Create pin</div>
-                        <div onClick={openModal('create board')}>Create board</div>
+                        <div onClick={openModal('create board', {boardShow: false} )}>Create board</div>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@ const mSTP = ({session, entities: {users}}, props) => {
 const mDTP = dispatch => {
     return {
         fetchUserByUsername: (username) => dispatch(fetchUserByUsername(username)),
-        openModal: (formType) => dispatch(openModal(formType)),
+        openModal: (formType, props) => dispatch(openModal(formType, props)),
         fetchUserBoardsByUsername: (username) => dispatch(fetchUserBoardsByUsername(username))
     }
 }

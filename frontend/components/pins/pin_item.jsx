@@ -21,10 +21,7 @@ const PinPhotoContainer = ({pin, creator, boardName}) => {
 
     return (
         <div className='pin-item-container'>
-            <Link to={`/pins/${pin.id}`}className="pin-show-link">
-                <img src={pin.imageUrl}>     
-                </img>
-            </Link>
+                <img src={pin.imageUrl}></img>
             <div className={`pin-item-hover`}>
                 <div className={`pin-item-hover-board-name`}>
                     <div className={`pin-dropdown-trigger`} onClick={handleClick} ref={openRef}>
@@ -33,6 +30,11 @@ const PinPhotoContainer = ({pin, creator, boardName}) => {
                     </div>
                     <SavePinButton/>
                 </div>
+                <Link to={`/pins/${pin.id}`} className="pin-show-link">
+                    <div>
+
+                    </div>
+                </Link>
             </div>
             <div onClick={handleDropdownClick} className={`pin-add-menu ${open ? "open" : "closed"}`}>
                 <AddPinDropdown/> 

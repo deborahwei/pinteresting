@@ -5,12 +5,13 @@ import { BREAKPOINTS } from '../../util/constants_util'
 import PinPhotoContainer from './pin_item'
 import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
+import { fetchBoards } from '../../actions/board_actions'
 
-const BoardPinsIndexContainer = ({pins, users, fetchUsers, boardName}) => {
+const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, boardName}) => {
   
     const [loading, setLoading] = useState(true)
     useEffect( () => {
-        fetchUsers(pins, users).finally(() => setLoading(false))
+        fetchBoards(currentUser.id).then(() => fetchUsers(pins, users)).finally(() => setLoading(false))
     }, [])
 
     const findPinCreator = (pin) => {
@@ -40,14 +41,16 @@ const BoardPinsIndexContainer = ({pins, users, fetchUsers, boardName}) => {
     return loading ? <LoadingContainer/> : content()
 }
 
-export const mSTP = ({entities: {users}}) => {
+export const mSTP = ({session, entities: {users, boards}}) => {
     return {
-        users
+        users, 
+        currentUser: users[session.id]
     }
 }
 
 export const mDTP = (dispatch) => {
     return {
+        fetchBoards: (userId) => dispatch(fetchBoards(userId)),
         fetchUsers: (users, pins) => dispatch(fetchUsers(users, pins))
     }
 }

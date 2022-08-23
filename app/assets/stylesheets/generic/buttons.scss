@@ -33,3 +33,47 @@
         background-color: $hover-red;
     }
 }
+
+.board-show-plus {
+    z-index: 10;
+    bottom: 5px;
+    right: 925px;
+    
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    align-items: center;
+    background-color: white;
+    box-shadow: $box-shadow;
+    cursor: pointer;
+
+    i {
+        -webkit-text-stroke: 0.5px black;
+    }
+}
+
+.board-show-plus.clicked {
+    background-color: black;
+    color: white;
+}
+
+.plus-menu.board-show {
+    position: absolute;
+    top: 790px;
+    left: 880px;
+    z-index: 10;
+}
+
+.pins-counter {
+    position: absolute; 
+    font-weight: $semibold;
+    font-size: 20px;
+    left: 20px;
+    top: 330px;
+}

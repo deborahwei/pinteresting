@@ -468,6 +468,7 @@ var fetchUsers = function fetchUsers(pins, users) {
       _iterator.f();
     }
 
+    if (userIds.length === 0) return;
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchUsers(userIds).then(function (users) {
       return dispatch(receiveUsers(users));
     });
@@ -586,7 +587,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var CreateBoardForm = function CreateBoardForm(props) {
   var createBoard = props.createBoard,
       errors = props.errors,
-      currentUser = props.currentUser;
+      currentUser = props.currentUser,
+      boardShow = props.boardShow;
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -604,11 +606,18 @@ var CreateBoardForm = function CreateBoardForm(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    createBoard(state).then(function () {
-      history.push("/users/".concat(currentUser.username, "/boards/").concat(state.name));
-    }).then(function () {
-      props.closeModal();
-    });
+
+    if (boardShow) {
+      createBoard(state).then(function () {
+        return props.closeModal();
+      });
+    } else {
+      createBoard(state).then(function () {
+        history.push("/users/".concat(currentUser.username, "/boards/").concat(state.name));
+      }).then(function () {
+        props.closeModal();
+      });
+    }
   };
 
   var renderErrors = function renderErrors() {
@@ -643,10 +652,12 @@ var CreateBoardForm = function CreateBoardForm(props) {
 var mSTP = function mSTP(_ref) {
   var errors = _ref.errors,
       users = _ref.entities.users,
-      session = _ref.session;
+      session = _ref.session,
+      props = _ref.ui.modal.props;
   return {
     errors: errors.board,
-    currentUser: users[session.id]
+    currentUser: users[session.id],
+    boardShow: props.boardShow
   };
 };
 
@@ -696,6 +707,10 @@ var DeleteBoardForm = function DeleteBoardForm(props) {
       currentUser = props.currentUser,
       path = props.path;
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
+
+  var refresh = function refresh() {
+    window.location.reload(false);
+  };
 
   var handleDeleteClick = function handleDeleteClick(e) {
     e.preventDefault();
@@ -1225,7 +1240,8 @@ var BoardShowContainer = function BoardShowContainer(props) {
       ownsBoard: ownsBoard,
       user: user,
       boardName: boardName,
-      board: board
+      board: board,
+      hasPins: board.pins.length != 0
     })));
   };
 
@@ -1283,8 +1299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_pins_actions */ "./frontend/actions/board_pins_actions.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
-/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var _pins_board_pins_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pins/board_pins_index */ "./frontend/components/pins/board_pins_index.jsx");
+/* harmony import */ var _pins_board_pins_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pins/board_pins_index */ "./frontend/components/pins/board_pins_index.jsx");
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1311,55 +1327,69 @@ var BoardShowPinsContainer = function BoardShowPinsContainer(props) {
       board = props.board,
       fetchBoardPins = props.fetchBoardPins,
       pins = props.pins,
-      fetchBoardByName = props.fetchBoardByName;
+      hasPins = props.hasPins;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
 
+  var plusRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_5__.closeDropdown)(plusRef, false),
+      _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
+      plus = _closeDropdown2[0],
+      setPlus = _closeDropdown2[1];
+
+  var handlePlusClick = function handlePlusClick() {
+    return setPlus(!plus);
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     fetchBoardPins(board.id)["finally"](function () {
       return setLoading(false);
     });
   }, [user, boardName]);
+  var pinCount = board.pins.length;
 
-  var addPinButton = function addPinButton() {
+  var boardShowButtons = function boardShowButtons() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "board-show-plus-container ".concat(!isUser ? "hide" : "")
+      className: "board-show-buttons ".concat(!ownsBoard ? "hide" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "plus-circle-".concat(plus ? "clicked" : "unclicked")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "pins-counter"
+    }, "".concat(pinCount, " Pins")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "add-pin-button"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       ref: plusRef,
       onClick: handlePlusClick,
-      className: "fa-solid fa-plus fa-2xs plus-".concat(plus ? "clicked" : "unclicked")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "plus-menu ".concat(plus ? "open" : "closed")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Pin")));
+      className: "board-show-plus ".concat(plus ? "clicked" : "unclicked")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-plus fa-2xl"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "plus-menu ".concat(plus ? "open" : "closed", " board-show")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Pin"))));
   };
 
   var currentBoardPins = board.pins.map(function (pinId) {
     return pins[pinId];
   });
 
-  var pinCounter = function pinCounter() {};
-
   var hasNoPins = function hasNoPins() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-no-pins"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "There aren't any Pins on this board yet"));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "There aren't any Pins on this board yet"), boardShowButtons());
   };
 
   var boardPinsIndex = function boardPinsIndex() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-pins-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_board_pins_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_board_pins_index__WEBPACK_IMPORTED_MODULE_4__["default"], {
       pins: currentBoardPins,
       boardName: boardName
-    }));
+    }), boardShowButtons());
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : boardPinsIndex();
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : hasPins ? boardPinsIndex() : hasNoPins();
 };
 
 var mSTP = function mSTP(_ref, props) {
@@ -1377,18 +1407,11 @@ var mDTP = function mDTP(dispatch) {
   return {
     fetchBoardPins: function fetchBoardPins(boardId) {
       return dispatch((0,_actions_board_pins_actions__WEBPACK_IMPORTED_MODULE_2__.fetchBoardPins)(boardId));
-    },
-    fetchBoardByName: function fetchBoardByName(userId, name) {
-      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_4__.fetchBoardByName)(userId, name));
     }
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(BoardShowPinsContainer));
-{
-  /* <div className={`board${ownsBoard ? "-show" : "-hide"}}-number-pins`}></div> */
-} // <div className={`board${ownsBoard ? "-show" : "-hide"}}-add-pins`}></div>
-// import pins and the number of the pins, has a click dropdown, and also return either no pins or has pins
 
 /***/ }),
 
@@ -1405,23 +1428,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _buttons_save_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../buttons/save_button */ "./frontend/components/buttons/save_button.jsx");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
+
+
 
 
 
 var MiniBoardPreview = function MiniBoardPreview(_ref) {
-  var board = _ref.board;
+  var currentUser = _ref.currentUser,
+      board = _ref.board;
 
   var content = function content() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "mini-board-preview-container"
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/users/".concat(currentUser.username, "/boards/").concat(board.name)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "mini-board-info"
+      className: "mini-board-preview-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-cover"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "mini-board-info"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-name"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_save_button__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, board.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_save_button__WEBPACK_IMPORTED_MODULE_1__["default"], null)))));
   };
 
   return content();
@@ -1985,24 +2015,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _util_board_api_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/board_api_util */ "./frontend/util/board_api_util.js");
-/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
-/* harmony import */ var _boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../boards/mini_board_preview */ "./frontend/components/boards/mini_board_preview.jsx");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
+/* harmony import */ var _boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/mini_board_preview */ "./frontend/components/boards/mini_board_preview.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 
 
 
@@ -2012,26 +2026,14 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
   var boards = _ref.boards,
       currentUser = _ref.currentUser,
       openModal = _ref.openModal;
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      loading = _useState2[0],
-      setLoading = _useState2[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    (0,_util_board_api_util__WEBPACK_IMPORTED_MODULE_2__.fetchBoards)(currentUser.id)["finally"](function () {
-      return setLoading(false);
-    });
-  }, []);
-  console.log(boards);
   var userBoards = currentUser.boards.map(function (boardId) {
     return boards[boardId];
   });
 
-  var handleOpenModal = function handleOpenModal(formType) {
+  var handleOpenModal = function handleOpenModal(formType, props) {
     return function (e) {
       e.preventDefault();
-      openModal(formType);
+      openModal(formType, props);
     };
   };
 
@@ -2054,14 +2056,17 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Save to board"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-board-container"
     }, userBoards.map(function (userBoard, i) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_2__["default"], {
         board: userBoard,
-        key: i
+        key: i,
+        currentUser: currentUser
       });
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-create"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Suggestions"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      onClick: handleOpenModal("create board"),
+      onClick: handleOpenModal("create board", {
+        boardShow: true
+      }),
       className: "pin-dropdown-create-board"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-add-board"
@@ -2070,7 +2075,7 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Create board")))));
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : content();
+  return content();
 };
 
 var mSTP = function mSTP(_ref2) {
@@ -2086,11 +2091,8 @@ var mSTP = function mSTP(_ref2) {
 
 var mDTP = function mDTP(dispatch) {
   return {
-    fetchBoards: function fetchBoards(userId) {
-      return dispatch((0,_util_board_api_util__WEBPACK_IMPORTED_MODULE_2__.fetchBoards)(userId));
-    },
-    openModal: function openModal(formType) {
-      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__.openModal)(formType));
+    openModal: function openModal(formType, props) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.openModal)(formType, props));
     }
   };
 };
@@ -2120,6 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2140,10 +2143,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
   var pins = _ref.pins,
+      currentUser = _ref.currentUser,
       users = _ref.users,
       fetchUsers = _ref.fetchUsers,
+      fetchBoards = _ref.fetchBoards,
       boardName = _ref.boardName;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
@@ -2152,7 +2158,9 @@ var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
       setLoading = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    fetchUsers(pins, users)["finally"](function () {
+    fetchBoards(currentUser.id).then(function () {
+      return fetchUsers(pins, users);
+    })["finally"](function () {
       return setLoading(false);
     });
   }, []);
@@ -2182,13 +2190,20 @@ var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
 };
 
 var mSTP = function mSTP(_ref2) {
-  var users = _ref2.entities.users;
+  var session = _ref2.session,
+      _ref2$entities = _ref2.entities,
+      users = _ref2$entities.users,
+      boards = _ref2$entities.boards;
   return {
-    users: users
+    users: users,
+    currentUser: users[session.id]
   };
 };
 var mDTP = function mDTP(dispatch) {
   return {
+    fetchBoards: function fetchBoards(userId) {
+      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_7__.fetchBoards)(userId));
+    },
     fetchUsers: function fetchUsers(users, pins) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__.fetchUsers)(users, pins));
     }
@@ -2261,12 +2276,9 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-    to: "/pins/".concat(pin.id),
-    className: "pin-show-link"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: pin.imageUrl
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-hover"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-hover-board-name"
@@ -2276,7 +2288,10 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
     ref: openRef
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, (0,_util_function_util__WEBPACK_IMPORTED_MODULE_2__.abbreviate)(boardName, _util_constants_util__WEBPACK_IMPORTED_MODULE_1__.MAX_BOARD_CHAR)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
     className: "fa-solid fa-chevron-down fa-xs"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_save_button__WEBPACK_IMPORTED_MODULE_4__.SavePinButton, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_buttons_save_button__WEBPACK_IMPORTED_MODULE_4__.SavePinButton, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    to: "/pins/".concat(pin.id),
+    className: "pin-show-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     onClick: handleDropdownClick,
     className: "pin-add-menu ".concat(open ? "open" : "closed")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_pin_dropdown__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -2325,7 +2340,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var PinShowContainer = function PinShowContainer() {
+var PinShowContainer = function PinShowContainer(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
@@ -3269,7 +3284,9 @@ var UserShowContainer = function UserShowContainer(props) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "plus-menu ".concat(plus ? "open" : "closed")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Create"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Create pin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      onClick: openModal('create board')
+      onClick: openModal('create board', {
+        boardShow: false
+      })
     }, "Create board")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-content-container"
     }, childrenContainers[tab]));
@@ -3312,8 +3329,8 @@ var mDTP = function mDTP(dispatch) {
     fetchUserByUsername: function fetchUserByUsername(username) {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__.fetchUserByUsername)(username));
     },
-    openModal: function openModal(formType) {
-      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)(formType));
+    openModal: function openModal(formType, props) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__.openModal)(formType, props));
     },
     fetchUserBoardsByUsername: function fetchUserBoardsByUsername(username) {
       return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_10__.fetchUserBoardsByUsername)(username));

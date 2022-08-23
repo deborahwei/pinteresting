@@ -1,25 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import { connect, Link } from 'react-redux'
-import { fetchBoards } from '../../util/board_api_util'
-import LoadingContainer from '../generic/loading'
+import { connect } from 'react-redux'
 import MiniBoardPreview from '../boards/mini_board_preview'
 import { openModal } from '../../actions/modal_actions'
 
 const AddPinDropdown = ({boards, currentUser, openModal}) => {
 
-    const [loading, setLoading] = useState(false)
-
-    useEffect( () => {
-        fetchBoards(currentUser.id).finally(()=> setLoading(false))
-    }, [])
-
-    console.log(boards)
     const userBoards = currentUser.boards.map( (boardId) => boards[boardId])
-
-    const handleOpenModal = (formType) => {
+    
+    const handleOpenModal = (formType, props) => {
         return e => {
             e.preventDefault();
-            openModal(formType)
+            openModal(formType, props)
         }
     }
 
@@ -38,12 +29,12 @@ const AddPinDropdown = ({boards, currentUser, openModal}) => {
                 <div className='pin-dropdown-boards'>
                     <p>Save to board</p>
                     <div className='pin-dropdown-board-container'> 
-                         {userBoards.map( (userBoard, i) => <MiniBoardPreview board={userBoard} key={i}/>)} 
+                         {userBoards.map( (userBoard, i) => <MiniBoardPreview board={userBoard} key={i} currentUser={currentUser}/>)} 
                     </div>
                 </div>
                 <div className='pin-dropdown-create'>
                     <p>Suggestions</p>
-                    <div onClick={handleOpenModal("create board")} className='pin-dropdown-create-board'>
+                    <div onClick={handleOpenModal("create board", { boardShow: true})} className='pin-dropdown-create-board'>
                         <div className='pin-add-board'>
                             <i className={`fa-solid fa-plus fa-xl`}></i>
                         </div>
@@ -56,20 +47,20 @@ const AddPinDropdown = ({boards, currentUser, openModal}) => {
         )
     }
 
-    return loading ? <LoadingContainer/> : content()
+    return content()
+
 }
 
-const mSTP = ({session, entities: {boards, users}}) => {
+const mSTP = ({session, entities: { boards, users}}) => {
     return {
-        boards, 
+        boards,
         currentUser: users[session.id]
     }
 }
 
 const mDTP = dispatch => {
     return {
-        fetchBoards: (userId) => dispatch(fetchBoards(userId)), 
-        openModal: (formType) => dispatch(openModal(formType))
+        openModal: (formType, props) => dispatch(openModal(formType, props))
     }
 }
 

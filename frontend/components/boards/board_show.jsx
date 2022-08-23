@@ -87,6 +87,7 @@ const BoardShowContainer = (props) => {
                     user={user}
                     boardName={boardName}
                     board={board}
+                    hasPins={board.pins.length != 0}
                 />
             </div>
         </div>

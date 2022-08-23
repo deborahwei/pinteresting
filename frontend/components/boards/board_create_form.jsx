@@ -6,7 +6,7 @@ import { closeModal } from '../../actions/modal_actions';
 
 const CreateBoardForm = (props) => {
 
-    const {createBoard, errors, currentUser} = props;
+    const {createBoard, errors, currentUser, boardShow} = props;
     const history = useHistory();
   
     const [state, setState] = useState({
@@ -21,13 +21,19 @@ const CreateBoardForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createBoard(state)
-            .then(()=> {
-                history.push(`/users/${currentUser.username}/boards/${state.name}`);
-            })
-                .then(() => {
-                    props.closeModal()
-                });
+
+        if (boardShow) {
+            createBoard(state).then( () => props.closeModal())
+        }
+        else {
+            createBoard(state)
+                .then(()=> {
+                    history.push(`/users/${currentUser.username}/boards/${state.name}`);
+                })
+                    .then(() => {
+                        props.closeModal()
+                    })
+        }
     }
 
     const renderErrors = () => {
@@ -67,10 +73,11 @@ const CreateBoardForm = (props) => {
     )
 }
 
-const mSTP = ({errors, entities: {users}, session}) => {
+const mSTP = ({errors, entities: {users}, session, ui: {modal: {props}}}) => {
     return {
         errors: errors.board,
-        currentUser: users[session.id]
+        currentUser: users[session.id],
+        boardShow: props.boardShow
     }
 }
 
