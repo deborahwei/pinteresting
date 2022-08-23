@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import LoadingContainer from '../generic/loading'
-
-const PinShowContainer = (props) => {
+// have this container fetch all the comments
+const PinCommentContainer = (props) => {
 
     const [loading, setLoading] = useState(true)
 
@@ -24,4 +24,4 @@ const mDTP = dispatch => {
 
 }
 
-export default connect(mSTP, null)(PinShowContainer)
+export default connect(mSTP, null)(PinCommentContainer)

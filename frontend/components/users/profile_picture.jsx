@@ -20,11 +20,9 @@ const ProfilePicture = (props) => {
     const photoPreview = () => {
         return (
             <div className='user-preview-pic'>
-                <Link to={`/users/${user.username}/`}>
                     <div className="preview-photo">
                         <h1>{user.username[0].toUpperCase()}</h1>
                     </div>  
-                </Link>
             </div>
         )
     }

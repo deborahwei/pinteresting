@@ -12,7 +12,7 @@ import ModalContainer from './modal/modal'
 import UserShowContainer from './users/user_show';
 import BoardShowContainer from './boards/board_show'
 import SplashOrPass from "./generic/splash_or_pass"
-import PinShowContainer from './pins/pins_show'
+import PinShowContainer from './pins/pin_show'
 
 const App = () => (
     <div>

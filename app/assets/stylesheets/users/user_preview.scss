@@ -5,7 +5,20 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 150px;
+    width: 160px;
+    
+    > h1 {
+        text-indent: 10px;
+    }
+
+    h1 {
+        font-weight: normal;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 
 }
 

@@ -1,0 +1,25 @@
+@import '../variables.scss';
+
+.pin-options {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    top: 35px;
+    left: 85px;
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: $semibold;
+
+    p {
+        cursor: pointer;
+    }
+}
+
+.pin-options.hide {
+    visibility: hidden; 
+    opacity: 0;
+    display: none;
+}

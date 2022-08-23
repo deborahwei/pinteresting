@@ -23,11 +23,10 @@
 .pin-show-link {
     z-index: 2; 
     width: 100%;
-    height: auto;
+    height: 100%;
 
     div {
-        padding-top: 85px;
-        height: 80%;
+        height: 100%;
         width: 100%;
         cursor: zoom-in;
     }
@@ -79,6 +78,7 @@
 }
 
 .pin-item-hover-board-name{
+    font-weight: $semibold;
     width: 250px;
     position: absolute;
     display: flex; 

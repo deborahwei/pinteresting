@@ -32,7 +32,6 @@ const PinPhotoContainer = ({pin, creator, boardName}) => {
                 </div>
                 <Link to={`/pins/${pin.id}`} className="pin-show-link">
                     <div>
-
                     </div>
                 </Link>
             </div>
