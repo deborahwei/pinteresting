@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { fetchBoardPins } from '../../actions/board_pins_actions'
 import LoadingContainer from '../generic/loading'
 import BoardPinsIndexContainer from '../pins/board_pins_index'
@@ -33,7 +34,9 @@ const BoardShowPinsContainer = (props) => {
                     </div>
                     <div className={`plus-menu ${ plus ? "open" : "closed"} board-show`}>
                         <p>Create</p>
-                        <div>Pin</div>
+                        <Link to={"/pin-builder"}>
+                            <div>Pin</div>
+                        </Link>
                     </div>
                 </div>
             </div>

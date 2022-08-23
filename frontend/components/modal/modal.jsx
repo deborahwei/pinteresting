@@ -6,6 +6,7 @@ import SignupFormContainer from '../session_form/signup_form_container';
 import CreateBoardForm from '../boards/board_create_form';
 import EditBoardForm from '../boards/board_edit_form'
 import DeleteBoardForm from '../boards/board_delete_form'
+import PinEditForm from '../pins/pin_edit_form';
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -28,6 +29,9 @@ function Modal({modal, closeModal}) {
     case 'delete board':
       component = <DeleteBoardForm />;
       break;
+    case 'edit pin':
+      component= <PinEditForm/>;
+      break
     default:
       return null;
   }

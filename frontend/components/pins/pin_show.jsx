@@ -11,10 +11,11 @@ import SavePinButton from '../buttons/save_button'
 import UserPreviewContainer from '../users/user_preview'
 import { abbreviate } from '../../util/function_util'
 import { MAX_BOARD_CHAR } from '../../util/constants_util'
+import { closeModal, openModal } from '../../actions/modal_actions'
 
 const PinShowContainer = (props) => {
 
-    const {fetchBoards, fetchPin, fetchUser, currentUser, boards, users, pinId, pins} = props
+    const {fetchBoards, fetchPin, fetchUser, closeModal, openModal, currentUser, boards, users, pinId, pins} = props
     const [loading, setLoading] = useState(true)
 
     useEffect( () => {
@@ -43,8 +44,6 @@ const PinShowContainer = (props) => {
     const handleOpenModal = (formType, props) => {
         return e => {
             e.preventDefault();
-            closeModal()
-            setOpen(false)
             openModal(formType, props)
         }
     }
@@ -72,7 +71,10 @@ const PinShowContainer = (props) => {
                                 <div className={`options-menu ${ edit ? "open" : "closed"}`}>
                                     <p>Pin options</p>
                                     <div 
-                                        onClick={handleOpenModal('edit board', props)} // potentially fill in props
+                                        onClick={handleOpenModal('edit pin', {
+                                            pin: pin,
+                                            path: `/users/${currentUser.username}`
+                                        })}
                                         className="edit-board-option">Edit pin</div>
                                 </div>
                             </div>
@@ -125,7 +127,9 @@ const mDTP = dispatch => {
     return {
         fetchPin: (pinId) => dispatch(fetchPin(pinId)),
         fetchBoards: (userId) => dispatch(fetchBoards(userId)), 
-        fetchUser: (userId) => dispatch(fetchUser(userId))
+        fetchUser: (userId) => dispatch(fetchUser(userId)), 
+        openModal: (formType, props) => dispatch(openModal(formType, props)), 
+        closeModal: () => dispatch(closeModal())
     }
 }
 

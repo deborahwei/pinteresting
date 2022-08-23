@@ -1,0 +1,34 @@
+@import '../variables.scss';
+
+.pin-edit-form-container {
+    width: 800px;
+    height: 500px;
+    background-color: pink;
+    border-radius: $pin-border-radius;
+}
+
+.pin-edit-heading {
+    height: 10%;
+    width: 100%;
+}
+
+.pin-edit-middle {
+    height: 80%;
+    width: 100%;
+
+    .pin-edit-inputs {
+        width: 70%;
+        height: 100%;
+    }
+
+    .pin-edit-photo {
+        width: 30%;
+        height: 100%;
+        border-radius: $pin-border-radius;
+    }
+}
+
+.pin-edit-buttons {
+    height: 10%;
+    width: 100%;
+}

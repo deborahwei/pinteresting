@@ -1,0 +1,166 @@
+@import '../variables.scss';
+
+.pin-create-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $pin-dropdown-grey;
+}
+
+
+.pin-create-container {
+    background-color: white;
+    width: 880px; 
+    height: 650px;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    z-index: 1;
+    position: absolute; 
+    box-shadow: $box-shadow;
+    border-radius: $pin-border-radius;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pin-create-left-container {
+    background-color: $pin-dropdown-grey;
+    width: 340px;
+    height: 454px;
+    border-radius: 8px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    width: 316px;
+    height: 430px;
+    border: 2px rgb(218, 218, 218) dashed;
+    border-radius: 8px;
+
+    > div {
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+
+        border: 0.5px solid rgb(231, 231, 231);
+        border-radius: 12px;
+
+        overflow: hidden;
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+.upload-file-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    .pin-create-image-container {
+        width: 100%;
+        height: 100%;
+
+        cursor: pointer;
+        opacity: 0;
+        z-index: 15;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.pin-create-image-upload {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+
+    i {
+        color: $grey-text;
+    }
+
+    p {
+        color: $grey-text;
+        font-size: 14px; 
+
+    }
+}
+
+
+.pin-create-right-container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+}
+
+.pin-create-form {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 100px;
+    height: 80%;
+
+
+    textarea {
+        border: 0;
+        border-bottom: 1px solid $modal-footer-text-grey;
+        white-space: pre-wrap;
+        color: $text-default;
+        font-family: $default-font;
+        height: 48px;
+        resize: none;
+
+
+        &:focus {
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid $modal-input-focus;
+        }
+    }
+
+    #pin-create-title {
+        font-size: 36px;
+        font-weight: 700;
+        width: 380px;
+    }
+
+    #pin-create-description {
+        font-size: 16px;
+        height: 30px;
+        width: 380px;
+
+    }
+}
+
+.board-create-button.create-form {
+    margin-left: 250px;
+}

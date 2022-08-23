@@ -10,7 +10,7 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.70);
+    background: rgba(255, 255, 255, 0.8);
 
     &:hover {
         background: rgba(255, 255, 255, 1);
@@ -37,8 +37,9 @@
 
 .board-show-plus {
     z-index: 10;
-    bottom: 5px;
-    right: 925px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 90%;
     
     height: 60px;
     width: 60px;
@@ -65,10 +66,12 @@
 }
 
 .plus-menu.board-show {
-    position: absolute;
-    top: 790px;
-    left: 880px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 78%;
+    position: fixed;
     z-index: 10;
+
 }
 
 .pins-counter {

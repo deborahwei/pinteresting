@@ -13,6 +13,7 @@ import UserShowContainer from './users/user_show';
 import BoardShowContainer from './boards/board_show'
 import SplashOrPass from "./generic/splash_or_pass"
 import PinShowContainer from './pins/pin_show'
+import PinCreateForm from './pins/pin_create_form'
 
 const App = () => (
     <div>
@@ -22,6 +23,7 @@ const App = () => (
       </header>
       <Switch>
         <ProtectedRoute exact path="/users/:username/boards/:boardName" component={BoardShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/pin-builder" component={PinCreateForm}></ProtectedRoute>
         <ProtectedRoute path="/pins/:pinId" component={PinShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:username/" component={UserShowContainer}></ProtectedRoute>
         <Route path="/" component={SplashOrPass} />

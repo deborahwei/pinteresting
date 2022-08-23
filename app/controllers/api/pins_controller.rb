@@ -32,7 +32,7 @@ class Api::PinsController < ApplicationController
             render json: "You must be logged in to create Pin"
         end
         
-        @pin, error_message = Pin.safe_create(pin_params)
+        @pin, error_message = Pin.safe_create(pin_params, current_user.id)
         if !@pin.nil?
             render "api/pins/show"
         else

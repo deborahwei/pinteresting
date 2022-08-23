@@ -9,9 +9,6 @@ const DeleteBoardForm = (props) => {
     const {deleteBoard, openModal, closeModal, board, currentUser, path} = props;
     const history = useHistory();
 
-    const refresh = () => {
-        window.location.reload(false)
-    }
 
     const handleDeleteClick = (e) => {
         e.preventDefault();
