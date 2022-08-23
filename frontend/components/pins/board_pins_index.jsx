@@ -6,13 +6,16 @@ import PinPhotoContainer from './pin_item'
 import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 
-const BoardPinsIndexContainer = ({pins, users, fetchUsers}) => {
+const BoardPinsIndexContainer = ({pins, users, fetchUsers, boardName}) => {
   
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     useEffect( () => {
         fetchUsers(pins, users).finally(() => setLoading(false))
     }, [])
-    console.log(pins, users)
+
+    const findPinCreator = (pin) => {
+        return users[pin.creator]
+    }
         
     const content = () => {
         return (
@@ -23,7 +26,11 @@ const BoardPinsIndexContainer = ({pins, users, fetchUsers}) => {
                     columnClassName="masonry-pins-column"
                 >   
                     {
-                        pins.map( (pin, i) => <PinPhotoContainer key={i} pin={pin}/>)
+                        pins.map( (pin, i) => <PinPhotoContainer 
+                                                        key={i} 
+                                                        boardName={boardName}
+                                                        pin={pin} 
+                                                        creator={findPinCreator(pin)}/>)
                     }
                 </Masonry>
             </div>

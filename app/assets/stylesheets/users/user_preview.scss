@@ -1,0 +1,33 @@
+@import '../variables.scss';
+
+.user-preview-container {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 150px;
+
+}
+
+.user-preview-pic {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-photo {
+    background-color: $search-bar-grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    
+    text-align: center;
+    text-indent: -0.1px;
+
+}

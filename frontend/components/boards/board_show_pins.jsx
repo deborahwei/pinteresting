@@ -47,6 +47,7 @@ const BoardShowPinsContainer = (props) => {
             <div className="board-show-pins-container">
                 <BoardPinsIndexContainer
                     pins={currentBoardPins}
+                    boardName={boardName}
                 />
             </div>
         )

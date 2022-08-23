@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ProfilePicture = (props) => {
 
-    const { user, hasPhoto} = props
+    const { user, hasPhoto, isPreview} = props
 
     const defaultPhoto = () => {
         return (
@@ -13,10 +14,23 @@ const ProfilePicture = (props) => {
     }
 
     const uploadedPhoto = () => {
-        <img className="demo-user-pic" src={window.demoUserUrl} />
+        return <img className="demo-user-pic" src={window.demoUserUrl} />
     }
 
-    return hasPhoto ? uploadedPhoto() : defaultPhoto();
+    const photoPreview = () => {
+        return (
+            <div className='user-preview-pic'>
+                <Link to={`/users/${user.username}/`}>
+                    <div className="preview-photo">
+                        <h1>{user.username[0].toUpperCase()}</h1>
+                    </div>  
+                </Link>
+            </div>
+        )
+    }
+
+    return hasPhoto ? uploadedPhoto() : isPreview ? photoPreview() : defaultPhoto();
+
 
 }
 
