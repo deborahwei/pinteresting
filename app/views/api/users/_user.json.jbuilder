@@ -12,10 +12,8 @@ User.retrieve_saved_pins(user.id).each do |pin|
 end
 json.saved_pins saved_pins_array
 
-boards = {}
+boards = []
 user.boards.each do |board|
-    json.set! board.id do 
-        json.extract! board, :id, :name
-    end
+   boards << board.id
 end
 json.boards boards

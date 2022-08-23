@@ -62,26 +62,50 @@
     z-index: 2;
     cursor: zoom-in;
     border-radius: $pin-border-radius;
-    // visibility: hidden;
     font-weight: $semibold;
     color: white;
 
     &:hover {
         background: rgba(0, 0, 0, 0.4);
-        visibility: visible;
         opacity: 1;
     }
 }
 
-.pin-item-hover-board-name {
-    width: 200px;
+.pin-item-hover-board-name{
+    width: 250px;
     position: absolute;
     display: flex; 
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     top: 20px;
-    left: 15px;
     cursor: pointer;
+}
+
+.pin-dropdown-trigger {
+    width: 40%;
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pin-add-menu {
+    position: absolute;
+    top: 20px;
+    left: 150px;
+    visibility: hidden;
+    background: white;
+    height: 500px;
+    width: 350px;
+    opacity: 0;
+    border-radius: 16px;
+    box-shadow: $box-shadow;
+    z-index: 20;
+}
+
+.pin-add-menu.open {
+    visibility: visible;
+    opacity:  1;
 }
 
