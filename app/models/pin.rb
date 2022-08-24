@@ -35,6 +35,18 @@ class Pin < ApplicationRecord
       end
     end
 
+    def self.generate_random_pins(num)
+      all_pins = Pin.all.map(&:id)
+      num = all_pins.length if num.to_i > Pin.all.length 
+      pins = []
+      num.to_i.times do |i|
+        random_pin_id = all_pins.sample
+        all_pins.delete(random_pin_id)
+        pins << Pin.find(random_pin_id)
+      end
+      return pins 
+    end
+
     def self.safe_create(pin_params, user_id)
       pin = Pin.new(pin_params)
     

@@ -13,7 +13,7 @@
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
-        height: 40%;
+        min-height: 350px;
 
         .user-show-profile-pic {
             height: 120px;
@@ -37,10 +37,13 @@
 }
 
 .user-show-content-labels {
+    background-color: white;
+    position: sticky;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    z-index: 30;
 
     h1{
         font-weight: $semibold;
@@ -56,10 +59,10 @@
 
 .user-show-content-container {
     display: flex; 
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    height: 60%;
+    height: 100%;
 }
 
 

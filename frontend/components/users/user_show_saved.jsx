@@ -6,6 +6,7 @@ import { openModal } from '../../actions/modal_actions'
 import LoadingContainer from '../generic/loading'
 import BoardPreviewContainer from "../boards/board_preview_show"
 import { fetchPins } from "../../actions/pin_actions"
+import ProfilePins from '../pins/profile_saved_pins'
 
 const UserShowSavedContainer = (props) => {
     const {fetchBoards, isUser, openModal, user, boards, pins, fetchPins} = props
@@ -19,9 +20,18 @@ const UserShowSavedContainer = (props) => {
     useEffect( () => {
         fetchBoards(user.id)
             .then(resp => {
-                fetchPins(resp.boards, pins)
+                const pinsSet = new Set();
+                Object.values(resp.boards).forEach( board => {
+                    board.pins.forEach(pinId => pinsSet.add(pinId));
+                })
+                const pinIdsArray = [];
+                for (const pinId of pinsSet) {
+                    if (!(pinId in pins))
+                        pinIdsArray.push(pinId)
+                }
+                return fetchPins(pinIdsArray)
             })
-            .finally((setLoading(false)))
+            .finally(() => (setLoading(false)))
     }, [user])
     const currentBoards = Object.values(boards).filter( board => board.user_id == user.id )
     
@@ -62,7 +72,12 @@ const UserShowSavedContainer = (props) => {
                 <div className='board-or-nah-container'>
                     {boardsEmpty ? noBoards() : boardsIndex()}
                 </div>
-                <div className="unorganized-ideas" ></div>
+                <div className="unorganized-ideas">
+                    <div className="unorganized-ideas-header">
+                        <h1>Unorganized Ideas</h1>
+                    </div>
+                    <ProfilePins/>
+                </div>
             </div>
         )
     }

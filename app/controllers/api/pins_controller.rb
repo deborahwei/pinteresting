@@ -2,6 +2,12 @@ class Api::PinsController < ApplicationController
 
     before_action :find_saved_pins, only: [:find_saved_pins]
     before_action :find_created_pins, only: [:find_created_pins]
+    before_action :homepage_pins, only: [:homepage_pins]
+
+    def homepage_pins 
+        @pins = Pin.generate_random_pins(params[:num_pins])
+        render "api/pins/index"
+    end
 
     def show 
         @pin = Pin.with_attached_image.find_by(id: params[:id])

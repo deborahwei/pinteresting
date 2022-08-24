@@ -1,0 +1,34 @@
+@import '../variables.scss';
+
+
+.profile-pins-container {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+    height: 40%;
+    width: 100%
+}
+
+.unorganized-ideas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.unorganized-ideas-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+
+    h1 {
+        padding-left: 20px;
+        font-weight: $semibold;
+        font-size: 20px;
+    }
+}

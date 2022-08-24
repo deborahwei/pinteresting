@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SplashContainer from "../splash/splash"
-import DiscoverPinsContainer from "../splash/splash_pins";
+import HomepageContainer from '../pins/homepage'
 
 const mSTP = state => {
     return {
@@ -12,7 +12,7 @@ const mSTP = state => {
 function SplashOrPass({ loggedIn }){
     return (
         <div>
-            {loggedIn ? <DiscoverPinsContainer/> : <SplashContainer/> }
+            {loggedIn ? <HomepageContainer/> : <SplashContainer/> }
         </div>
     )
 }

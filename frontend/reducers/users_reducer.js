@@ -1,6 +1,7 @@
 import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
 import { RECEIVE_USER, RECEIVE_USERS } from "../actions/user_actions";
 import { REMOVE_BOARD, RECEIVE_BOARD } from "../actions/board_actions";
+import { RECEIVE_CREATED_PIN } from "../actions/pin_actions";
 
 const usersReducer = (state = {}, action) => {
     Object.freeze(state)
@@ -18,6 +19,10 @@ const usersReducer = (state = {}, action) => {
         case RECEIVE_BOARD:
             if (!nextState[action.board.user_id].boards.includes(action.board.id))
                 nextState[action.board.user_id].boards.push(action.board.id) 
+            return nextState;
+        case RECEIVE_CREATED_PIN:
+            if (!nextState[action.userId]?.created_pins.includes(action.pin.id))
+                nextState[action.userId].created_pins.push(action.pin.id) 
             return nextState;
         case REMOVE_BOARD:
             const userBoards = nextState[action.user.id].boards

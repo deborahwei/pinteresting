@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink, Link, Redirect } from 'react-router-dom'
+import { NavLink, Link, Redirect, useHistory } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
@@ -23,8 +23,10 @@ const UserShowContainer = (props) => {
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
     const [tab, setTab] = useState(tabSelected)
+    // const history = useHistory()
     
     const handleClickTab = tab => e => {
+        // window.history.replaceState(null, "", `/users/${user.username}/${tab}`)
         e.preventDefault()
         setTab(tab)
     }
@@ -99,9 +101,6 @@ const UserShowContainer = (props) => {
             </div>
             <div className="user-show-content-container">
                 {childrenContainers[tab]}
-            </div>
-            <div>
-
             </div>
         </div>
     )

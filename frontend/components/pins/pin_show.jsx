@@ -70,18 +70,8 @@ const PinShowContainer = (props) => {
                     <div className="pin-show-right-container">
                         <div className="pin-show-heading">
                             <div 
-                            className={`pin-options ${ownsPin ? "show" : "hide"}`}
+                            className={`pin-options`}
                             >
-                                <p  ref={editRef} onClick={handleEditDropdown}>...</p>
-                                <div className={`options-menu ${ edit ? "open" : "closed"}`}>
-                                    <p>Pin options</p>
-                                    <div 
-                                        onClick={handleOpenModal('edit pin', {
-                                            pin: pin,
-                                            path: `/users/${currentUser.username}`
-                                        })}
-                                        className="edit-board-option">Edit pin</div>
-                                </div>
                             </div>
                             <div className="pin-show-boards">
                                 <div 

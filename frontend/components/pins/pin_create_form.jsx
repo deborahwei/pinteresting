@@ -66,7 +66,7 @@ const PinsCreateForm = (props) => {
         if (state.imageFile) {
             formData.append('pin[image]', state.imageFile);
         }
-        createPin(formData).then(() => history.push(`/users/${currentUser.username}`))
+        createPin(formData, currentUser.id).then(() => history.push(`/users/${currentUser.username}`))
     }
 
     const preview = state.imageUrl ? <div style={{ backgroundImage: `url(${state.imageUrl}`}}/> : null;
@@ -150,7 +150,7 @@ const mSTP = ({errors, session, entities: { users, boards }}) => {
 const mDTP = dispatch => {
     return {
         fetchBoards: (userId) => dispatch(fetchBoards(userId)),
-        createPin: (pin) => dispatch(createPin(pin))
+        createPin: (pin, userId) => dispatch(createPin(pin, userId))
     }
 }
 

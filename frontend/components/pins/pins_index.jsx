@@ -7,9 +7,10 @@ import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
 
-const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, board}) => {
-  
+const PinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, showUser=true, showDropdown=true, center=false}) => {
+    
     const [loading, setLoading] = useState(true)
+    
     useEffect( () => {
         fetchBoards(currentUser.id).then(() => fetchUsers(pins, users)).finally(() => setLoading(false))
     }, [])
@@ -20,17 +21,18 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
         
     const content = () => {
         return (
-            <div className='board-pins-index-container'>
+            <div className='pins-index-container'>
                 <Masonry
-                    className={`masonry-pins-grid`}
+                    className={`masonry-pins-grid ${center ? "center" : ""}`}
                     breakpointCols={BREAKPOINTS}
                     columnClassName="masonry-pins-column"
                 >   
                     {
                         pins.map( (pin, i) => <PinPhotoContainer 
-                                                        board={board}
                                                         key={i}
                                                         pin={pin}
+                                                        showUser={showUser}
+                                                        showDropdown={showDropdown}
                                                         creator={findPinCreator(pin)}/>)
                     }
                 </Masonry>
@@ -41,7 +43,7 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
     return loading ? <LoadingContainer/> : content()
 }
 
-const mSTP = ({session, entities: {users, boards}}) => {
+const mSTP = ({session, entities: {users, pins}}) => {
     return {
         users, 
         currentUser: users[session.id]
@@ -55,4 +57,4 @@ const mDTP = (dispatch) => {
     }
 }
 
-export default connect(mSTP, mDTP)(BoardPinsIndexContainer)
+export default connect(mSTP, mDTP)(PinsIndexContainer)

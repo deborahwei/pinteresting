@@ -2,6 +2,7 @@ import * as PinAPIUtil from "../util/pin_api_util"
 
 export const RECEIVE_PINS = 'RECEIVE_PINS';
 export const RECEIVE_PIN = 'RECEIVE_PIN';
+export const RECEIVE_CREATED_PIN = 'RECEIVE_CREATED_PIN';
 export const REMOVE_PIN = 'REMOVE_PIN';
 export const RECEIVE_PIN_ERRORS = 'RECEIVE_PIN_ERRORS';
 
@@ -19,6 +20,14 @@ export const receivePin = (pin) => {
     }
 }
 
+export const receiveCreatedPin = (pin, userId) => {
+    return {
+        type: RECEIVE_CREATED_PIN,
+        pin, 
+        userId
+    }
+}
+
 export const removePin = (pinId) => {
     return {
         type: REMOVE_PIN,
@@ -33,18 +42,17 @@ export const receivePinErrors = (errors) => {
     }
 }
 
-export const fetchPins = (boards, pins) => dispatch => {  
-    const pinsSet = new Set();
-    Object.values(boards).forEach( board => {
-        board.pins.forEach(pinId => pinsSet.add(pinId));
-    })
-    const pinIds = [];
-    for (const pinId of pinsSet) {
-        if (!(pinId in pins))
-            pinIds.push(pinId)
-    }
+export const fetchPins = (pinIds) => dispatch => {  
     if (pinIds.length > 0) {
         return PinAPIUtil.fetchPins(pinIds).then(pins => {
+            return dispatch(receivePins(pins))
+        })
+    }
+}
+
+export const fetchHomepagePins = (numPins) => dispatch => {  
+    if (numPins > 0) {
+        return PinAPIUtil.fetchHomepagePins(numPins).then(pins => {
             return dispatch(receivePins(pins))
         })
     }
@@ -62,9 +70,9 @@ export const deletePin = pinId => dispatch => (
     ))
 );
 
-export const createPin = pin => dispatch => (
+export const createPin = (pin, userId) => dispatch => (
     PinAPIUtil.createPin(pin).then(pin => {
-      dispatch(receivePin(pin))
+      dispatch(receiveCreatedPin(pin, userId))
     }, err => {
         return dispatch(receivePinErrors(err.responseJSON))
     })
