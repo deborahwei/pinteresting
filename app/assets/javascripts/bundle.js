@@ -340,7 +340,9 @@ var fetchCreatedPins = function fetchCreatedPins(userId) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_SAVED_PIN": () => (/* binding */ RECEIVE_SAVED_PIN),
 /* harmony export */   "REMOVE_SAVED_PIN": () => (/* binding */ REMOVE_SAVED_PIN),
+/* harmony export */   "receiveSavedPin": () => (/* binding */ receiveSavedPin),
 /* harmony export */   "removeSavedPin": () => (/* binding */ removeSavedPin),
 /* harmony export */   "savePin": () => (/* binding */ savePin),
 /* harmony export */   "unsavePin": () => (/* binding */ unsavePin)
@@ -350,6 +352,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var REMOVE_SAVED_PIN = 'REMOVE_SAVED_PIN';
+var RECEIVE_SAVED_PIN = 'RECEIVE_SAVED_PIN';
+var receiveSavedPin = function receiveSavedPin(pin, userId) {
+  console.log(userId);
+  return {
+    type: RECEIVE_SAVED_PIN,
+    userId: userId,
+    pin: pin
+  };
+};
 var removeSavedPin = function removeSavedPin(user, pinId) {
   return {
     type: REMOVE_SAVED_PIN,
@@ -357,10 +368,11 @@ var removeSavedPin = function removeSavedPin(user, pinId) {
     pinId: pinId
   };
 };
-var savePin = function savePin(pinId) {
+var savePin = function savePin(pinId, userId) {
   return function (dispatch) {
+    console.log("ACTIONS", pinId);
     return _util_pins_user_api_util__WEBPACK_IMPORTED_MODULE_0__.savePin(pinId).then(function (pin) {
-      return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_1__.receivePin)(pin));
+      return dispatch(receiveSavedPin(pin, userId));
     });
   };
 };
@@ -1588,7 +1600,8 @@ var SavePinButton = function SavePinButton(props) {
 
   var savePinToProfile = function savePinToProfile(e) {
     e.preventDefault();
-    savePin(pinId);
+    console.log("save pin button", currentUser);
+    savePin(pinId, currentUser.id);
   };
 
   var unsavePinFromBoard = function unsavePinFromBoard(e) {
@@ -1603,8 +1616,12 @@ var SavePinButton = function SavePinButton(props) {
 
   var isProfile = boardId === null || boardId === undefined;
   var isSavedPin = isProfile ? currentUser.saved_pins.includes(pinId) : (_boards$boardId = boards[boardId]) === null || _boards$boardId === void 0 ? void 0 : _boards$boardId.pins.includes(pinId);
-  var handleClick = isProfile ? isSavedPin ? unsavePinFromProfile : savePinToProfile : isSavedPin ? unsavePinFromBoard : savePinToBoard;
-  console.log("pinId:", pinId, "boardId:", boardId, "isProfile:", isProfile, "isSavedPin:", isSavedPin, "isOutside:", isOutside, "currentUserPins:", currentUser.saved_pins, "check:", currentUser.saved_pins[0] === pinId);
+  var handleClick = isProfile ? isSavedPin ? unsavePinFromProfile : savePinToProfile : isSavedPin ? unsavePinFromBoard : savePinToBoard; // console.log("pinId:", pinId, "boardId:", boardId,
+  //             "isProfile:", isProfile, "isSavedPin:",
+  //             isSavedPin, "isOutside:", isOutside,
+  //             "currentUserPins:", currentUser.saved_pins,
+  //             "check:", currentUser.saved_pins[0] ===(pinId) )
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     onClick: handleClick,
     className: "save-pin-button ".concat(isSavedPin ? "saved-mode" : "unsaved-mode")
@@ -1638,8 +1655,8 @@ var mDTP = function mDTP(dispatch) {
     unsavePin: function unsavePin(pinId) {
       return dispatch((0,_actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__.unsavePin)(pinId));
     },
-    savePin: function savePin(pinId) {
-      return dispatch((0,_actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__.savePin)(pinId));
+    savePin: function savePin(pinId, userId) {
+      return dispatch((0,_actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__.savePin)(pinId, userId));
     }
   };
 };
@@ -4490,6 +4507,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/pin_actions */ "./frontend/actions/pin_actions.js");
+/* harmony import */ var _actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/pins_user_actions */ "./frontend/actions/pins_user_actions.js");
+
 
 
 var pinsReducer = function pinsReducer() {
@@ -4504,6 +4523,10 @@ var pinsReducer = function pinsReducer() {
       return nextState;
 
     case _actions_pin_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_PIN:
+      nextState[action.pin.id] = action.pin;
+      return nextState;
+
+    case _actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_SAVED_PIN:
       nextState[action.pin.id] = action.pin;
       return nextState;
 
@@ -4671,7 +4694,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/pin_actions */ "./frontend/actions/pin_actions.js");
+/* harmony import */ var _actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/pins_user_actions */ "./frontend/actions/pins_user_actions.js");
 
 
 
@@ -4700,12 +4723,17 @@ var usersReducer = function usersReducer() {
       if (!nextState[action.board.user_id].boards.includes(action.board.id)) nextState[action.board.user_id].boards.push(action.board.id);
       return nextState;
 
-    case _actions_pin_actions__WEBPACK_IMPORTED_MODULE_3__.REMOVE_SAVED_PIN:
+    case _actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__.REMOVE_SAVED_PIN:
       var userSavedPins = nextState[action.user.id].saved_pins;
       var newPins = userSavedPins.filter(function (pinId) {
         return pinId !== action.pinId;
       });
       nextState[action.user.id].saved_pins = newPins;
+      return nextState;
+
+    case _actions_pins_user_actions__WEBPACK_IMPORTED_MODULE_3__.RECEIVE_SAVED_PIN:
+      var currentUser = nextState[action.userId];
+      if (!currentUser.saved_pins.includes(action.pin.id)) currentUser.saved_pins.push(action.pin.id);
       return nextState;
 
     case _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__.REMOVE_BOARD:
