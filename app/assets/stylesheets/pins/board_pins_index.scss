@@ -78,6 +78,15 @@
     }
 }
 
+.pin-edit-button {
+    position: absolute; 
+    height: 12px;
+    width: 12px;
+
+    bottom: 30px;
+    right: 30px;
+}
+
 .pin-item-hover-board-name{
     font-weight: $semibold;
     width: 250px;

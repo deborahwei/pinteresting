@@ -1,7 +1,6 @@
 @import '../variables.scss';
 
 .edit-board-button {
-    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,12 +16,6 @@
     &:hover {
         background: rgba(255, 255, 255, 1);
     }
-}
-
-.pin-item-hover > .edit-board-button {
-    bottom: 15px;
-    right: 15px;
-
 }
 
 .save-pin-button {

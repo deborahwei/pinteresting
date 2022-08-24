@@ -49,8 +49,8 @@ class Api::PinsController < ApplicationController
 
     def update 
         @pin = Pin.with_attached_image.find_by(id: params[:id])
-        if ensure_owner_user && Pin.update(pin_params)
-            Pin.save
+        if ensure_owner_user && @pin.update(pin_params)
+            @pin.save
             render "api/pins/show"
         else
             render json: @pin.errors.full_messages, status: 422

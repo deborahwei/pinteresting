@@ -8,8 +8,9 @@ import SavePinButton from '../buttons/save_button'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import AddPinDropdown from './add_pin_dropdown'
 import EditBoardButton from '../buttons/edit_board_button'
+import { openModal } from "../../actions/modal_actions";
 
-const PinPhotoContainer = ({pin, creator, selection, showUser=true, showDropdown=true}) => {
+const PinPhotoContainer = ({pin, creator, selection, openModal, showUser=true, showDropdown=true}) => {
 
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
@@ -22,6 +23,16 @@ const PinPhotoContainer = ({pin, creator, selection, showUser=true, showDropdown
         e.stopPropagation()
     }
 
+    const handleEditClick = (e) => {
+        console.log('edit')
+        e.preventDefault()
+        openModal("edit pin", 
+        {
+            pin: pin, 
+            board: selection
+        })
+    }
+
     const updateCurrentSelection = (selection) => {
         setCurrentSelection(selection);
         setOpen(false);
@@ -32,7 +43,9 @@ const PinPhotoContainer = ({pin, creator, selection, showUser=true, showDropdown
         <div className='pin-item-container'>
                 <img src={pin.imageUrl}></img>
             <div className={`pin-item-hover`}>
-                <EditBoardButton/>
+                <div onClick={handleEditClick} className={`pin-edit-button ${showUser ? "hide" : ""}`}>
+                    <EditBoardButton />
+                </div>
                 <div className={`pin-item-hover-board-name ${showDropdown ? "" : "hide"}`}>
                     <div className={`pin-dropdown-trigger`} onClick={handleClick} ref={openRef}>
                         <h1>{abbreviate(currentSelection?.name ?? "Profile", MAX_BOARD_CHAR)}</h1>
@@ -69,4 +82,10 @@ const mSTP = (_, props) => {
     }
 }
 
-export default connect(mSTP, null)(PinPhotoContainer)
+const mDTP = (dispatch) => {
+    return {
+        openModal: (formType, props) => dispatch(openModal(formType, props))
+    }
+}
+
+export default connect(mSTP, mDTP)(PinPhotoContainer)
