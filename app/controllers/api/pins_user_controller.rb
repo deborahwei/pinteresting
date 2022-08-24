@@ -12,7 +12,7 @@ class Api::PinsUserController < ApplicationController
                 @pins_user = PinsUser.find_by(user_id: @user.id, pin_id: @pin.id)
                 if @pins_user && @pins_user.update(pin_user_params)
                     @pin = Pin.find(@pins_user.pin_id)
-                    render "api/pins/show"
+                    render "api/users/show"
                 else 
                     render json: @pinsUser.errors.full_messages, status: 422 
                 end
@@ -21,10 +21,10 @@ class Api::PinsUserController < ApplicationController
                     user_id: @user.id,
                     pin_id: @pin.id,
                     created_pin: false,
-                    saved_pin: params[:saved_pin]
+                    saved_pin: params[:pins_user][:saved_pin]
                 })
                 if pins_user_relation.save!
-                    render "api/pins/show"
+                    render "api/users/show"
                 else 
                     render json: pins_user_relation.errors.full_messages, status: 422
                 end
@@ -49,7 +49,6 @@ class Api::PinsUserController < ApplicationController
             else # if they are not creator then delete
                 if @pins_user && @pins_user.delete
                     @user = current_user
-                    puts @user
                     render "api/users/show"
                 end
             end
