@@ -35,6 +35,10 @@
     }
 }
 
+.save-pin-button.saved-mode {
+    background-color: $text-default;
+}
+
 .board-show-plus {
     z-index: 10;
     left: 50%;

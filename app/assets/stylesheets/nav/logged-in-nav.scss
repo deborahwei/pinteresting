@@ -16,7 +16,7 @@ a {
     padding: 15px 20px 35px 20px;
     font-size: $button-font-size;
     font-weight: $semibold;
-    z-index: 4;
+    z-index: 100000;
 }
 
 .logo-logged-in {

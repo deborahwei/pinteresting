@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import MiniBoardPreview from '../boards/mini_board_preview'
 import { openModal } from '../../actions/modal_actions'
 
-const AddPinDropdown = ({boards, currentUser, openModal, pin}) => {
+const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelection}) => {
 
     const userBoards = currentUser.boards.map( (boardId) => boards[boardId])
     
@@ -29,7 +29,8 @@ const AddPinDropdown = ({boards, currentUser, openModal, pin}) => {
                 <div className='pin-dropdown-boards'>
                     <p>Save to board</p>
                     <div className='pin-dropdown-board-container'> 
-                         {userBoards.map( (userBoard, i) => <MiniBoardPreview board={userBoard} key={i} currentUser={currentUser} pin={pin}/>)} 
+                        <MiniBoardPreview updateCurrentSelection={updateCurrentSelection} board={null} currentUser={currentUser} pin={pin}/>
+                         {userBoards.map( (userBoard, i) => <MiniBoardPreview updateCurrentSelection={updateCurrentSelection} board={userBoard} key={i} currentUser={currentUser} pin={pin}/>)} 
                     </div>
                 </div>
                 <div className='pin-dropdown-create'>

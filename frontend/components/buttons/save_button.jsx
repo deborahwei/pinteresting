@@ -5,8 +5,7 @@ import { unsavePin, savePin } from '../../actions/pins_user_actions'
 
 const SavePinButton = (props) => {
 
-    const {boardId, pinId, isProfile, boards, currentUser, addPinToBoard, removePinFromBoard, unsavePin, savePin} = props
-
+    const {boardId, pinId, boards, currentUser, addPinToBoard, removePinFromBoard, unsavePin, savePin, isOutside} = props
     const savePinToBoard = (e) => {
         e.preventDefault() 
         addPinToBoard(boardId, pinId)
@@ -24,13 +23,22 @@ const SavePinButton = (props) => {
         unsavePin(pinId)
     }
 
+    const isProfile = boardId === null || boardId === undefined;
+
     const isSavedPin = isProfile 
                        ? currentUser.saved_pins.includes(pinId) 
-                       : boards[boardId].pins.includes(pinId)
+                       : boards[boardId]?.pins.includes(pinId)
+
     const handleClick = isProfile 
                         ? isSavedPin ? unsavePinFromProfile : savePinToProfile
                         : isSavedPin ? unsavePinFromBoard : savePinToBoard
 
+    console.log("pinId:", pinId, "boardId:", boardId,
+                "isProfile:", isProfile, "isSavedPin:",
+                isSavedPin, "isOutside:", isOutside,
+                "currentUserPins:", currentUser.saved_pins,
+                "check:", currentUser.saved_pins[0] ===(pinId) )
+    
     return (
         <div onClick={handleClick} className={`save-pin-button ${isSavedPin ? "saved-mode" : "unsaved-mode"}`}>
             <h1 className="save-button-word">
@@ -41,10 +49,11 @@ const SavePinButton = (props) => {
 
 }
 
-const mSTP = ({entities: {boards, users}, session}) => {
+const mSTP = ({entities: {boards, users}, session}, props) => {
     return {
         boards,
-        currentUser: users[session.id]
+        currentUser: users[session.id],
+        isOutside: props.isOutside ?? false
     }
 }
 

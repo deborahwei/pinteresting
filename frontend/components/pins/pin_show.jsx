@@ -17,6 +17,7 @@ const PinShowContainer = (props) => {
 
     const {fetchBoards, fetchPin, fetchUser, closeModal, openModal, currentUser, boards, users, pinId, pins} = props
     const [loading, setLoading] = useState(true)
+    const [currentSelection, setCurrentSelection] = useState(null)
 
     useEffect( () => {
         fetchPin(pinId)
@@ -28,6 +29,11 @@ const PinShowContainer = (props) => {
     const handleGoBack = (e) => {
         e.preventDefault();
         window.history.back();
+    }
+
+    const updateCurrentSelection = (selection) => {
+        setCurrentSelection(selection);
+        setOpen(false);
     }
 
     const openRef = useRef(null)
@@ -48,7 +54,6 @@ const PinShowContainer = (props) => {
         }
     }
     
-    const firstBoard = boards[currentUser.boards[0]]
     const pin = pins[pinId]
     const creator = users[pin?.creator]
     const ownsPin = creator?.id === currentUser?.id
@@ -59,7 +64,7 @@ const PinShowContainer = (props) => {
                 <div onClick={handleGoBack} className="pin-show-background"></div>
                 <div className="pin-show-container">
                     <div className='pin-show-image-container'
-                        style={{backgroundImage: `url(${pin.imageUrl}` }}
+                        style={{backgroundImage: `url(${pin?.imageUrl}` }}
                     >
                     </div>
                     <div className="pin-show-right-container">
@@ -82,14 +87,14 @@ const PinShowContainer = (props) => {
                                 <div 
                                     onClick={handleDropdownClick} 
                                     className={`show-pin pin-add-menu ${open ? "open" : "closed"}`}>
-                                    <AddPinDropdown pin={pin}/> 
+                                    <AddPinDropdown pin={pin} updateCurrentSelection={updateCurrentSelection}/> 
                                 </div>
                                 <div className={`pin-item-hover-board-name`}>
                                     <div className={`pin-dropdown-trigger`} onClick={handleClick} ref={openRef}>
-                                        <h1 >{abbreviate(`${firstBoard?.name}`, MAX_BOARD_CHAR)}</h1>
+                                        <h1 >{abbreviate(currentSelection?.name ?? "Profile", MAX_BOARD_CHAR)}</h1>
                                         <i className='fa-solid fa-chevron-down fa-xs'></i>
                                     </div>
-                                    <SavePinButton boardId={firstBoard.id} pinId={pinId} isProfile={false}/>
+                                    <SavePinButton boardId={currentSelection?.id} pinId={pin.id} isOutside={true}/>
                                 </div>
                             </div>
                             <div className='pin-text'>
