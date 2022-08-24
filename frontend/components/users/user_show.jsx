@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink, Redirect } from 'react-router-dom'
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
@@ -18,7 +18,7 @@ const Tab = {
 
 
 const UserShowContainer = (props) => {    
-    const { currentUser, fetchUserByUsername, username, user, tabSelected, fetchUserBoardsByUsername} = props   
+    const { currentUser, fetchUserByUsername, username, user, tabSelected, fetchUserBoardsByUsername, openModal} = props   
     
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
@@ -56,10 +56,10 @@ const UserShowContainer = (props) => {
         setPlus(!plus)
     }
 
-    const openModal = (formType) => {
+    const handleOpenModal = (formType, props) => {
         return e => {
             e.preventDefault();
-            props.openModal(formType)
+            openModal(formType, props)
         }
     }
 
@@ -90,13 +90,18 @@ const UserShowContainer = (props) => {
                         <i ref={plusRef} onClick={handlePlusClick} className={`fa-solid fa-plus fa-2xs plus-${ plus ? "clicked" : "unclicked"}`}></i>
                     <div className={`plus-menu ${ plus ? "open" : "closed"}`}>
                         <p>Create</p>
-                        <div>Create pin</div>
-                        <div onClick={openModal('create board', {boardShow: false} )}>Create board</div>
+                        <Link to="/pin-builder">
+                            <div>Create pin</div>   
+                        </Link>
+                        <div onClick={handleOpenModal('create board', {boardShow: false} )}>Create board</div>
                     </div>
                 </div>
             </div>
             <div className="user-show-content-container">
                 {childrenContainers[tab]}
+            </div>
+            <div>
+
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ import SavePinButton from '../buttons/save_button'
 import { abbreviate } from '../../util/function_util'
 import { MAX_NAME_CHAR } from '../../util/constants_util'
 
-const MiniBoardPreview = ({currentUser, board}) => {
+const MiniBoardPreview = ({currentUser, board, pin}) => {
     const content = () => {
         return (
             <Link to={`/users/${currentUser.username}/boards/${board.name}`}>
@@ -16,7 +16,7 @@ const MiniBoardPreview = ({currentUser, board}) => {
                             <h1>{abbreviate(board.name, MAX_NAME_CHAR)}</h1>
                         </div>
                         <div>
-                            <SavePinButton/>
+                            <SavePinButton boardId={board.id} pinId={pin.id} isProfile={false}/>
                         </div>
                     </div>
                 </div>

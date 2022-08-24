@@ -59,7 +59,7 @@ const BoardShowPinsContainer = (props) => {
             <div className="board-show-pins-container">
                 <BoardPinsIndexContainer
                     pins={currentBoardPins}
-                    boardName={boardName}
+                    board={board}
                 />
                {boardShowButtons()}
             </div>
@@ -67,7 +67,7 @@ const BoardShowPinsContainer = (props) => {
     }
 
     return loading ? <LoadingContainer/> : hasPins ? boardPinsIndex() : hasNoPins()
-    }
+}
 
 const mSTP = ({entities: {pins}}, props) => {
 

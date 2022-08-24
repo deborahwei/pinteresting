@@ -48,7 +48,7 @@ const PinShowContainer = (props) => {
         }
     }
     
-    const firstBoardName = boards[currentUser.boards[0]]?.name
+    const firstBoard = boards[currentUser.boards[0]]
     const pin = pins[pinId]
     const creator = users[pin?.creator]
     const ownsPin = creator?.id === currentUser?.id
@@ -82,14 +82,14 @@ const PinShowContainer = (props) => {
                                 <div 
                                     onClick={handleDropdownClick} 
                                     className={`show-pin pin-add-menu ${open ? "open" : "closed"}`}>
-                                    <AddPinDropdown/> 
+                                    <AddPinDropdown pin={pin}/> 
                                 </div>
                                 <div className={`pin-item-hover-board-name`}>
                                     <div className={`pin-dropdown-trigger`} onClick={handleClick} ref={openRef}>
-                                        <h1 >{abbreviate(`${firstBoardName}`, MAX_BOARD_CHAR)}</h1>
+                                        <h1 >{abbreviate(`${firstBoard?.name}`, MAX_BOARD_CHAR)}</h1>
                                         <i className='fa-solid fa-chevron-down fa-xs'></i>
                                     </div>
-                                    <SavePinButton/>
+                                    <SavePinButton boardId={firstBoard.id} pinId={pinId} isProfile={false}/>
                                 </div>
                             </div>
                             <div className='pin-text'>

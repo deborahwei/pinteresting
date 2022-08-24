@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { MAX_TITLE_CHAR, MAX_BOARD_CHAR } from '../../util/constants_util'
 import { abbreviate } from '../../util/function_util'
 import UserPreviewContainer from '../users/user_preview'
-import { SavePinButton } from '../buttons/save_button'
+import SavePinButton from '../buttons/save_button'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import AddPinDropdown from './add_pin_dropdown'
 
-const PinPhotoContainer = ({pin, creator, boardName}) => {
+const PinPhotoContainer = ({pin, creator, board}) => {
 
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
@@ -25,10 +25,10 @@ const PinPhotoContainer = ({pin, creator, boardName}) => {
             <div className={`pin-item-hover`}>
                 <div className={`pin-item-hover-board-name`}>
                     <div className={`pin-dropdown-trigger`} onClick={handleClick} ref={openRef}>
-                        <h1 >{abbreviate(boardName, MAX_BOARD_CHAR)}</h1>
+                        <h1 >{abbreviate(board.name, MAX_BOARD_CHAR)}</h1>
                         <i className='fa-solid fa-chevron-down fa-xs'></i>
                     </div>
-                    <SavePinButton/>
+                    <SavePinButton boardId={board.id} pinId={pin.id} isProfile={false}/>
                 </div>
                 <Link to={`/pins/${pin.id}`} className="pin-show-link">
                     <div>
@@ -36,7 +36,7 @@ const PinPhotoContainer = ({pin, creator, boardName}) => {
                 </Link>
             </div>
             <div onClick={handleDropdownClick} className={`pin-add-menu ${open ? "open" : "closed"}`}>
-                <AddPinDropdown/> 
+                <AddPinDropdown pin={pin}/> 
             </div>
             <div className='pin-item-info'>
                 <div className='pin-item-title'>

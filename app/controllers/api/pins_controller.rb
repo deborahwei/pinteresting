@@ -64,7 +64,7 @@ class Api::PinsController < ApplicationController
     private 
 
     def ensure_owner_user 
-        current_user.id == Pin.retrieve_creator(@pin.id)
+        current_user.id == @pin.creator.id
     end
 
     def pin_params 

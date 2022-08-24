@@ -16,8 +16,9 @@ export const receiveBoards = (boards) => ({
   boards
 });
 
-export const removeBoard = boardId => ({
+export const removeBoard = (boardId, user)=> ({
   type: REMOVE_BOARD,
+  user,
   boardId
 });
 
@@ -58,8 +59,8 @@ export const updateBoard = (board) => dispatch => (
 );
 
 export const deleteBoard = (boardId) => dispatch => (
-  BoardAPIUtil.deleteBoard(boardId).then(() => (
-    dispatch(receiveBoard(boardId))
+  BoardAPIUtil.deleteBoard(boardId).then((user) => (
+    dispatch(removeBoard(boardId, user))
     ))
 ); 
 

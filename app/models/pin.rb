@@ -64,19 +64,7 @@ class Pin < ApplicationRecord
 
       Pin.with_attached_image
          .select("pins.*")
-         .where("pins.id in (#{pin_ids.join(", ")})")
-    end
-
-    def self.retrieve_creator(pin_id)
-      sql = """
-      SELECT users.id
-      FROM users
-      JOIN pins_users
-      ON users.id = pins_users.user_id
-      WHERE pins_users.pin_id = #{pin_id}
-      """
-      user = ActiveRecord::Base.connection.execute(sql).first
-      User.find(user["id"])
+         .where(["pins.id in (?)", pin_ids])
     end
   
     # deletes this saved pin from the other peoples profiles 

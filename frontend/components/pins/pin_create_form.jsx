@@ -71,18 +71,6 @@ const PinsCreateForm = (props) => {
 
     const preview = state.imageUrl ? <div style={{ backgroundImage: `url(${state.imageUrl}`}}/> : null;
 
-    const renderErrors = () => {
-        return(
-          <ul>
-            {errors.map((error, i) => (
-              <li key={`error-${i}`} className="board-errors auth-errors">
-                {error}
-              </li>
-            ))}
-          </ul>
-        );
-    }
-
     const content = () => {
         return (
             <div>
@@ -132,7 +120,7 @@ const PinsCreateForm = (props) => {
                                     id="pin-create-description" 
                                     type="text" 
                                     value={state.description}
-                                    placeholder="Tell everyone what you pin is about"
+                                    placeholder="Tell everyone what you Pin is about"
                                     onChange={update('description')}
                                     />
                                 </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import EditBoardButton from '../buttons/edit_board_button'
 
-export const BoardPreviewCover = ({openModal, board, isUser, user, pins}) => {
+const BoardPreviewCover = ({openModal, board, isUser, user, pins}) => {
 
     const handleEditClick = (e) => {
         e.preventDefault()

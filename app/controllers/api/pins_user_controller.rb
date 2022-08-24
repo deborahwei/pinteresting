@@ -8,7 +8,7 @@ class Api::PinsUserController < ApplicationController
         @pin = Pin.find(params[:pin_id])
         @user = current_user
         if @pin && @user
-            if Pin.retrieve_creator(@pin.id) == @user.id # if they are creator then update
+            if @pin.creator.id == @user.id # if they are creator then update
                 @pins_user = PinsUser.find_by(user_id: @user.id, pin_id: params[:id])
                 if @pins_user && @pins_user.update(pin_user_params)
                     @pin = Pin.find(@pins_user.pin_id)
@@ -39,7 +39,7 @@ class Api::PinsUserController < ApplicationController
         @user = current_user
         if @pin && @user
             @pins_user = PinsUser.find_by(user_id: @user.id, pin_id: params[:id])
-            if Pin.retrieve_creator(@pin.id) == @user.id # if they are creator then update
+            if @pin.creator.id == @user.id # if they are creator then update
                 if @pins_user && @pins_user.update(pin_user_params)
                     @pin = Pin.find(@pins_user.pin_id)
                     render "api/pins/show"

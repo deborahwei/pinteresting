@@ -15,3 +15,4 @@ export const abbreviate = (string, max_char) => {
         return string
     }
 }
+

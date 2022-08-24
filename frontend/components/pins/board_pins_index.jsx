@@ -7,7 +7,7 @@ import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
 
-const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, boardName}) => {
+const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, board}) => {
   
     const [loading, setLoading] = useState(true)
     useEffect( () => {
@@ -28,9 +28,9 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
                 >   
                     {
                         pins.map( (pin, i) => <PinPhotoContainer 
-                                                        key={i} 
-                                                        boardName={boardName}
-                                                        pin={pin} 
+                                                        key={i}
+                                                        board={board}
+                                                        pin={pin}
                                                         creator={findPinCreator(pin)}/>)
                     }
                 </Masonry>
@@ -41,14 +41,14 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
     return loading ? <LoadingContainer/> : content()
 }
 
-export const mSTP = ({session, entities: {users, boards}}) => {
+const mSTP = ({session, entities: {users, boards}}) => {
     return {
         users, 
         currentUser: users[session.id]
     }
 }
 
-export const mDTP = (dispatch) => {
+const mDTP = (dispatch) => {
     return {
         fetchBoards: (userId) => dispatch(fetchBoards(userId)),
         fetchUsers: (users, pins) => dispatch(fetchUsers(users, pins))

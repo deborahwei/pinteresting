@@ -82,7 +82,9 @@ const Nav = (props) => {
                         Create
                         <i className="fa-solid fa-chevron-down fa-xs create-button"></i>
                         <div className={`nav-create-menu ${createOpen ? 'open' : 'closed'}`}>
-                            <div className='create-pin'>Create pin</div>
+                            <Link to="/pin-builder">
+                                <div className='create-pin'>Create pin</div>
+                            </Link>
                         </div>
                     </div>
                 </div>

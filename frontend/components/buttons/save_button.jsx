@@ -1,16 +1,61 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { removePinFromBoard, addPinToBoard } from '../../actions/board_pins_actions'
+import { unsavePin, savePin } from '../../actions/pins_user_actions'
 
-export const SavePinButton = () => {
+const SavePinButton = (props) => {
+
+    const {boardId, pinId, isProfile, boards, currentUser, addPinToBoard, removePinFromBoard, unsavePin, savePin} = props
+
+    const savePinToBoard = (e) => {
+        e.preventDefault() 
+        addPinToBoard(boardId, pinId)
+    }
+    const savePinToProfile = (e) => {
+        e.preventDefault()
+        savePin(pinId)
+    }
+    const unsavePinFromBoard = (e) => {
+        e.preventDefault() 
+        removePinFromBoard(boardId, pinId)
+    }
+    const unsavePinFromProfile = (e) => {
+        e.preventDefault(pinId) 
+        unsavePin(pinId)
+    }
+
+    const isSavedPin = isProfile 
+                       ? currentUser.saved_pins.includes(pinId) 
+                       : boards[boardId].pins.includes(pinId)
+    const handleClick = isProfile 
+                        ? isSavedPin ? unsavePinFromProfile : savePinToProfile
+                        : isSavedPin ? unsavePinFromBoard : savePinToBoard
 
     return (
-        <div className="save-pin-button">
+        <div onClick={handleClick} className={`save-pin-button ${isSavedPin ? "saved-mode" : "unsaved-mode"}`}>
             <h1 className="save-button-word">
-                Save
+                {isSavedPin ? "Saved" : "Save"}
             </h1>
         </div>
     )
 
 }
 
+const mSTP = ({entities: {boards, users}, session}) => {
+    return {
+        boards,
+        currentUser: users[session.id]
+    }
+}
 
-export default SavePinButton
+const mDTP = (dispatch) => {
+    return {
+        addPinToBoard: (boardId, pinId) => dispatch(addPinToBoard(boardId, pinId)),
+        removePinFromBoard: (boardId, pinId) => dispatch(removePinFromBoard(boardId, pinId)),
+        unsavePin: (pinId) => dispatch(unsavePin(pinId)),
+        savePin: (pinId) => dispatch(savePin(pinId))
+    }
+}
+
+
+export default connect(mSTP, mDTP)(SavePinButton)

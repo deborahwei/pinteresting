@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const EditBoardButton = () => {
+const EditBoardButton = () => {
 
     return (
         <div className="edit-board-button">
@@ -9,6 +9,5 @@ export const EditBoardButton = () => {
     )
 
 }
-
 
 export default EditBoardButton

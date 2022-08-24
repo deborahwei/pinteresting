@@ -37,7 +37,7 @@ class User < ApplicationRecord
 
         User
             .select("users.*")
-            .where("users.id in (#{user_ids.join(", ")})")
+            .where(["users.id in (?)", user_ids]) 
     end
 
     def password=(password)

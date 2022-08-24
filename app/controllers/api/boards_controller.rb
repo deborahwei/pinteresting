@@ -9,11 +9,6 @@ class Api::BoardsController < ApplicationController
         render "api/boards/index"
     end
 
-    # def find_all_boards_pins 
-#     board_ids = params[:board_ids] # array of board_ids
-    #     Board.find()
-    # end
-
     def show 
         @board = Board.find(params[:id])
         render "api/boards/show"
