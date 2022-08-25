@@ -1,12 +1,16 @@
 import React, {useRef} from 'react'
 import {closeDropdown} from '../dropdown/close_dropdown'
-// import Data from '../data/pin_tags.json'
+import SearchBarCategories from './search_bar_categories'
 
 const SearchBarContainer = (props) => {
 
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
     const handleClick = () => setOpen(!open)
+
+    const [show, setShow] = useState(true)
+    const handleChange = () => setShow(value === "")
+    console.log(show)
     
     const content = () => {
 
@@ -16,12 +20,13 @@ const SearchBarContainer = (props) => {
                     ref={openRef}
                     onClick={handleClick}
                     placeholder="Search" 
-                    onChange={e => setQuery(e.target.value)}
+                    onChange={handleChange}
                     type="text"/>
                 <div className={`magnifying-glass ${open? "hide" : ""}`}>
                     <i className="fa-solid fa-magnifying-glass fa-sm"></i>
                 </div>
                 <div className={`search-dropdown ${open? "" : "hide"}`}>
+                    <SearchBarCategories/>
                 </div>
                 <div className={`search-bar-background ${open? "" : "hide"}`}></div>
             </div>

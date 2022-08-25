@@ -36,7 +36,8 @@
 
 .comment-text {
     font-size: 15px;
-
+    margin-left: 20px;
+    width: 240px;
 }
 
 .comment-item {
@@ -51,6 +52,7 @@
 
 .comment-user {
     width: 125px;
+    margin:bottom
 }
 
 .comment-extras {
@@ -59,7 +61,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 40px;
 
     .dots {
         margin-bottom: 8px;
