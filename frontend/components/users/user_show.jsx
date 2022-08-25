@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink, Link, Redirect } from 'react-router-dom'
+import { NavLink, Link, Redirect, useHistory } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
@@ -18,7 +18,7 @@ const Tab = {
 
 
 const UserShowContainer = (props) => {    
-    const { currentUser, fetchUserByUsername, username, user, tabSelected, fetchUserBoardsByUsername, openModal} = props   
+    const { currentUser, fetchUserByUsername, username, user, tabSelected, openModal} = props   
     
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
@@ -67,7 +67,7 @@ const UserShowContainer = (props) => {
         <div className="user-show-container">
             <div className="user-show-header">
                 <div className="user-show-profile-pic">
-                    <ProfilePicture user={currentUser} hasPhoto={false}/>
+                    <ProfilePicture user={user} hasPhoto={false}/>
                 </div>
                 <h1 >{username}</h1>
                 <p>{`@${username}`}</p>
@@ -100,9 +100,6 @@ const UserShowContainer = (props) => {
             <div className="user-show-content-container">
                 {childrenContainers[tab]}
             </div>
-            <div>
-
-            </div>
         </div>
     )
 
@@ -132,7 +129,7 @@ const mSTP = ({session, entities: {users}}, props) => {
         username: props.match.params.username,
         user: reverseSearch(users, "username", props.match.params.username),
         currentUser: users[session.id],
-        tabSelected, 
+        tabSelected 
     }
 }
 

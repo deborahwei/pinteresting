@@ -21,7 +21,7 @@ const ProfilePicture = (props) => {
         return (
             <div className='user-preview-pic'>
                     <div className="preview-photo">
-                        <h1>{user.username[0].toUpperCase()}</h1>
+                        <h1 className='preview-photo-letter'>{user.username[0].toUpperCase()}</h1>
                     </div>  
             </div>
         )

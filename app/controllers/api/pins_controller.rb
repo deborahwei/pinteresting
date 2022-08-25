@@ -2,6 +2,12 @@ class Api::PinsController < ApplicationController
 
     before_action :find_saved_pins, only: [:find_saved_pins]
     before_action :find_created_pins, only: [:find_created_pins]
+    before_action :homepage_pins, only: [:homepage_pins]
+
+    def homepage_pins 
+        @pins = Pin.generate_random_pins(params[:num_pins])
+        render "api/pins/index"
+    end
 
     def show 
         @pin = Pin.with_attached_image.find_by(id: params[:id])
@@ -43,8 +49,8 @@ class Api::PinsController < ApplicationController
 
     def update 
         @pin = Pin.with_attached_image.find_by(id: params[:id])
-        if ensure_owner_user && Pin.update(pin_params)
-            Pin.save
+        if ensure_owner_user && @pin.update(pin_params)
+            @pin.save
             render "api/pins/show"
         else
             render json: @pin.errors.full_messages, status: 422
@@ -53,9 +59,9 @@ class Api::PinsController < ApplicationController
 
     def destroy
         @pin = Pin.find_by(id: params[:id])
-
-        if @pin.destroy && Pin.delete_from_saved(@pin)
-            render "api/pins/show"
+        pin_id = @pin.id
+        if @pin.destroy 
+            render json: pin_id
         else
             render json: @pin.errors.full_messages, status: 422
         end

@@ -16,3 +16,7 @@ export const abbreviate = (string, max_char) => {
     }
 }
 
+export const shuffleArray = (arr) => {
+    return arr.sort(() => Math.random() - 0.5)
+}
+

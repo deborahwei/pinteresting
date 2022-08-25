@@ -28,8 +28,8 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
                 >   
                     {
                         pins.map( (pin, i) => <PinPhotoContainer 
-                                                        key={i}
                                                         board={board}
+                                                        key={i}
                                                         pin={pin}
                                                         creator={findPinCreator(pin)}/>)
                     }

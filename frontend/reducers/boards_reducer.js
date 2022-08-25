@@ -3,6 +3,7 @@ import {
     RECEIVE_BOARDS,
     REMOVE_BOARD
 } from '../actions/board_actions'
+import { REMOVE_PIN } from '../actions/pin_actions'
 
 const boardsReducer = (state = {}, action) => {
     Object.freeze(state)
@@ -20,6 +21,13 @@ const boardsReducer = (state = {}, action) => {
             return nextState
         case REMOVE_BOARD: 
             delete nextState[action.boardId];
+            return nextState
+        case REMOVE_PIN: 
+            const oldBoards = Object.values(nextState)
+            oldBoards.forEach(board => {
+                const newBoardPins = nextState[board.id].pins.filter((pinId) => pinId != action.pinId);
+                nextState[board.id].pins = newBoardPins
+            })
             return nextState
         default: 
             return state

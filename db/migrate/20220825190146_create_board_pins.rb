@@ -5,7 +5,7 @@ class CreateBoardPins < ActiveRecord::Migration[5.2]
       t.integer :pin_id, null: false 
       t.timestamps
     end
-
+    
     add_index :board_pins, [:pin_id, :board_id], unique: true
     add_index :board_pins, :board_id
     add_index :board_pins, :pin_id

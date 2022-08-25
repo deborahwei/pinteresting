@@ -3,13 +3,13 @@ class Api::CommentsController < ApplicationController
     def index 
         @pin = Pin.find(params[:pin_id])
         @comments = @pin.comments
-        render "api/comments/index"
+        render "api/pins/show"
     end
 
     def create
         @pin = Pin.find(params[:pin_id])
         # @user = current_user
-        @user = User.find(52)
+        @user = User.find(97)
         if @user && @pin 
             @comment = Comment.new({
                 user_id: @user.id, 
@@ -17,7 +17,7 @@ class Api::CommentsController < ApplicationController
                 text: params[:text]
             })
             if @comment.save
-                render "api/comments/show"
+                render "api/pins/show"
             else
                 render json: ["Couldn't save comment"]
             end

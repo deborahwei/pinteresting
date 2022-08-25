@@ -33,7 +33,9 @@ export const savePin = (pinId) => {
   return Promise.resolve($.ajax({
     method: 'GET', 
     url: `api/pins_user/save/${pinId}`, 
-    data: {saved_pin: true}
+    data: {
+      pins_user: {saved_pin: true}
+    }
   }))
 }
 
@@ -41,6 +43,8 @@ export const unsavePin = (pinId) => {
   return Promise.resolve($.ajax({
     method: 'GET', 
     url: `api/pins_user/unsave/${pinId}`, 
-    data: {saved_pin: false}
+    data: {
+      pins_user: {saved_pin: false}
+    }
   }))
 }

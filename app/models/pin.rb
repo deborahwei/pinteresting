@@ -35,6 +35,25 @@ class Pin < ApplicationRecord
       end
     end
 
+    # def self.generate_random_pins(num)
+    #   Pin.with_attached_image
+    #       .select("pins.*")
+    #       .order("rand")
+    #       .limit(user_id)
+    # end
+
+    def self.generate_random_pins(num)
+      all_pins = Pin.all.map(&:id)
+      num = all_pins.length if num.to_i > Pin.all.length 
+      pins = []
+      num.to_i.times do |i|
+        random_pin_id = all_pins.sample
+        all_pins.delete(random_pin_id)
+        pins << Pin.find(random_pin_id)
+      end
+      return pins 
+    end
+
     def self.safe_create(pin_params, user_id)
       pin = Pin.new(pin_params)
     
@@ -67,13 +86,5 @@ class Pin < ApplicationRecord
          .where(["pins.id in (?)", pin_ids])
     end
   
-    # deletes this saved pin from the other peoples profiles 
-    def self.delete_from_saved(pin)
-        pinSavers = PinsUser.where(pin_id: pin.id)
-        if pinSavers
-          pinSavers.map {| pinSaver| pinSaver.destroy}
-        end
-    end
-
     
 end

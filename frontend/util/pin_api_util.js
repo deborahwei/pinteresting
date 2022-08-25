@@ -15,6 +15,14 @@ export const fetchPins = (pinIds) => {
   }))
 };
 
+export const fetchHomepagePins = (numPins) => {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: '/api/pins/homepage',
+    data: {num_pins: numPins}
+  }))
+}
+
 export const createPin = (pin) => (
     Promise.resolve($.ajax({
       method: 'POST',

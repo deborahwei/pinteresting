@@ -7,6 +7,7 @@ import CreateBoardForm from '../boards/board_create_form';
 import EditBoardForm from '../boards/board_edit_form'
 import DeleteBoardForm from '../boards/board_delete_form'
 import PinEditForm from '../pins/pin_edit_form';
+import PinDeleteForm from '../pins/pin_delete_form'
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -31,6 +32,9 @@ function Modal({modal, closeModal}) {
       break;
     case 'edit pin':
       component= <PinEditForm/>;
+      break
+    case 'delete pin':
+      component= <PinDeleteForm/>;
       break
     default:
       return null;

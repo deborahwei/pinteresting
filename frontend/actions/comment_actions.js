@@ -1,8 +1,8 @@
 import * as CommentAPIUtil from "../util/comment_util"
 import { receivePin } from "./pin_actions";
 
-export const fetchComments = () => dispatch => (
-    CommentAPIUtil.fetchComments().then(pin => (
+export const fetchComments = (pinId) => dispatch => (
+    CommentAPIUtil.fetchPinComments(pinId).then(pin => (
       dispatch(receivePin(pin))
     ))
 );

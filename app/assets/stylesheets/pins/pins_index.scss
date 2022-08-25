@@ -1,0 +1,19 @@
+.pins-index-container {
+    margin-left: 25px;
+    width: 92%;
+    height: 100%;
+}
+
+.masonry-pins-grid {
+    width: auto;
+    display: flex; 
+    justify-content: flex-start;
+
+} 
+
+.masonry-pins-grid.center {
+    width: auto;
+    display: flex; 
+    justify-content: center;
+
+}

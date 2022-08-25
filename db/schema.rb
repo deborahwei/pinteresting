@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_013045) do
+ActiveRecord::Schema.define(version: 2022_08_25_190458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 2022_08_22_013045) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "user_id", null: false
     t.string "description"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "name"], name: "index_boards_on_user_id_and_name", unique: true
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_013045) do
   end
 
   create_table "pins", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,7 +77,9 @@ ActiveRecord::Schema.define(version: 2022_08_22_013045) do
     t.integer "pin_id", null: false
     t.boolean "created_pin", null: false
     t.boolean "saved_pin", null: false
-    t.index ["user_id", "pin_id"], name: "index_pins_users_on_user_id_and_pin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "pin_id"], name: "index_pins_users_on_user_id_and_pin_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

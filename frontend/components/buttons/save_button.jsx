@@ -4,8 +4,7 @@ import { removePinFromBoard, addPinToBoard } from '../../actions/board_pins_acti
 import { unsavePin, savePin } from '../../actions/pins_user_actions'
 
 const SavePinButton = (props) => {
-
-    const {boardId, pinId, isProfile, boards, currentUser, addPinToBoard, removePinFromBoard, unsavePin, savePin} = props
+    const {boardId, pinId, boards, currentUser, addPinToBoard, removePinFromBoard, unsavePin, savePin, isOutside} = props
 
     const savePinToBoard = (e) => {
         e.preventDefault() 
@@ -24,9 +23,12 @@ const SavePinButton = (props) => {
         unsavePin(pinId)
     }
 
+    const isProfile = boardId === null || boardId === undefined;
+
     const isSavedPin = isProfile 
                        ? currentUser.saved_pins.includes(pinId) 
-                       : boards[boardId].pins.includes(pinId)
+                       : boards[boardId]?.pins.includes(pinId)
+
     const handleClick = isProfile 
                         ? isSavedPin ? unsavePinFromProfile : savePinToProfile
                         : isSavedPin ? unsavePinFromBoard : savePinToBoard
@@ -41,10 +43,10 @@ const SavePinButton = (props) => {
 
 }
 
-const mSTP = ({entities: {boards, users}, session}) => {
+const mSTP = ({entities: {boards, users}, session}, props) => {
     return {
         boards,
-        currentUser: users[session.id]
+        currentUser: users[session.id],
     }
 }
 

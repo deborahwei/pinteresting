@@ -1,10 +1,16 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
-import { updatePin } from "../../actions/pin_actions";
+import { useHistory } from "react-router-dom";
+import { closeModal, openModal } from "../../actions/modal_actions";
+import { removePin, updatePin } from "../../actions/pin_actions";
+import { addPinToBoard } from '../../actions/board_pins_actions'
 
 const PinEditForm = (props) => {
 
-    const { updatePin, pin } = props 
+    const { updatePin, closeModal, openModal, addPinToBoard, currentUser, pin, boards} = props 
+    const userBoards = currentUser.boards.map( (boardId) => boards[boardId])
+    const [boardSelected, setBoardSelected] = useState(userBoards[0].name)
+    const history = useHistory()
 
     const [state, setState] = useState({
         title: pin.title, 
@@ -12,57 +18,120 @@ const PinEditForm = (props) => {
         id: pin.id
     })
 
-    const renderErrors = () => {
-        return (
-          <ul>
-            {errors.map((error, i) => (
-              <li key={`error-${i}`} className="board-errors auth-errors">
-                {error}
-              </li>
-            ))}
-          </ul>
-        );
-    }
-    
     const update = (field) => {
         return e => setState({
             ...state, [field]: e.currentTarget.value
         })
     }
 
-    const content = () => {
-        return (
-            <div className="pin-edit-form-container">
-                <div className="pin-edit-heading">
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updatePin(state)
+            .then(()=> {
+                history.push(`/pins/${pin.id}`);
+            })
+            .then(() => {
+                props.closeModal()
+            })
+            .then(() => {
+                addPinToBoard(boardSelected, pin.id)
+            })
 
-                </div>
-                <div className="pin-edit-middle">
-                    <div className="pin-edit-inputs">
-                        <div className="pin-edit-title">
+    }
 
-                        </div>
-                        <div className="pin-edit-title">
+    const handleOpenModal = (formType, props) => {
+        return e => {
+            e.preventDefault();
+            openModal(formType, props)
+        }
+    }
 
+    const handleSelection = (e) => {
+        let value = e.target.value;
+        setBoardSelected(value)
+    }
+
+    const handleCancel = (e) => {
+        e.preventDefault()
+        closeModal()
+    }
+
+    return (
+        <div className="pin-edit-form-container">
+            <div className="pin-edit-heading">
+                <h1>Edit this pin</h1>
+            </div>
+            <form className="form-form-container" onSubmit={handleSubmit} action="">
+                <div className="pin-edit-form">
+                    <div className="pin-edit-left">
+                        <div className="pin-edit-inputs">
+                            <div className="pin-edit-board">
+                                <label htmlFor="pin-edit-board">Board</label>
+                                <select
+                                    id="pin-edit-board" 
+                                    onChange={handleSelection}
+                                >
+                                    {userBoards.map((userBoard, i) => <option key={i} value={`${userBoard.id}`}>{userBoard.name}</option>)}
+                                </select> 
+                            </div>
+                            <div className="pin-edit-title">
+                                <label htmlFor="pin-edit-title">Title</label>
+                                    <input 
+                                    id="pin-edit-title" 
+                                    type="text" 
+                                    value={state.title}
+                                    onChange={update('title')}
+                                    />
+                            </div>
+                            <div className="pin-edit-description">
+                                <label htmlFor="pin-edit-description">Description</label>
+                                    <input 
+                                    id="pin-edit-description" 
+                                    type="text" 
+                                    value={state.description}
+                                    onChange={update('description')}
+                                    />  
+                            </div>
                         </div>
                     </div>
                     <div className="pin-edit-photo">
-
+                        <div className="div-image" style={{ backgroundImage: `url(${pin.imageUrl}`}}/>
                     </div>
                 </div>
-                <div className="pin-edit-buttons">
-
+                <div className="edit-form-buttons">
+                    <div onClick={handleOpenModal('delete pin', {
+                        pin: pin
+                    })} 
+                    className={`button-delete`}>
+                        <h1>Delete</h1>
+                    </div>
+                    <div onClick={handleCancel} className={`button-cancel`}>
+                        <h1>Cancel</h1>
+                    </div>
+                    <button type="submit" className={`button-save`}>
+                        <h1>Save</h1>
+                    </button>
                 </div>
-            </div>
-        )
-    }
-    return content()
+            </form>
+        </div>
+    )
 }
 
-const mSTP = ({ui: {modal: {props}}}) => {
+const mSTP = ({session, entities: {users, boards}, ui: {modal: {props}}}) => {
     return {
-        pin: props.pin, 
-        path: props.path
+        currentUser: users[session.id], 
+        boards, 
+        pin: props.pin
     }
 }
 
-export default connect(mSTP, null)(PinEditForm) 
+const mDTP = (dispatch) => {
+    return {
+        addPinToBoard: (boardId, pinId) => dispatch(addPinToBoard(boardId, pinId)),
+        updatePin: (pin) => dispatch(updatePin(pin)), 
+        closeModal: () => dispatch(closeModal()), 
+        openModal: (formType, props) => dispatch(openModal(formType, props))
+    }
+}
+
+export default connect(mSTP, mDTP)(PinEditForm) 

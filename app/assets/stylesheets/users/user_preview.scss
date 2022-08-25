@@ -11,7 +11,7 @@
         text-indent: 10px;
     }
 
-    h1 {
+    .username {
         font-weight: normal;
         cursor: pointer;
 
@@ -20,6 +20,14 @@
         }
     }
 
+}
+
+.preview-photo-letter  {
+    text-decoration: none;
+}
+
+.username.bold {
+    font-weight: $semibold;
 }
 
 .user-preview-pic {

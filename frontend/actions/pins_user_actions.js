@@ -1,16 +1,15 @@
 import * as PinsUserAPIUtil from '../util/pins_user_api_util';
-import { receivePin } from './pin_actions';
-// import { receiveUser } from './user' don't know what info I want after saving and unsaving a pin
+import { receiveUser } from './user_actions';
 
-export const savePin = (pinId) => (
-    PinsUserAPIUtil.savePin(pinId).then(pin => (
-        dispatch(receivePin(pin))
+export const savePin = (pinId) => dispatch => {
+    return PinsUserAPIUtil.savePin(pinId).then((user) => (
+        dispatch(receiveUser(user))
     ))
-);
+};
 
-export const unsavePin = (pinId) => (
-    PinsUserAPIUtil.unsavePin(pinId).then(pin => (
-        dispatch(receivePin(pin))
+export const unsavePin = (pinId) => dispatch  => (
+    PinsUserAPIUtil.unsavePin(pinId).then((user) => (
+        dispatch(receiveUser(user))
     ))
 );
 

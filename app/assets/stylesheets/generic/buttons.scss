@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    color: black;
 
     width: 35px;
     height: 35px;
@@ -33,6 +34,10 @@
     &:hover {
         background-color: $hover-red;
     }
+}
+
+.save-pin-button.saved-mode {
+    background-color: $text-default;
 }
 
 .board-show-plus {

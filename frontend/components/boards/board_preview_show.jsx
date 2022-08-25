@@ -5,7 +5,6 @@ import { MAX_NAME_CHAR } from '../../util/constants_util'
 import { timeSince } from '../../util/time_util'
 
 const BoardPreviewContainer = (props) => {
-
     const {board, user, openModal, isUser, pins} = props 
     if (!board) return null
 
@@ -35,7 +34,7 @@ const BoardPreviewContainer = (props) => {
                     <h1>{boardName()}</h1>
                     <div className='board-preview-subtext'>
                         <p>{`${pins.length} Pins`}</p> 
-                        <p>{timeSince(board.created_at)}</p>
+                        <p className="updated-at">{timeSince(board.updated_at)}</p>
                     </div>
                 </div>
             </div>
