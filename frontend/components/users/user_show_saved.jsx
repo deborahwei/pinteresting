@@ -10,8 +10,8 @@ import ProfilePins from '../pins/profile_saved_pins'
 
 const UserShowSavedContainer = (props) => {
     const {fetchBoards, isUser, openModal, user, boards, pins, fetchPins} = props
-    const boardsEmpty = Object.keys(boards).length === 0
-    const [loading, setLoading] = useState(boardsEmpty)
+    const boardsEmpty = Object.keys(user.boards).length === 0
+    const [loading, setLoading] = useState(true)
 
     const noSavedBoardsMessage = () => {
         return `${isUser ? "You haven't" : `${user.username} hasn't`} saved any Pins yet`
@@ -29,7 +29,7 @@ const UserShowSavedContainer = (props) => {
                     if (!(pinId in pins))
                         pinIdsArray.push(pinId)
                 }
-                return fetchPins(pinIdsArray)
+                return pinIdsArray.length === 0 ? null : fetchPins(pinIdsArray)
             })
             .finally(() => (setLoading(false)))
     }, [user])
@@ -72,11 +72,11 @@ const UserShowSavedContainer = (props) => {
                 <div className='board-or-nah-container'>
                     {boardsEmpty ? noBoards() : boardsIndex()}
                 </div>
-                <div className="unorganized-ideas">
+                <div className={`unorganized-ideas ${user.saved_pins.length === 0 ? "hide" : ""}`}>
                     <div className="unorganized-ideas-header">
                         <h1>Unorganized Ideas</h1>
                     </div>
-                    <ProfilePins/>
+                    <ProfilePins user={user}/>
                 </div>
             </div>
         )

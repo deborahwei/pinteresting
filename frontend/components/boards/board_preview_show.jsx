@@ -5,7 +5,6 @@ import { MAX_NAME_CHAR } from '../../util/constants_util'
 import { timeSince } from '../../util/time_util'
 
 const BoardPreviewContainer = (props) => {
-
     const {board, user, openModal, isUser, pins} = props 
     if (!board) return null
 

@@ -5,16 +5,20 @@ import { fetchPins } from '../../actions/pin_actions'
 import PinsIndex from '../pins/pins_index'
 
 const ProfilePinsContainer = (props) => {
-
-    const { fetchPins, pins, currentUser } = props
+    const { fetchPins, pins, user } = props
     
     const [loading, setLoading] = useState(true)
     
     useEffect( () => {
-        fetchPins(currentUser.saved_pins).finally(() => (setLoading(false)))
+        if (user.saved_pins.length > 0) {
+            fetchPins(user.saved_pins).finally(() => (setLoading(false)))
+        }
+        else {
+            setLoading(false)
+        }
     }, [])
 
-    const profilePins = currentUser.saved_pins.map((pinId) => pins[pinId])
+    const profilePins = user.saved_pins.map((pinId) => pins[pinId])
     
     const content = () => {
         return (
@@ -27,10 +31,9 @@ const ProfilePinsContainer = (props) => {
     return loading ? <LoadingContainer/> : content()
 }
 
-const mSTP = ({session, entities: {pins, users}}) => {
+const mSTP = ({entities: {pins}}) => {
     return {
-        pins, 
-        currentUser: users[session.id]
+        pins 
     }
 }
 

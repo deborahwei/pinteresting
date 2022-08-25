@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { closeModal, openModal } from "../../actions/modal_actions";
-import { updatePin } from "../../actions/pin_actions";
+import { removePin, updatePin } from "../../actions/pin_actions";
+import { addPinToBoard } from '../../actions/board_pins_actions'
 
 const PinEditForm = (props) => {
 
-    const { updatePin, closeModal, openModal, currentUser, pin, boards} = props 
-    const [board, setBoard] = useState(null)
+    const { updatePin, closeModal, openModal, addPinToBoard, currentUser, pin, boards} = props 
     const userBoards = currentUser.boards.map( (boardId) => boards[boardId])
+    const [boardSelected, setBoardSelected] = useState(userBoards[0].name)
     const history = useHistory()
 
     const [state, setState] = useState({
@@ -32,6 +33,10 @@ const PinEditForm = (props) => {
             .then(() => {
                 props.closeModal()
             })
+            .then(() => {
+                addPinToBoard(boardSelected, pin.id)
+            })
+
     }
 
     const handleOpenModal = (formType, props) => {
@@ -43,10 +48,13 @@ const PinEditForm = (props) => {
 
     const handleSelection = (e) => {
         let value = e.target.value;
-        setBoard(value)
+        setBoardSelected(value)
     }
 
-    console.log(pin.imageUrl)
+    const handleCancel = (e) => {
+        e.preventDefault()
+        closeModal()
+    }
 
     return (
         <div className="pin-edit-form-container">
@@ -58,46 +66,49 @@ const PinEditForm = (props) => {
                     <div className="pin-edit-left">
                         <div className="pin-edit-inputs">
                             <div className="pin-edit-board">
-                                {/* <label htmlFor="pin-edit-board">Title</label>
+                                <label htmlFor="pin-edit-board">Board</label>
                                 <select
                                     id="pin-edit-board" 
-                                    defaultValue={board}
                                     onChange={handleSelection}
                                 >
-                                    {userBoards.map((userBoard, i) => <option key={i} value="board">{userBoard}</option>)}
-                                </select>  */}
+                                    {userBoards.map((userBoard, i) => <option key={i} value={`${userBoard.id}`}>{userBoard.name}</option>)}
+                                </select> 
                             </div>
                             <div className="pin-edit-title">
-                            <label htmlFor="pin-edit-title">Title</label>
-                                <input 
-                                id="pin-edit-title" 
-                                type="text" 
-                                value={state.title}
-                                onChange={update('title')}
-                                />
+                                <label htmlFor="pin-edit-title">Title</label>
+                                    <input 
+                                    id="pin-edit-title" 
+                                    type="text" 
+                                    value={state.title}
+                                    onChange={update('title')}
+                                    />
                             </div>
                             <div className="pin-edit-description">
-                            <label htmlFor="pin-edit-description">Description</label>
-                                <input 
-                                id="pin-edit-description" 
-                                type="text" 
-                                value={state.description}
-                                onChange={update('description')}
-                                />  
+                                <label htmlFor="pin-edit-description">Description</label>
+                                    <input 
+                                    id="pin-edit-description" 
+                                    type="text" 
+                                    value={state.description}
+                                    onChange={update('description')}
+                                    />  
                             </div>
                         </div>
                     </div>
                     <div className="pin-edit-photo">
-                        <img src={`${pin.imageUrl}`} alt="" />
-                        <div className="div-image" style={{ backgroundImage: `url(${pin.imageUrl}`}}></div>
+                        <div className="div-image" style={{ backgroundImage: `url(${pin.imageUrl}`}}/>
                     </div>
                 </div>
                 <div className="edit-form-buttons">
-                    <div className={`button delete`}>
+                    <div onClick={handleOpenModal('delete pin', {
+                        pin: pin
+                    })} 
+                    className={`button-delete`}>
+                        <h1>Delete</h1>
                     </div>
-                    <div className={`button cancel`}>
+                    <div onClick={handleCancel} className={`button-cancel`}>
+                        <h1>Cancel</h1>
                     </div>
-                    <button type="submit" className={`button save`}>
+                    <button type="submit" className={`button-save`}>
                         <h1>Save</h1>
                     </button>
                 </div>
@@ -110,13 +121,13 @@ const mSTP = ({session, entities: {users, boards}, ui: {modal: {props}}}) => {
     return {
         currentUser: users[session.id], 
         boards, 
-        pin: props.pin, 
-        board: props.board
+        pin: props.pin
     }
 }
 
 const mDTP = (dispatch) => {
     return {
+        addPinToBoard: (boardId, pinId) => dispatch(addPinToBoard(boardId, pinId)),
         updatePin: (pin) => dispatch(updatePin(pin)), 
         closeModal: () => dispatch(closeModal()), 
         openModal: (formType, props) => dispatch(openModal(formType, props))

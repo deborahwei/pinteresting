@@ -7,15 +7,15 @@ import { fetchPins } from '../../actions/pin_actions'
 
 const UserShowCreatedContainer = (props) => {
 
-    const { fetchPins, pins, currentUser, isUser} = props
+    const { fetchPins, pins, user, isUser} = props
     const [loading, setLoading] = useState(true) 
     
     useEffect( () => {
-        fetchPins(currentUser.created_pins).finally(() => (setLoading(false)))
+        fetchPins(user.created_pins).finally(() => (setLoading(false)))
     }, [])
     
-    const hasNoPins = currentUser.created_pins.length === 0
-    const createdPins = currentUser.created_pins.map((pinId) => pins[pinId])
+    const hasNoPins = user.created_pins.length === 0
+    const createdPins = user.created_pins.map((pinId) => pins[pinId])
     
     const noSavedPinsMessage = () => {
         return isUser 
@@ -39,7 +39,7 @@ const UserShowCreatedContainer = (props) => {
     const createdPinsIndex = () => {
         return (
             <div className='created-pins-container'>
-                <PinsIndex pins={createdPins} showUser={false}/>
+                <PinsIndex pins={createdPins} showUser={false} isUser={isUser}/>
             </div>
         )
     }
@@ -47,10 +47,9 @@ const UserShowCreatedContainer = (props) => {
     return loading ? <LoadingContainer/> : hasNoPins ? noPins() : createdPinsIndex()
 }
 
-const mSTP = ({session, entities: {pins, users}}) => {
+const mSTP = ({entities: {pins}}) => {
     return {
-        pins, 
-        currentUser: users[session.id]
+        pins
     }
 }
 

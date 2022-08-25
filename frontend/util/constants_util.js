@@ -12,4 +12,4 @@ export const MAX_TITLE_CHAR = 30
 
 export const MAX_BOARD_CHAR = 7
 
-export const HOMEPAGE_NUM_PINS = 21
+export const HOMEPAGE_NUM_PINS = 50

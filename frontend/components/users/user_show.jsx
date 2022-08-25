@@ -18,15 +18,13 @@ const Tab = {
 
 
 const UserShowContainer = (props) => {    
-    const { currentUser, fetchUserByUsername, username, user, tabSelected, fetchUserBoardsByUsername, openModal} = props   
+    const { currentUser, fetchUserByUsername, username, user, tabSelected, openModal} = props   
     
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
     const [tab, setTab] = useState(tabSelected)
-    // const history = useHistory()
     
     const handleClickTab = tab => e => {
-        // window.history.replaceState(null, "", `/users/${user.username}/${tab}`)
         e.preventDefault()
         setTab(tab)
     }
@@ -69,7 +67,7 @@ const UserShowContainer = (props) => {
         <div className="user-show-container">
             <div className="user-show-header">
                 <div className="user-show-profile-pic">
-                    <ProfilePicture user={currentUser} hasPhoto={false}/>
+                    <ProfilePicture user={user} hasPhoto={false}/>
                 </div>
                 <h1 >{username}</h1>
                 <p>{`@${username}`}</p>
@@ -131,7 +129,7 @@ const mSTP = ({session, entities: {users}}, props) => {
         username: props.match.params.username,
         user: reverseSearch(users, "username", props.match.params.username),
         currentUser: users[session.id],
-        tabSelected, 
+        tabSelected 
     }
 }
 

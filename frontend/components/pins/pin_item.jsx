@@ -10,7 +10,7 @@ import AddPinDropdown from './add_pin_dropdown'
 import EditBoardButton from '../buttons/edit_board_button'
 import { openModal } from "../../actions/modal_actions";
 
-const PinPhotoContainer = ({pin, creator, selection, openModal, showUser=true, showDropdown=true}) => {
+const PinPhotoContainer = ({pin, isUser, creator, selection, openModal, showUser=true, showDropdown=true}) => {
 
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
@@ -24,12 +24,10 @@ const PinPhotoContainer = ({pin, creator, selection, openModal, showUser=true, s
     }
 
     const handleEditClick = (e) => {
-        console.log('edit')
         e.preventDefault()
         openModal("edit pin", 
         {
             pin: pin, 
-            board: selection
         })
     }
 
@@ -38,12 +36,11 @@ const PinPhotoContainer = ({pin, creator, selection, openModal, showUser=true, s
         setOpen(false);
     }
 
-
     return (
         <div className='pin-item-container'>
-                <img src={pin.imageUrl}></img>
+                <img src={pin?.imageUrl}></img>
             <div className={`pin-item-hover`}>
-                <div onClick={handleEditClick} className={`pin-edit-button ${showUser ? "hide" : ""}`}>
+                <div onClick={handleEditClick} className={`pin-edit-button ${showUser || !isUser ? "hide" : ""}`}>
                     <EditBoardButton />
                 </div>
                 <div className={`pin-item-hover-board-name ${showDropdown ? "" : "hide"}`}>

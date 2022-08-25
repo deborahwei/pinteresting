@@ -7,7 +7,7 @@ import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
 
-const PinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, showUser=true, showDropdown=true, center=false}) => {
+const PinsIndexContainer = ({pins, currentUser, isUser, users, fetchUsers, fetchBoards, showUser=true, showDropdown=true, center=false}) => {
     
     const [loading, setLoading] = useState(true)
     
@@ -16,7 +16,7 @@ const PinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, 
     }, [])
 
     const findPinCreator = (pin) => {
-        return users[pin.creator]
+        return users[pin?.creator]
     }
         
     const content = () => {
@@ -33,6 +33,7 @@ const PinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, 
                                                         pin={pin}
                                                         showUser={showUser}
                                                         showDropdown={showDropdown}
+                                                        isUser={isUser}
                                                         creator={findPinCreator(pin)}/>)
                     }
                 </Masonry>
@@ -43,7 +44,7 @@ const PinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, 
     return loading ? <LoadingContainer/> : content()
 }
 
-const mSTP = ({session, entities: {users, pins}}) => {
+const mSTP = ({session, entities: {users}}) => {
     return {
         users, 
         currentUser: users[session.id]

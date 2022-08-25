@@ -79,13 +79,5 @@ class Pin < ApplicationRecord
          .where(["pins.id in (?)", pin_ids])
     end
   
-    # deletes this saved pin from the other peoples profiles 
-    def self.delete_from_saved(pin)
-        pinSavers = PinsUser.where(pin_id: pin.id)
-        if pinSavers
-          pinSavers.map {| pinSaver| pinSaver.destroy}
-        end
-    end
-
     
 end

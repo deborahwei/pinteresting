@@ -28,10 +28,11 @@ export const receiveCreatedPin = (pin, userId) => {
     }
 }
 
-export const removePin = (pinId) => {
+export const removePin = (pinId, userId) => {
     return {
         type: REMOVE_PIN,
-        pinId
+        pinId, 
+        userId
     }
 }
 
@@ -43,11 +44,11 @@ export const receivePinErrors = (errors) => {
 }
 
 export const fetchPins = (pinIds) => dispatch => {  
-    if (pinIds.length > 0) {
         return PinAPIUtil.fetchPins(pinIds).then(pins => {
             return dispatch(receivePins(pins))
+        }, err => {
+            return dispatch(receivePinErrors(err.responseJSON))
         })
-    }
 }
 
 export const fetchHomepagePins = (numPins) => dispatch => {  
@@ -64,11 +65,12 @@ export const fetchPin = pinId => dispatch => (
     ))
 );
 
-export const deletePin = pinId => dispatch => (
-    PinAPIUtil.deletePin(pinId).then(() => (
-      dispatch(receivePin(pin))
+export const deletePin = (pinId, userId) => dispatch => {
+    console.log(userId)
+    return PinAPIUtil.deletePin(pinId).then((pinId) => (
+      dispatch(removePin(pinId, userId))
     ))
-);
+};
 
 export const createPin = (pin, userId) => dispatch => (
     PinAPIUtil.createPin(pin).then(pin => {

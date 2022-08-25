@@ -59,9 +59,9 @@ class Api::PinsController < ApplicationController
 
     def destroy
         @pin = Pin.find_by(id: params[:id])
-
-        if @pin.destroy && Pin.delete_from_saved(@pin)
-            render "api/pins/show"
+        pin_id = @pin.id
+        if @pin.destroy 
+            render json: pin_id
         else
             render json: @pin.errors.full_messages, status: 422
         end
