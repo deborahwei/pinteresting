@@ -1,6 +1,5 @@
 @import '../variables.scss';
 
-
 a {
     color: black;
     text-decoration: none;
@@ -79,12 +78,15 @@ a {
 
 }
 
+.nav-search-bar-container {
+    width: 70%;
+}
+
 .search-bar {
     display: flex;
     flex-direction: row;
     flex: 1 1 auto;
     position: relative;
-    width: 70%;
     height: 50px;
     padding-bottom: 5px;
 

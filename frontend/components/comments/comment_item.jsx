@@ -24,7 +24,7 @@ const CommentContainer = (props) => {
         <div className="comment-item">
             <div className='comment-item-content'>
                 <div className='comment-user'>
-                    <UserPreviewContainer user={user}/>
+                    <UserPreviewContainer user={user} bold={true}/>
                 </div>
                 <div className='comment-text'>
                     <p>{comment.text}</p>

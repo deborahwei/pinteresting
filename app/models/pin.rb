@@ -35,6 +35,12 @@ class Pin < ApplicationRecord
       end
     end
 
+    # def self.generate_random_pins(num)
+    #   Pin.with_attached_image
+    #       .select("pins.*")
+    #       .order("rand")
+    #       .limit(user_id)
+    # end
     def self.generate_random_pins(num)
       all_pins = Pin.all.map(&:id)
       num = all_pins.length if num.to_i > Pin.all.length 

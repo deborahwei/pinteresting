@@ -5,7 +5,7 @@ import { openModal } from '../../actions/modal_actions'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
-
+import SearchBarContainer from '../generic/search_bar'
 
 const Nav = (props) => {
     
@@ -15,20 +15,12 @@ const Nav = (props) => {
     const [open, setOpen] = closeDropdown(dropdownRef, false) 
     const createRef = useRef(null)
     const [createOpen, setCreateOpen] = closeDropdown(createRef, false)
-
-    const [query, setQuery] = useState("") // looks up pins by tags 
-    const [openSearch, setOpenSearch] = useState(false)
     
     const onHome = useLocation().pathname === "/"
     const onProfile = useLocation().pathname.split('/')[1] === "users"
     
     const handleLogout = () => {
         logout()
-    }
-
-    const handleFocus = (e) => {
-        e.preventDefault()
-        setOpenSearch(true)
     }
     
     const handleDropdownClick = () => {setOpen(!open)}
@@ -89,20 +81,9 @@ const Nav = (props) => {
                     </div>
                 </div>
             </div>
-            <div className='search-bar'>
-                <input 
-                    onFocus={handleFocus} 
-                    placeholder="Search" 
-                    onChange={e => setQuery(e.target.value)}
-                    type="text"/>
-                <div className={`magnifying-glass ${openSearch ? "" : "hide"}`}>
-                    <i className="fa-solid fa-magnifying-glass fa-sm"></i>
-                </div>
-                <div className={`search-dropdown ${openSearch ? "" : "hide"}`}>
-                </div>
-                <div className={`search-bar-background ${openSearch ? "" : "hide"}`}></div>
+            <div className='nav-search-bar-container'>
+                <SearchBarContainer/>
             </div>
-
             <div className="logged-in-nav-right">
                 <div className="logged-in-socials">
                     <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-brands fa-github fa-xl"></i></a>

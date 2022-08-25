@@ -93,7 +93,7 @@ const PinShowContainer = (props) => {
                                 <div className='pin-description'>{pin.description}</div>
                             </div>
                             <div className='pin-show-creator'>
-                                <UserPreviewContainer user={creator}/>
+                                <UserPreviewContainer bold={true} user={creator}/>
                             </div>
                         </div>
                         <div className='pin-comments'>

@@ -1521,12 +1521,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var MiniBoardPreview = function MiniBoardPreview(_ref) {
-  var currentUser = _ref.currentUser,
-      board = _ref.board,
+  var board = _ref.board,
       pin = _ref.pin,
-      updateCurrentSelection = _ref.updateCurrentSelection;
+      updateCurrentSelection = _ref.updateCurrentSelection,
+      query = _ref.query;
+  var show = board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase());
 
   var content = function content() {
     var _board$name;
@@ -1535,7 +1535,7 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
       onClick: function onClick() {
         return updateCurrentSelection(board);
       },
-      className: "mini-board-preview-container"
+      className: "mini-board-preview-container ".concat(show ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-cover"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1745,7 +1745,8 @@ var CommentContainer = function CommentContainer(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "comment-user"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_user_preview__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    user: user
+    user: user,
+    bold: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "comment-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, comment.text))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -2124,6 +2125,117 @@ var LoadingContainer = function LoadingContainer() {
 
 /***/ }),
 
+/***/ "./frontend/components/generic/mini_search_bar.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/generic/mini_search_bar.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var MiniSearchBar = function MiniSearchBar(props) {
+  var updateQuery = props.updateQuery;
+
+  var update = function update(e) {
+    updateQuery(e.currentTarget.value);
+  };
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "pin-dropdown-search-bar"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "text",
+      onChange: update,
+      placeholder: "Search"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "pin-search fa-solid fa-magnifying-glass fa-sm"
+    }));
+  };
+
+  return content();
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MiniSearchBar);
+
+/***/ }),
+
+/***/ "./frontend/components/generic/search_bar.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/generic/search_bar.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+ // import Data from '../data/pin_tags.json'
+
+var SearchBarContainer = function SearchBarContainer(props) {
+  var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_1__.closeDropdown)(openRef, false),
+      _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
+      open = _closeDropdown2[0],
+      setOpen = _closeDropdown2[1];
+
+  var handleClick = function handleClick() {
+    return setOpen(!open);
+  };
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-bar"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      ref: openRef,
+      onClick: handleClick,
+      placeholder: "Search",
+      onChange: function onChange(e) {
+        return setQuery(e.target.value);
+      },
+      type: "text"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "magnifying-glass ".concat(open ? "hide" : "")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-magnifying-glass fa-sm"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-dropdown ".concat(open ? "" : "hide")
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-bar-background ".concat(open ? "" : "hide")
+    }));
+  };
+
+  return content();
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBarContainer);
+
+/***/ }),
+
 /***/ "./frontend/components/generic/splash_or_pass.jsx":
 /*!********************************************************!*\
   !*** ./frontend/components/generic/splash_or_pass.jsx ***!
@@ -2281,10 +2393,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
 /* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _generic_search_bar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/search_bar */ "./frontend/components/generic/search_bar.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2296,6 +2409,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -2322,27 +2436,11 @@ var Nav = function Nav(props) {
       createOpen = _closeDropdown4[0],
       setCreateOpen = _closeDropdown4[1];
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-      _useState2 = _slicedToArray(_useState, 2),
-      query = _useState2[0],
-      setQuery = _useState2[1]; // looks up pins by tags 
-
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      openSearch = _useState4[0],
-      setOpenSearch = _useState4[1];
-
-  var onHome = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)().pathname === "/";
-  var onProfile = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useLocation)().pathname.split('/')[1] === "users";
+  var onHome = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useLocation)().pathname === "/";
+  var onProfile = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useLocation)().pathname.split('/')[1] === "users";
 
   var handleLogout = function handleLogout() {
     logout();
-  };
-
-  var handleFocus = function handleFocus(e) {
-    e.preventDefault();
-    setOpenSearch(true);
   };
 
   var handleDropdownClick = function handleDropdownClick() {
@@ -2402,12 +2500,12 @@ var Nav = function Nav(props) {
       className: "logged-in-nav"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-nav-left"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.NavLink, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
       to: "/",
       className: "hover-logo"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa-brands fa-pinterest fa-flip-horizontal fa-xl logo-logged-in"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
       to: "/"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "home-button ".concat(onHome ? "home-button-clicked" : "")
@@ -2421,28 +2519,13 @@ var Nav = function Nav(props) {
       className: "fa-solid fa-chevron-down fa-xs create-button"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "nav-create-menu ".concat(createOpen ? 'open' : 'closed')
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
       to: "/pin-builder"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "create-pin"
     }, "Create pin")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "search-bar"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-      onFocus: handleFocus,
-      placeholder: "Search",
-      onChange: function onChange(e) {
-        return setQuery(e.target.value);
-      },
-      type: "text"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "magnifying-glass ".concat(openSearch ? "" : "hide")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
-      className: "fa-solid fa-magnifying-glass fa-sm"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "search-dropdown ".concat(openSearch ? "" : "hide")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "search-bar-background ".concat(openSearch ? "" : "hide")
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "nav-search-bar-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_search_bar__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-nav-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-socials"
@@ -2463,7 +2546,7 @@ var Nav = function Nav(props) {
       className: "fa-solid fa-user fa-xl"
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-profile-icon user-avatar".concat(onProfile ? "-clicked" : "")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
       to: "/users/".concat(currentUser.username, "/"),
       className: "hover-user-pic"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -2481,7 +2564,7 @@ var Nav = function Nav(props) {
       className: "menu ".concat(open ? 'open' : 'closed')
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "menu-dropdown"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Currently in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Currently in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
       to: "/users/".concat(currentUser.username, "/")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "dropdown-user"
@@ -2542,6 +2625,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/mini_board_preview */ "./frontend/components/boards/mini_board_preview.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _generic_mini_search_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../generic/mini_search_bar */ "./frontend/components/generic/mini_search_bar.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -2564,6 +2661,15 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
     };
   };
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      query = _useState2[0],
+      setQuery = _useState2[1];
+
+  var updateQuery = function updateQuery(query) {
+    setQuery(query);
+  };
+
   var content = function content() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-container"
@@ -2571,14 +2677,9 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
       className: "pin-dropdown-title"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Save")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-search"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "pin-dropdown-search-bar"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-      type: "text",
-      placeholder: "Search"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
-      className: "pin-search fa-solid fa-magnifying-glass fa-sm"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_mini_search_bar__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      updateQuery: updateQuery
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-boards"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Save to board"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-board-container"
@@ -2589,6 +2690,7 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
       pin: pin
     }), userBoards.map(function (userBoard, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        query: query,
         updateCurrentSelection: updateCurrentSelection,
         board: userBoard,
         key: i,
@@ -3697,6 +3799,7 @@ var PinShowContainer = function PinShowContainer(props) {
     }, pin.description)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-show-creator"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_user_preview__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      bold: true,
       user: creator
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-comments"
@@ -4682,7 +4785,9 @@ var ProfilePicture = function ProfilePicture(props) {
       className: "user-preview-pic"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "preview-photo"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, user.username[0].toUpperCase())));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+      className: "preview-photo-letter"
+    }, user.username[0].toUpperCase())));
   };
 
   return hasPhoto ? uploadedPhoto() : isPreview ? photoPreview() : defaultPhoto();
@@ -4712,7 +4817,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var UserPreviewContainer = function UserPreviewContainer(props) {
-  var user = props.user;
+  var user = props.user,
+      _props$bold = props.bold,
+      bold = _props$bold === void 0 ? false : _props$bold;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/users/".concat(user.username, "/")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -4721,7 +4828,9 @@ var UserPreviewContainer = function UserPreviewContainer(props) {
     hasPhoto: false,
     user: user,
     isPreview: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, user.username)));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+    className: "username ".concat(bold ? "bold" : " ")
+  }, user.username)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UserPreviewContainer);

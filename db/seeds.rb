@@ -145,7 +145,7 @@ image_20 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/2c4b5
 pin_20.image.attach(io: image_20, filename:"2c4b506b48a78e5a119b50a509c8b6f7.jpg")
 pin_20.save!
 
-pin_21 = Pin.safe_create({title: "Double-height living area which opens up to the outside through sliding glass walls in this home located in São Paulo, Brazil. [1080 × 1218]", description: "London-born Charlotte Taylor is the creative genius behind the infamous renderings of Casa Atibaia: an imaginary home hidden in the São Paulo’s forest that combines Brazilian modernism and glasshouse components. Taylor is the creative director of studio ‘Maison de Sable’ and designs sets and interiors, though her online gallery spotlights her talent for creating fictional spaces."}, user_2.id)[0]
+pin_21 = Pin.safe_create({title: "Double-height living area which opens up to the outside", description: "London-born Charlotte Taylor is the creative genius behind the infamous renderings of Casa Atibaia: an imaginary home hidden in the São Paulo’s forest that combines Brazilian modernism and glasshouse components. Taylor is the creative director of studio ‘Maison de Sable’ and designs sets and interiors, though her online gallery spotlights her talent for creating fictional spaces."}, user_2.id)[0]
 image_21 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/37404ee5575bdf24c1b77b8bee583436.jpg")
 pin_21.image.attach(io: image_21, filename:"37404ee5575bdf24c1b77b8bee583436.jpg")
 pin_21.save!

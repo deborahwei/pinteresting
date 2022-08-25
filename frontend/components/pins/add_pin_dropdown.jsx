@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import MiniBoardPreview from '../boards/mini_board_preview'
 import { openModal } from '../../actions/modal_actions'
+import MiniSearchBar from '../generic/mini_search_bar'
 
 const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelection}) => {
 
@@ -14,6 +15,11 @@ const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelec
         }
     }
 
+    const [query, setQuery] = useState('')
+    const updateQuery = (query) => {
+        setQuery(query)
+    }
+
     const content = () => {
         return (
             <div className='pin-dropdown-container'>
@@ -21,16 +27,13 @@ const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelec
                     <h1>Save</h1>
                 </div>
                 <div className='pin-dropdown-search'>
-                    <div className="pin-dropdown-search-bar">
-                        <input type="text" placeholder='Search'/>
-                        <i className="pin-search fa-solid fa-magnifying-glass fa-sm"></i>
-                    </div>
+                    <MiniSearchBar updateQuery={updateQuery}/>
                 </div>
                 <div className='pin-dropdown-boards'>
                     <p>Save to board</p>
                     <div className='pin-dropdown-board-container'> 
                         <MiniBoardPreview updateCurrentSelection={updateCurrentSelection} board={null} currentUser={currentUser} pin={pin}/>
-                         {userBoards.map( (userBoard, i) => <MiniBoardPreview updateCurrentSelection={updateCurrentSelection} board={userBoard} key={i} currentUser={currentUser} pin={pin}/>)} 
+                         {userBoards.map( (userBoard, i) => <MiniBoardPreview query={query} updateCurrentSelection={updateCurrentSelection} board={userBoard} key={i} currentUser={currentUser} pin={pin}/>)} 
                     </div>
                 </div>
                 <div className='pin-dropdown-create'>
