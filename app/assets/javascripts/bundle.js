@@ -2209,7 +2209,7 @@ var SearchBarContainer = function SearchBarContainer(props) {
     return setOpen(!open);
   };
 
-  var _useState = useState(true),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState2 = _slicedToArray(_useState, 2),
       show = _useState2[0],
       setShow = _useState2[1];

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import {closeDropdown} from '../dropdown/close_dropdown'
 import SearchBarCategories from './search_bar_categories'
 
