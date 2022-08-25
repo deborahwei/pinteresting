@@ -1,7 +1,7 @@
 class Pin < ApplicationRecord
     
     validates :title, presence: true 
-    validate :ensure_image
+    # validate :ensure_image
     has_one_attached :image
     
     has_many :board_to_pin_relationships, 
@@ -41,6 +41,7 @@ class Pin < ApplicationRecord
     #       .order("rand")
     #       .limit(user_id)
     # end
+
     def self.generate_random_pins(num)
       all_pins = Pin.all.map(&:id)
       num = all_pins.length if num.to_i > Pin.all.length 

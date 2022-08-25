@@ -175,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var fetchComments = function fetchComments(pinId) {
   return function (dispatch) {
-    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__.fetchComments(pinId).then(function (pin) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__.fetchPinComments(pinId).then(function (pin) {
       return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_1__.receivePin)(pin));
     });
   };
@@ -4210,7 +4210,7 @@ var SessionForm = function SessionForm(props) {
   var handleDemoUser = function handleDemoUser(e) {
     e.preventDefault();
     var demoUser = {
-      username: 'Demo User',
+      username: 'DemoUser',
       password: 'password'
     };
     setState(demoUser);

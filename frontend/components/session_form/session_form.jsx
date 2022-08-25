@@ -26,7 +26,7 @@ const SessionForm = props => {
 
     const handleDemoUser = (e) => {
       e.preventDefault()
-      const demoUser = {username: 'Demo User', password: 'password'}
+      const demoUser = {username: 'DemoUser', password: 'password'}
       setState(demoUser)
       props.login(demoUser)
     }
