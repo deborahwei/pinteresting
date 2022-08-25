@@ -30,6 +30,12 @@ export const fetchUsers = (pins, users) => dispatch => {
     ))
 }
 
+export const fetchCommentUsers = (userIds) => dispatch => {
+    return UserAPIUtil.fetchUsers(userIds).then(users => (
+        dispatch(receiveUsers(users))
+    ))
+}
+
 export const fetchUser = user => dispatch => (
     UserAPIUtil.fetchUser(user).then(user => (
         dispatch(receiveUser(user))

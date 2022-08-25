@@ -8,7 +8,8 @@ class Api::CommentsController < ApplicationController
 
     def create
         @pin = Pin.find(params[:pin_id])
-        @user = current_user
+        # @user = current_user
+        @user = User.find(97)
         if @user && @pin 
             @comment = Comment.new({
                 user_id: @user.id, 

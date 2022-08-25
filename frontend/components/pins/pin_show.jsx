@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { connect } from 'react-redux'
 import LoadingContainer from '../generic/loading'
-import PinCommentContainer from '../comments/pin_comment_container'
+import PinCommentContainer from '../comments/comments'
 import { fetchPin } from '../../actions/pin_actions'
 import { fetchBoards } from '../../actions/board_actions'
 import {closeDropdown} from '../dropdown/close_dropdown'
@@ -18,24 +18,24 @@ const PinShowContainer = (props) => {
     const {fetchBoards, fetchPin, fetchUser, closeModal, openModal, currentUser, boards, users, pinId, pins} = props
     const [loading, setLoading] = useState(true)
     const [currentSelection, setCurrentSelection] = useState(null)
-
+    
     useEffect( () => {
         fetchPin(pinId)
-            .then((resp) => fetchUser(resp.pin.creator))
-            .then(() => fetchBoards(currentUser.id))
-            .finally(() => setLoading(false))
+        .then((resp) => fetchUser(resp.pin.creator))
+        .then(() => fetchBoards(currentUser.id))
+        .finally(() => setLoading(false))
     }, [])
-
+    
     const handleGoBack = (e) => {
         e.preventDefault();
         window.history.back();
     }
-
+    
     const updateCurrentSelection = (selection) => {
         setCurrentSelection(selection);
         setOpen(false);
     }
-
+    
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
     const handleClick = () => setOpen(!open)
@@ -43,7 +43,7 @@ const PinShowContainer = (props) => {
         e.preventDefault()
         e.stopPropagation()
     }
-
+    
     const editRef = useRef(null)
     const [edit, setEdit] = closeDropdown(editRef, false)
     const handleEditDropdown = () => setEdit(!edit)
@@ -55,9 +55,10 @@ const PinShowContainer = (props) => {
     }
     
     const pin = pins[pinId]
+
     const creator = users[pin?.creator]
     const ownsPin = creator?.id === currentUser?.id
-
+    
     const content = () => {
         return (
             <div>
@@ -65,7 +66,7 @@ const PinShowContainer = (props) => {
                 <div className="pin-show-container">
                     <div className='pin-show-image-container'
                         style={{backgroundImage: `url(${pin?.imageUrl}` }}
-                    >
+                        >
                     </div>
                     <div className="pin-show-right-container">
                         <div className="pin-show-heading">
@@ -96,7 +97,7 @@ const PinShowContainer = (props) => {
                             </div>
                         </div>
                         <div className='pin-comments'>
-
+                            <PinCommentContainer pin={pin}/>
                         </div>
                     </div>
                 </div>

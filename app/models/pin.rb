@@ -1,7 +1,7 @@
 class Pin < ApplicationRecord
     
     validates :title, presence: true 
-    # validate :ensure_image
+    validate :ensure_image
     has_one_attached :image
     
     has_many :board_to_pin_relationships, 
