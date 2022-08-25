@@ -156,6 +156,47 @@ var fetchBoardPins = function fetchBoardPins(boardId) {
 
 /***/ }),
 
+/***/ "./frontend/actions/comment_actions.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/comment_actions.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createComment": () => (/* binding */ createComment),
+/* harmony export */   "deleteComment": () => (/* binding */ deleteComment),
+/* harmony export */   "fetchComments": () => (/* binding */ fetchComments)
+/* harmony export */ });
+/* harmony import */ var _util_comment_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/comment_util */ "./frontend/util/comment_util.js");
+/* harmony import */ var _pin_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pin_actions */ "./frontend/actions/pin_actions.js");
+
+
+var fetchComments = function fetchComments(pinId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__.fetchPinComments(pinId).then(function (pin) {
+      return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_1__.receivePin)(pin));
+    });
+  };
+};
+var deleteComment = function deleteComment(pinId, commentId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__.deleteComment(pinId, commentId).then(function (pin) {
+      return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_1__.receivePin)(pin));
+    });
+  };
+};
+var createComment = function createComment(pinId, text) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__.createComment(pinId, text).then(function (pin) {
+      return dispatch((0,_pin_actions__WEBPACK_IMPORTED_MODULE_1__.receivePin)(pin));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/modal_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
@@ -1638,6 +1679,352 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/comments/comment_item.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/comments/comment_item.jsx ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _users_user_preview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../users/user_preview */ "./frontend/components/users/user_preview.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _util_time_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/time_util */ "./frontend/util/time_util.js");
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var CommentContainer = function CommentContainer(props) {
+  console.log(props.comment);
+  var comment = props.comment,
+      user = props.user,
+      pin = props.pin,
+      isAuthor = props.isAuthor,
+      deleteComment = props.deleteComment;
+  var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_4__.closeDropdown)(openRef, false),
+      _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
+      open = _closeDropdown2[0],
+      setOpen = _closeDropdown2[1];
+
+  var handleClick = function handleClick() {
+    return setOpen(!open);
+  };
+
+  var handleDelete = function handleDelete() {
+    deleteComment(pin.id, comment.id); // className={`${isAuthor ? "" : "hide"}`}
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-item-content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-user"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_user_preview__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    user: user,
+    bold: true
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-text"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, comment.text))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-extras"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "options-comments-menu ".concat(open ? "open" : "closed")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleDelete,
+    className: "edit-comment-option"
+  }, "Delete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "updated-at"
+  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(comment.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "dots",
+    ref: openRef
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    onClick: handleClick
+  }, "..."))));
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    deleteComment: function deleteComment(pinId, commentId) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__.deleteComment)(pinId, commentId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(null, mDTP)(CommentContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/comments/comments.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/comments/comments.jsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _comment_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comment_item */ "./frontend/components/comments/comment_item.jsx");
+/* harmony import */ var _create_comment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./create_comment */ "./frontend/components/comments/create_comment.jsx");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var PinCommentContainer = function PinCommentContainer(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var fetchCommentUsers = props.fetchCommentUsers,
+      pin = props.pin,
+      currentUser = props.currentUser,
+      users = props.users;
+  if (!(pin !== null && pin !== void 0 && pin.comments)) return null;
+  var comments = Object.keys(pin.comments).map(function (commentId) {
+    return pin.comments[commentId];
+  });
+
+  var getAuthors = function getAuthors() {
+    var allAuthors = comments.map(function (comment) {
+      return comment.user_id;
+    });
+
+    var filteredAuthors = _toConsumableArray(new Set(allAuthors));
+
+    var authorsArr = Array.from(filteredAuthors);
+    return authorsArr;
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchCommentUsers(getAuthors())["finally"](function () {
+      return setLoading(false);
+    });
+  }, []);
+
+  var commentHeading = function commentHeading() {
+    if (comments.length > 0) {
+      return "".concat(comments.length, " comments");
+    } else if (comments.length === 1) {
+      return "1 comment";
+    } else {
+      return "Comments";
+    }
+  };
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "comments-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "comments-heading"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, commentHeading()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-chevron-down fa-sm"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "comments-content"
+    }, comments.map(function (comment, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comment_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        key: i,
+        pin: pin,
+        user: users[comment.user_id],
+        comment: comment,
+        isAuthor: currentUser.id === comment.user_id
+      });
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_create_comment__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      pin: pin
+    }));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null) : content();
+};
+
+var mSTP = function mSTP(_ref) {
+  var session = _ref.session,
+      _ref$entities = _ref.entities,
+      users = _ref$entities.users,
+      pins = _ref$entities.pins;
+  return {
+    currentUser: users[session.id],
+    pins: pins,
+    users: users
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchCommentUsers: function fetchCommentUsers(users, pins) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchCommentUsers)(users, pins));
+    },
+    createComment: function createComment(pinId, text) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__.createComment)(pinId, text));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(PinCommentContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/comments/create_comment.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/comments/create_comment.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var CreateCommentContainer = function CreateCommentContainer(_ref) {
+  var createComment = _ref.createComment,
+      deleteComment = _ref.deleteComment,
+      currentUser = _ref.currentUser,
+      pin = _ref.pin;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    text: ""
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var update = function update(field) {
+    return function (e) {
+      return setState(_objectSpread(_objectSpread({}, state), {}, _defineProperty({}, field, e.currentTarget.value)));
+    };
+  };
+
+  var handleCreate = function handleCreate(e) {
+    createComment(pin.id, state.text);
+    setState({
+      text: ''
+    });
+  };
+
+  var createContainer = function createContainer() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-comment"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      user: currentUser
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      value: state.text,
+      onChange: update('text'),
+      type: "text"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onClick: handleCreate,
+      className: "".concat(state.text === "" ? "not-clickable" : "", " button-save")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Done")));
+  };
+
+  return createContainer();
+};
+
+var mSTP = function mSTP(_ref2) {
+  var session = _ref2.session,
+      users = _ref2.entities.users;
+  return {
+    currentUser: users[session.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    createComment: function createComment(pinId, text) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__.createComment)(pinId, text));
+    },
+    deleteComment: function deleteComment(pinId, commentId) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__.deleteComment)(pinId, commentId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(CreateCommentContainer));
+
+/***/ }),
+
 /***/ "./frontend/components/dropdown/close_dropdown.js":
 /*!********************************************************!*\
   !*** ./frontend/components/dropdown/close_dropdown.js ***!
@@ -1738,6 +2125,159 @@ var LoadingContainer = function LoadingContainer() {
 
 /***/ }),
 
+/***/ "./frontend/components/generic/mini_search_bar.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/generic/mini_search_bar.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var MiniSearchBar = function MiniSearchBar(props) {
+  var updateQuery = props.updateQuery;
+
+  var update = function update(e) {
+    updateQuery(e.currentTarget.value);
+  };
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "pin-dropdown-search-bar"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "text",
+      onChange: update,
+      placeholder: "Search"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "pin-search fa-solid fa-magnifying-glass fa-sm"
+    }));
+  };
+
+  return content();
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MiniSearchBar);
+
+/***/ }),
+
+/***/ "./frontend/components/generic/search_bar.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/generic/search_bar.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _search_bar_categories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search_bar_categories */ "./frontend/components/generic/search_bar_categories.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var SearchBarContainer = function SearchBarContainer(props) {
+  var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_1__.closeDropdown)(openRef, false),
+      _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
+      open = _closeDropdown2[0],
+      setOpen = _closeDropdown2[1];
+
+  var handleClick = function handleClick() {
+    return setOpen(!open);
+  };
+
+  var _useState = useState(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      show = _useState2[0],
+      setShow = _useState2[1];
+
+  var handleChange = function handleChange() {
+    return setShow(value === "");
+  };
+
+  console.log(show);
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-bar"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      ref: openRef,
+      onClick: handleClick,
+      placeholder: "Search",
+      onChange: handleChange,
+      type: "text"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "magnifying-glass ".concat(open ? "hide" : "")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "fa-solid fa-magnifying-glass fa-sm"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-dropdown ".concat(open ? "" : "hide")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_search_bar_categories__WEBPACK_IMPORTED_MODULE_2__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-bar-background ".concat(open ? "" : "hide")
+    }));
+  };
+
+  return content();
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBarContainer);
+
+/***/ }),
+
+/***/ "./frontend/components/generic/search_bar_categories.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/generic/search_bar_categories.jsx ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SearchBarCategories = function SearchBarCategories(props) {
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-dropdown-content"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "search-categories"
+    }));
+  };
+
+  return content();
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SearchBarCategories);
+
+/***/ }),
+
 /***/ "./frontend/components/generic/splash_or_pass.jsx":
 /*!********************************************************!*\
   !*** ./frontend/components/generic/splash_or_pass.jsx ***!
@@ -1753,7 +2293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _splash_splash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../splash/splash */ "./frontend/components/splash/splash.jsx");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/homepage'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _pins_homepage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pins/homepage */ "./frontend/components/pins/homepage.jsx");
 
 
 
@@ -1767,7 +2307,7 @@ var mSTP = function mSTP(state) {
 
 function SplashOrPass(_ref) {
   var loggedIn = _ref.loggedIn;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/homepage'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_splash__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_homepage__WEBPACK_IMPORTED_MODULE_3__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_splash_splash__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP)(SplashOrPass));
@@ -1795,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boards_board_edit_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../boards/board_edit_form */ "./frontend/components/boards/board_edit_form.jsx");
 /* harmony import */ var _boards_board_delete_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../boards/board_delete_form */ "./frontend/components/boards/board_delete_form.jsx");
 /* harmony import */ var _pins_pin_edit_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pins/pin_edit_form */ "./frontend/components/pins/pin_edit_form.jsx");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/pin_delete_form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _pins_pin_delete_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pins/pin_delete_form */ "./frontend/components/pins/pin_delete_form.jsx");
 
 
 
@@ -1843,7 +2383,7 @@ function Modal(_ref) {
       break;
 
     case 'delete pin':
-      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/pin_delete_form'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), null);
+      component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pin_delete_form__WEBPACK_IMPORTED_MODULE_9__["default"], null);
       break;
 
     default:
@@ -1899,7 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
 /* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../generic/search_bar'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _generic_search_bar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/search_bar */ "./frontend/components/generic/search_bar.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2027,7 +2567,7 @@ var Nav = function Nav(props) {
       className: "create-pin"
     }, "Create pin")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "nav-search-bar-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../generic/search_bar'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_search_bar__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-nav-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "logged-in-socials"
@@ -2127,7 +2667,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _boards_mini_board_preview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/mini_board_preview */ "./frontend/components/boards/mini_board_preview.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../generic/mini_search_bar'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _generic_mini_search_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../generic/mini_search_bar */ "./frontend/components/generic/mini_search_bar.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2179,7 +2719,7 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
       className: "pin-dropdown-title"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Save")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-search"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../generic/mini_search_bar'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_mini_search_bar__WEBPACK_IMPORTED_MODULE_4__["default"], {
       updateQuery: updateQuery
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-dropdown-boards"
@@ -2350,6 +2890,96 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(BoardPinsIndexContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/pins/homepage.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/pins/homepage.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _pins_pins_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pins/pins_index */ "./frontend/components/pins/pins_index.jsx");
+/* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+var HomepageContainer = function HomepageContainer(props) {
+  var fetchHomepagePins = props.fetchHomepagePins,
+      pins = props.pins;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchHomepagePins(_util_constants_util__WEBPACK_IMPORTED_MODULE_5__.HOMEPAGE_NUM_PINS)["finally"](function () {
+      return setLoading(false);
+    });
+  }, []);
+  var homepagePins = (0,_util_function_util__WEBPACK_IMPORTED_MODULE_6__.shuffleArray)(Object.keys(pins).map(function (pinId) {
+    return pins[pinId];
+  }));
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "homepage-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pins_index__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      pins: homepagePins,
+      showUser: true
+    }));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null) : content();
+};
+
+var mSTP = function mSTP(_ref) {
+  var pins = _ref.entities.pins;
+  return {
+    pins: pins
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchHomepagePins: function fetchHomepagePins(numPins) {
+      return dispatch((0,_actions_pin_actions__WEBPACK_IMPORTED_MODULE_4__.fetchHomepagePins)(numPins));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(HomepageContainer));
 
 /***/ }),
 
@@ -2577,6 +3207,95 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(PinsCreateForm));
+
+/***/ }),
+
+/***/ "./frontend/components/pins/pin_delete_form.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/pins/pin_delete_form.jsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+
+var DeleteBoardForm = function DeleteBoardForm(props) {
+  var deletePin = props.deletePin,
+      openModal = props.openModal,
+      closeModal = props.closeModal,
+      currentUser = props.currentUser,
+      pin = props.pin;
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useHistory)();
+
+  var handleDeleteClick = function handleDeleteClick(e) {
+    e.preventDefault();
+    deletePin(pin.id, currentUser.id).then(function () {
+      history.push("/users/".concat(currentUser.username));
+    }).then(function () {
+      closeModal();
+    });
+  };
+
+  var handleCancelClick = function handleCancelClick(e) {
+    e.preventDefault();
+    openModal("edit pin", {
+      pin: pin
+    });
+    closeModal();
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "delete-board-modal-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Are you sure?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Once you delete a board, you can't undo it!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "delete-board-options"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleCancelClick,
+    className: "cancel-delete-board"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Cancel")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleDeleteClick,
+    className: "delete-board-button"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Delete"))));
+};
+
+var mSTP = function mSTP(_ref) {
+  var session = _ref.session,
+      users = _ref.entities.users,
+      props = _ref.ui.modal.props;
+  return {
+    currentUser: users[session.id],
+    pin: props.pin
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    deletePin: function deletePin(pinId, userId) {
+      return dispatch((0,_actions_pin_actions__WEBPACK_IMPORTED_MODULE_1__.deletePin)(pinId, userId));
+    },
+    closeModal: function closeModal() {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.closeModal)());
+    },
+    openModal: function openModal(formType, props) {
+      return dispatch((0,_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__.openModal)(formType, props));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(DeleteBoardForm));
 
 /***/ }),
 
@@ -2955,7 +3674,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../comments/comments'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _comments_comments__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../comments/comments */ "./frontend/components/comments/comments.jsx");
 /* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
@@ -2966,7 +3685,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 /* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 /* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../comments/create_comment'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _comments_create_comment__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../comments/create_comment */ "./frontend/components/comments/create_comment.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3126,9 +3845,9 @@ var PinShowContainer = function PinShowContainer(props) {
       user: creator
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-comments"
-    }, pin.comments ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../comments/comments'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+    }, pin.comments ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comments_comments__WEBPACK_IMPORTED_MODULE_3__["default"], {
       pin: pin
-    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../comments/create_comment'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comments_create_comment__WEBPACK_IMPORTED_MODULE_14__["default"], {
       pin: pin
     })))));
   };
@@ -3172,6 +3891,214 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(PinShowContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/pins/pins_index.jsx":
+/*!*************************************************!*\
+  !*** ./frontend/components/pins/pins_index.jsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_masonry_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-masonry-css */ "./node_modules/react-masonry-css/dist/react-masonry-css.module.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
+/* harmony import */ var _pin_item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pin_item */ "./frontend/components/pins/pin_item.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+var PinsIndexContainer = function PinsIndexContainer(_ref) {
+  var pins = _ref.pins,
+      currentUser = _ref.currentUser,
+      isUser = _ref.isUser,
+      users = _ref.users,
+      fetchUsers = _ref.fetchUsers,
+      fetchBoards = _ref.fetchBoards,
+      _ref$showUser = _ref.showUser,
+      showUser = _ref$showUser === void 0 ? true : _ref$showUser,
+      _ref$showDropdown = _ref.showDropdown,
+      showDropdown = _ref$showDropdown === void 0 ? true : _ref$showDropdown,
+      _ref$center = _ref.center,
+      center = _ref$center === void 0 ? false : _ref$center;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchBoards(currentUser.id).then(function () {
+      return fetchUsers(pins, users);
+    })["finally"](function () {
+      return setLoading(false);
+    });
+  }, []);
+
+  var findPinCreator = function findPinCreator(pin) {
+    return users[pin === null || pin === void 0 ? void 0 : pin.creator];
+  };
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "pins-index-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_masonry_css__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      className: "masonry-pins-grid ".concat(center ? "center" : ""),
+      breakpointCols: _util_constants_util__WEBPACK_IMPORTED_MODULE_3__.BREAKPOINTS,
+      columnClassName: "masonry-pins-column"
+    }, pins.map(function (pin, i) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pin_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        key: i,
+        pin: pin,
+        showUser: showUser,
+        showDropdown: showDropdown,
+        isUser: isUser,
+        creator: findPinCreator(pin)
+      });
+    })));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_6__["default"], null) : content();
+};
+
+var mSTP = function mSTP(_ref2) {
+  var session = _ref2.session,
+      users = _ref2.entities.users;
+  return {
+    users: users,
+    currentUser: users[session.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchBoards: function fetchBoards(userId) {
+      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_7__.fetchBoards)(userId));
+    },
+    fetchUsers: function fetchUsers(users, pins) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_5__.fetchUsers)(users, pins));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mSTP, mDTP)(PinsIndexContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/pins/profile_saved_pins.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/pins/profile_saved_pins.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
+/* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
+/* harmony import */ var _pins_pins_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pins/pins_index */ "./frontend/components/pins/pins_index.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var ProfilePinsContainer = function ProfilePinsContainer(props) {
+  var fetchPins = props.fetchPins,
+      pins = props.pins,
+      user = props.user;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (user.saved_pins.length > 0) {
+      fetchPins(user.saved_pins)["finally"](function () {
+        return setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, []);
+  var profilePins = user.saved_pins.map(function (pinId) {
+    return pins[pinId];
+  });
+
+  var content = function content() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "profile-pins-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pins_index__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      pins: profilePins,
+      center: true,
+      showDropdown: false
+    }));
+  };
+
+  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null) : content();
+};
+
+var mSTP = function mSTP(_ref) {
+  var pins = _ref.entities.pins;
+  return {
+    pins: pins
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchPins: function fetchPins(pinIds) {
+      return dispatch((0,_actions_pin_actions__WEBPACK_IMPORTED_MODULE_3__.fetchPins)(pinIds));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(ProfilePinsContainer));
 
 /***/ }),
 
@@ -4178,7 +5105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/pins_index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _pins_pins_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pins/pins_index */ "./frontend/components/pins/pins_index.jsx");
 /* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -4237,7 +5164,7 @@ var UserShowCreatedContainer = function UserShowCreatedContainer(props) {
   var createdPinsIndex = function createdPinsIndex() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "created-pins-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/pins_index'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_pins_index__WEBPACK_IMPORTED_MODULE_3__["default"], {
       pins: createdPins,
       showUser: false,
       isUser: isUser
@@ -4286,7 +5213,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 /* harmony import */ var _boards_board_preview_show__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../boards/board_preview_show */ "./frontend/components/boards/board_preview_show.jsx");
 /* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/profile_saved_pins'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _pins_profile_saved_pins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pins/profile_saved_pins */ "./frontend/components/pins/profile_saved_pins.jsx");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -4399,7 +5326,7 @@ var UserShowSavedContainer = function UserShowSavedContainer(props) {
       className: "unorganized-ideas ".concat(user.saved_pins.length === 0 ? "hide" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "unorganized-ideas-header"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Unorganized Ideas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../pins/profile_saved_pins'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Unorganized Ideas")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pins_profile_saved_pins__WEBPACK_IMPORTED_MODULE_7__["default"], {
       user: user
     })));
   };
@@ -5027,6 +5954,43 @@ var removePinFromBoard = function removePinFromBoard(boardId, pinId) {
       pin_id: pinId
     }
   });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/comment_util.js":
+/*!***************************************!*\
+  !*** ./frontend/util/comment_util.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createComment": () => (/* binding */ createComment),
+/* harmony export */   "deleteComment": () => (/* binding */ deleteComment),
+/* harmony export */   "fetchPinComments": () => (/* binding */ fetchPinComments)
+/* harmony export */ });
+var fetchPinComments = function fetchPinComments(pinId) {
+  return Promise.resolve($.ajax({
+    method: 'GET',
+    url: "/api/pins/".concat(pinId, "/comments")
+  }));
+};
+var createComment = function createComment(pinId, text) {
+  return Promise.resolve($.ajax({
+    method: 'POST',
+    url: "/api/pins/".concat(pinId, "/comments"),
+    data: {
+      text: text
+    }
+  }));
+};
+var deleteComment = function deleteComment(pinId, commentId) {
+  return Promise.resolve($.ajax({
+    method: 'DELETE',
+    url: "/api/pins/".concat(pinId, "/comments/").concat(commentId)
+  }));
 };
 
 /***/ }),
@@ -38218,6 +39182,470 @@ function checkDCE() {
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ "./node_modules/react-dom/cjs/react-dom.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-infinite-scroll-component/dist/index.es.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-infinite-scroll-component/dist/index.es.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/* eslint-disable no-undefined,no-param-reassign,no-shadow */
+
+/**
+ * Throttle execution of a function. Especially useful for rate limiting
+ * execution of handlers on events like resize and scroll.
+ *
+ * @param  {Number}    delay          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param  {Boolean}   [noTrailing]   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
+ *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
+ *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
+ *                                    the internal counter is reset)
+ * @param  {Function}  callback       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                    to `callback` when the throttled-function is executed.
+ * @param  {Boolean}   [debounceMode] If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
+ *                                    schedule `callback` to execute after `delay` ms.
+ *
+ * @return {Function}  A new, throttled, function.
+ */
+function throttle (delay, noTrailing, callback, debounceMode) {
+  /*
+   * After wrapper has stopped being called, this timeout ensures that
+   * `callback` is executed at the proper times in `throttle` and `end`
+   * debounce modes.
+   */
+  var timeoutID;
+  var cancelled = false; // Keep track of the last time `callback` was executed.
+
+  var lastExec = 0; // Function to clear existing timeout
+
+  function clearExistingTimeout() {
+    if (timeoutID) {
+      clearTimeout(timeoutID);
+    }
+  } // Function to cancel next exec
+
+
+  function cancel() {
+    clearExistingTimeout();
+    cancelled = true;
+  } // `noTrailing` defaults to falsy.
+
+
+  if (typeof noTrailing !== 'boolean') {
+    debounceMode = callback;
+    callback = noTrailing;
+    noTrailing = undefined;
+  }
+  /*
+   * The `wrapper` function encapsulates all of the throttling / debouncing
+   * functionality and when executed will limit the rate at which `callback`
+   * is executed.
+   */
+
+
+  function wrapper() {
+    var self = this;
+    var elapsed = Date.now() - lastExec;
+    var args = arguments;
+
+    if (cancelled) {
+      return;
+    } // Execute `callback` and update the `lastExec` timestamp.
+
+
+    function exec() {
+      lastExec = Date.now();
+      callback.apply(self, args);
+    }
+    /*
+     * If `debounceMode` is true (at begin) this is used to clear the flag
+     * to allow future `callback` executions.
+     */
+
+
+    function clear() {
+      timeoutID = undefined;
+    }
+
+    if (debounceMode && !timeoutID) {
+      /*
+       * Since `wrapper` is being called for the first time and
+       * `debounceMode` is true (at begin), execute `callback`.
+       */
+      exec();
+    }
+
+    clearExistingTimeout();
+
+    if (debounceMode === undefined && elapsed > delay) {
+      /*
+       * In throttle mode, if `delay` time has been exceeded, execute
+       * `callback`.
+       */
+      exec();
+    } else if (noTrailing !== true) {
+      /*
+       * In trailing throttle mode, since `delay` time has not been
+       * exceeded, schedule `callback` to execute `delay` ms after most
+       * recent execution.
+       *
+       * If `debounceMode` is true (at begin), schedule `clear` to execute
+       * after `delay` ms.
+       *
+       * If `debounceMode` is false (at end), schedule `callback` to
+       * execute after `delay` ms.
+       */
+      timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+    }
+  }
+
+  wrapper.cancel = cancel; // Return the wrapper function.
+
+  return wrapper;
+}
+
+var ThresholdUnits = {
+    Pixel: 'Pixel',
+    Percent: 'Percent',
+};
+var defaultThreshold = {
+    unit: ThresholdUnits.Percent,
+    value: 0.8,
+};
+function parseThreshold(scrollThreshold) {
+    if (typeof scrollThreshold === 'number') {
+        return {
+            unit: ThresholdUnits.Percent,
+            value: scrollThreshold * 100,
+        };
+    }
+    if (typeof scrollThreshold === 'string') {
+        if (scrollThreshold.match(/^(\d*(\.\d+)?)px$/)) {
+            return {
+                unit: ThresholdUnits.Pixel,
+                value: parseFloat(scrollThreshold),
+            };
+        }
+        if (scrollThreshold.match(/^(\d*(\.\d+)?)%$/)) {
+            return {
+                unit: ThresholdUnits.Percent,
+                value: parseFloat(scrollThreshold),
+            };
+        }
+        console.warn('scrollThreshold format is invalid. Valid formats: "120px", "50%"...');
+        return defaultThreshold;
+    }
+    console.warn('scrollThreshold should be string or number');
+    return defaultThreshold;
+}
+
+var InfiniteScroll = /** @class */ (function (_super) {
+    __extends(InfiniteScroll, _super);
+    function InfiniteScroll(props) {
+        var _this = _super.call(this, props) || this;
+        _this.lastScrollTop = 0;
+        _this.actionTriggered = false;
+        // variables to keep track of pull down behaviour
+        _this.startY = 0;
+        _this.currentY = 0;
+        _this.dragging = false;
+        // will be populated in componentDidMount
+        // based on the height of the pull down element
+        _this.maxPullDownDistance = 0;
+        _this.getScrollableTarget = function () {
+            if (_this.props.scrollableTarget instanceof HTMLElement)
+                return _this.props.scrollableTarget;
+            if (typeof _this.props.scrollableTarget === 'string') {
+                return document.getElementById(_this.props.scrollableTarget);
+            }
+            if (_this.props.scrollableTarget === null) {
+                console.warn("You are trying to pass scrollableTarget but it is null. This might\n        happen because the element may not have been added to DOM yet.\n        See https://github.com/ankeetmaini/react-infinite-scroll-component/issues/59 for more info.\n      ");
+            }
+            return null;
+        };
+        _this.onStart = function (evt) {
+            if (_this.lastScrollTop)
+                return;
+            _this.dragging = true;
+            if (evt instanceof MouseEvent) {
+                _this.startY = evt.pageY;
+            }
+            else if (evt instanceof TouchEvent) {
+                _this.startY = evt.touches[0].pageY;
+            }
+            _this.currentY = _this.startY;
+            if (_this._infScroll) {
+                _this._infScroll.style.willChange = 'transform';
+                _this._infScroll.style.transition = "transform 0.2s cubic-bezier(0,0,0.31,1)";
+            }
+        };
+        _this.onMove = function (evt) {
+            if (!_this.dragging)
+                return;
+            if (evt instanceof MouseEvent) {
+                _this.currentY = evt.pageY;
+            }
+            else if (evt instanceof TouchEvent) {
+                _this.currentY = evt.touches[0].pageY;
+            }
+            // user is scrolling down to up
+            if (_this.currentY < _this.startY)
+                return;
+            if (_this.currentY - _this.startY >=
+                Number(_this.props.pullDownToRefreshThreshold)) {
+                _this.setState({
+                    pullToRefreshThresholdBreached: true,
+                });
+            }
+            // so you can drag upto 1.5 times of the maxPullDownDistance
+            if (_this.currentY - _this.startY > _this.maxPullDownDistance * 1.5)
+                return;
+            if (_this._infScroll) {
+                _this._infScroll.style.overflow = 'visible';
+                _this._infScroll.style.transform = "translate3d(0px, " + (_this.currentY -
+                    _this.startY) + "px, 0px)";
+            }
+        };
+        _this.onEnd = function () {
+            _this.startY = 0;
+            _this.currentY = 0;
+            _this.dragging = false;
+            if (_this.state.pullToRefreshThresholdBreached) {
+                _this.props.refreshFunction && _this.props.refreshFunction();
+                _this.setState({
+                    pullToRefreshThresholdBreached: false,
+                });
+            }
+            requestAnimationFrame(function () {
+                // this._infScroll
+                if (_this._infScroll) {
+                    _this._infScroll.style.overflow = 'auto';
+                    _this._infScroll.style.transform = 'none';
+                    _this._infScroll.style.willChange = 'unset';
+                }
+            });
+        };
+        _this.onScrollListener = function (event) {
+            if (typeof _this.props.onScroll === 'function') {
+                // Execute this callback in next tick so that it does not affect the
+                // functionality of the library.
+                setTimeout(function () { return _this.props.onScroll && _this.props.onScroll(event); }, 0);
+            }
+            var target = _this.props.height || _this._scrollableNode
+                ? event.target
+                : document.documentElement.scrollTop
+                    ? document.documentElement
+                    : document.body;
+            // return immediately if the action has already been triggered,
+            // prevents multiple triggers.
+            if (_this.actionTriggered)
+                return;
+            var atBottom = _this.props.inverse
+                ? _this.isElementAtTop(target, _this.props.scrollThreshold)
+                : _this.isElementAtBottom(target, _this.props.scrollThreshold);
+            // call the `next` function in the props to trigger the next data fetch
+            if (atBottom && _this.props.hasMore) {
+                _this.actionTriggered = true;
+                _this.setState({ showLoader: true });
+                _this.props.next && _this.props.next();
+            }
+            _this.lastScrollTop = target.scrollTop;
+        };
+        _this.state = {
+            showLoader: false,
+            pullToRefreshThresholdBreached: false,
+            prevDataLength: props.dataLength,
+        };
+        _this.throttledOnScrollListener = throttle(150, _this.onScrollListener).bind(_this);
+        _this.onStart = _this.onStart.bind(_this);
+        _this.onMove = _this.onMove.bind(_this);
+        _this.onEnd = _this.onEnd.bind(_this);
+        return _this;
+    }
+    InfiniteScroll.prototype.componentDidMount = function () {
+        if (typeof this.props.dataLength === 'undefined') {
+            throw new Error("mandatory prop \"dataLength\" is missing. The prop is needed" +
+                " when loading more content. Check README.md for usage");
+        }
+        this._scrollableNode = this.getScrollableTarget();
+        this.el = this.props.height
+            ? this._infScroll
+            : this._scrollableNode || window;
+        if (this.el) {
+            this.el.addEventListener('scroll', this
+                .throttledOnScrollListener);
+        }
+        if (typeof this.props.initialScrollY === 'number' &&
+            this.el &&
+            this.el instanceof HTMLElement &&
+            this.el.scrollHeight > this.props.initialScrollY) {
+            this.el.scrollTo(0, this.props.initialScrollY);
+        }
+        if (this.props.pullDownToRefresh && this.el) {
+            this.el.addEventListener('touchstart', this.onStart);
+            this.el.addEventListener('touchmove', this.onMove);
+            this.el.addEventListener('touchend', this.onEnd);
+            this.el.addEventListener('mousedown', this.onStart);
+            this.el.addEventListener('mousemove', this.onMove);
+            this.el.addEventListener('mouseup', this.onEnd);
+            // get BCR of pullDown element to position it above
+            this.maxPullDownDistance =
+                (this._pullDown &&
+                    this._pullDown.firstChild &&
+                    this._pullDown.firstChild.getBoundingClientRect()
+                        .height) ||
+                    0;
+            this.forceUpdate();
+            if (typeof this.props.refreshFunction !== 'function') {
+                throw new Error("Mandatory prop \"refreshFunction\" missing.\n          Pull Down To Refresh functionality will not work\n          as expected. Check README.md for usage'");
+            }
+        }
+    };
+    InfiniteScroll.prototype.componentWillUnmount = function () {
+        if (this.el) {
+            this.el.removeEventListener('scroll', this
+                .throttledOnScrollListener);
+            if (this.props.pullDownToRefresh) {
+                this.el.removeEventListener('touchstart', this.onStart);
+                this.el.removeEventListener('touchmove', this.onMove);
+                this.el.removeEventListener('touchend', this.onEnd);
+                this.el.removeEventListener('mousedown', this.onStart);
+                this.el.removeEventListener('mousemove', this.onMove);
+                this.el.removeEventListener('mouseup', this.onEnd);
+            }
+        }
+    };
+    InfiniteScroll.prototype.componentDidUpdate = function (prevProps) {
+        // do nothing when dataLength is unchanged
+        if (this.props.dataLength === prevProps.dataLength)
+            return;
+        this.actionTriggered = false;
+        // update state when new data was sent in
+        this.setState({
+            showLoader: false,
+        });
+    };
+    InfiniteScroll.getDerivedStateFromProps = function (nextProps, prevState) {
+        var dataLengthChanged = nextProps.dataLength !== prevState.prevDataLength;
+        // reset when data changes
+        if (dataLengthChanged) {
+            return __assign(__assign({}, prevState), { prevDataLength: nextProps.dataLength });
+        }
+        return null;
+    };
+    InfiniteScroll.prototype.isElementAtTop = function (target, scrollThreshold) {
+        if (scrollThreshold === void 0) { scrollThreshold = 0.8; }
+        var clientHeight = target === document.body || target === document.documentElement
+            ? window.screen.availHeight
+            : target.clientHeight;
+        var threshold = parseThreshold(scrollThreshold);
+        if (threshold.unit === ThresholdUnits.Pixel) {
+            return (target.scrollTop <=
+                threshold.value + clientHeight - target.scrollHeight + 1);
+        }
+        return (target.scrollTop <=
+            threshold.value / 100 + clientHeight - target.scrollHeight + 1);
+    };
+    InfiniteScroll.prototype.isElementAtBottom = function (target, scrollThreshold) {
+        if (scrollThreshold === void 0) { scrollThreshold = 0.8; }
+        var clientHeight = target === document.body || target === document.documentElement
+            ? window.screen.availHeight
+            : target.clientHeight;
+        var threshold = parseThreshold(scrollThreshold);
+        if (threshold.unit === ThresholdUnits.Pixel) {
+            return (target.scrollTop + clientHeight >= target.scrollHeight - threshold.value);
+        }
+        return (target.scrollTop + clientHeight >=
+            (threshold.value / 100) * target.scrollHeight);
+    };
+    InfiniteScroll.prototype.render = function () {
+        var _this = this;
+        var style = __assign({ height: this.props.height || 'auto', overflow: 'auto', WebkitOverflowScrolling: 'touch' }, this.props.style);
+        var hasChildren = this.props.hasChildren ||
+            !!(this.props.children &&
+                this.props.children instanceof Array &&
+                this.props.children.length);
+        // because heighted infiniteScroll visualy breaks
+        // on drag down as overflow becomes visible
+        var outerDivStyle = this.props.pullDownToRefresh && this.props.height
+            ? { overflow: 'auto' }
+            : {};
+        return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { style: outerDivStyle, className: "infinite-scroll-component__outerdiv" },
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "infinite-scroll-component " + (this.props.className || ''), ref: function (infScroll) { return (_this._infScroll = infScroll); }, style: style },
+                this.props.pullDownToRefresh && (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { style: { position: 'relative' }, ref: function (pullDown) { return (_this._pullDown = pullDown); } },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { style: {
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: -1 * this.maxPullDownDistance,
+                        } }, this.state.pullToRefreshThresholdBreached
+                        ? this.props.releaseToRefreshContent
+                        : this.props.pullDownToRefreshContent))),
+                this.props.children,
+                !this.state.showLoader &&
+                    !hasChildren &&
+                    this.props.hasMore &&
+                    this.props.loader,
+                this.state.showLoader && this.props.hasMore && this.props.loader,
+                !this.props.hasMore && this.props.endMessage)));
+    };
+    return InfiniteScroll;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InfiniteScroll);
+//# sourceMappingURL=index.es.js.map
 
 
 /***/ }),
