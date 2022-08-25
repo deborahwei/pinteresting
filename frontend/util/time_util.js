@@ -27,6 +27,5 @@ const timeSinceHelper = date => {
 }
 
 export const timeSince = (date) => {
-    const aDay = 24*60*60*1000;
-    return timeSinceHelper(new Date(date)-aDay)
+  return timeSinceHelper(new Date(date))
 }

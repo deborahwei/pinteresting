@@ -4,21 +4,22 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 30px;
-    height: 100%;
+    margin-top: 46px;
+    height: 80%;
     width: 95%;
     margin-left: 15px;
     font-family: $default-font;
 }
 
 .comments-content {
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
-    height: 80%;
-    margin-top: 10px;
+    height: 55%;
+    margin-top: 20px;
     display: flex; 
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -34,16 +35,145 @@
 }
 
 .comment-text {
-    font-size: 16px;
+    font-size: 15px;
 
 }
 
 .comment-item {
     width: 90%;
     margin: 20px;
+    margin-left: 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+.comment-user {
+    width: 125px;
+}
+
+.comment-extras {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 40px;
+
+    .dots {
+        margin-bottom: 8px;
+        color: $grey-text;
+        cursor: pointer;
+    }
+}
+
+.options-comments-menu {
+    right: 20px;
+    position: absolute;
+    width: 163px;
+    height: 35px;
+    background-color: white;
+    border-radius: 15px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    text-indent: 15px;
+    z-index: 2;
+
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+}
+
+.options-comments-menu.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edit-comment-option {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 16px;
+    font-weight: $semibold;
+    cursor: pointer;
+    height: 30px;
+    border-radius: 8px;
+
+    &:hover {
+        background: $search-bar-grey;
+    }
+}
+
+.comment-item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.create-comment {
+    right: 20px;
+    bottom: -35px;
+    position: absolute;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 467px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+
+    .default-picture {
+        height: 45px;
+        width: 45px;
+        font-size: 16px;
+        font-weight: $semibold;
+    }
+
+    input {
+        width: 330px;
+        font-size: 16px;
+        text-indent: 15px;
+
+        height: 38px;
+        cursor: text;
+        border-radius: 20px;
+        border: 1px solid $input-border-grey;
+        color: $grey-text;
+
+        &:focus {
+            box-shadow: $modal-input-focus 0 0 0 4px;
+            outline: 0;
+        }
+    }
+
+    .button-save {
+        width: 55px;
+        height: 40px;
+        font-weight: $semibold;
+        border: 0px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 20px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-save.not-clickable {
+        background-color: #efefef;
+        color: #767676;
+    }
+}

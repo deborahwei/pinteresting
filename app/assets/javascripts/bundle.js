@@ -1173,7 +1173,9 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     className: "board-preview-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, boardName()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "board-preview-subtext"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "".concat(pins.length, " Pins")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(board.created_at))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "".concat(pins.length, " Pins")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "updated-at"
+  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(board.updated_at))))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewContainer);
@@ -1691,28 +1693,87 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _users_user_preview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../users/user_preview */ "./frontend/components/users/user_preview.jsx");
-/* harmony import */ var _util_time_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/time_util */ "./frontend/util/time_util.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _util_time_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/time_util */ "./frontend/util/time_util.js");
+/* harmony import */ var _dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dropdown/close_dropdown */ "./frontend/components/dropdown/close_dropdown.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 
 
 var CommentContainer = function CommentContainer(props) {
+  console.log(props.comment);
   var comment = props.comment,
-      user = props.user;
+      user = props.user,
+      pin = props.pin,
+      isAuthor = props.isAuthor,
+      deleteComment = props.deleteComment;
+  var openRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  var _closeDropdown = (0,_dropdown_close_dropdown__WEBPACK_IMPORTED_MODULE_4__.closeDropdown)(openRef, false),
+      _closeDropdown2 = _slicedToArray(_closeDropdown, 2),
+      open = _closeDropdown2[0],
+      setOpen = _closeDropdown2[1];
+
+  var handleClick = function handleClick() {
+    return setOpen(!open);
+  };
+
+  var handleDelete = function handleDelete() {
+    deleteComment(pin.id, comment.id); // className={`${isAuthor ? "" : "hide"}`}
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "comment-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-item-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "comment-user"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_user_preview__WEBPACK_IMPORTED_MODULE_1__["default"], {
     user: user
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "comment-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, comment.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: ""
-  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_2__.timeSince)(comment.updated_at)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, comment.text))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "comment-extras"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "options-comments-menu ".concat(open ? "open" : "closed")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    onClick: handleDelete,
+    className: "edit-comment-option"
+  }, "Delete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "updated-at"
+  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(comment.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "dots",
+    ref: openRef
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    onClick: handleClick
+  }, "..."))));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CommentContainer);
+var mDTP = function mDTP(dispatch) {
+  return {
+    deleteComment: function deleteComment(pinId, commentId) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_5__.deleteComment)(pinId, commentId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(null, mDTP)(CommentContainer));
 
 /***/ }),
 
@@ -1734,7 +1795,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
 /* harmony import */ var _comment_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comment_item */ "./frontend/components/comments/comment_item.jsx");
-/* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
+/* harmony import */ var _create_comment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./create_comment */ "./frontend/components/comments/create_comment.jsx");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1770,16 +1831,13 @@ var PinCommentContainer = function PinCommentContainer(props) {
       setLoading = _useState2[1];
 
   var fetchCommentUsers = props.fetchCommentUsers,
-      currentUser = props.currentUser,
-      createComment = props.createComment,
-      deleteComment = props.deleteComment,
       pin = props.pin,
+      currentUser = props.currentUser,
       users = props.users;
   if (!(pin !== null && pin !== void 0 && pin.comments)) return null;
   var comments = Object.keys(pin.comments).map(function (commentId) {
     return pin.comments[commentId];
   });
-  console.log("comments", comments);
 
   var getAuthors = function getAuthors() {
     var allAuthors = comments.map(function (comment) {
@@ -1809,7 +1867,6 @@ var PinCommentContainer = function PinCommentContainer(props) {
   };
 
   var content = function content() {
-    console.log();
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "comments-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1821,16 +1878,14 @@ var PinCommentContainer = function PinCommentContainer(props) {
     }, comments.map(function (comment, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comment_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
         key: i,
+        pin: pin,
         user: users[comment.user_id],
-        comment: comment
+        comment: comment,
+        isAuthor: currentUser.id === comment.user_id
       });
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: "create-comment"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      user: currentUser
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-      type: "text"
-    })));
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_create_comment__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      pin: pin
+    }));
   };
 
   return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null) : content();
@@ -1855,14 +1910,117 @@ var mDTP = function mDTP(dispatch) {
     },
     createComment: function createComment(pinId, text) {
       return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__.createComment)(pinId, text));
-    },
-    deleteComment: function deleteComment(pinId, commentId) {
-      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_4__.deleteComment)(pinId, commentId));
     }
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(PinCommentContainer));
+
+/***/ }),
+
+/***/ "./frontend/components/comments/create_comment.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/comments/create_comment.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _users_profile_picture__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../users/profile_picture */ "./frontend/components/users/profile_picture.jsx");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var CreateCommentContainer = function CreateCommentContainer(_ref) {
+  var createComment = _ref.createComment,
+      deleteComment = _ref.deleteComment,
+      currentUser = _ref.currentUser,
+      pin = _ref.pin;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    text: ""
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var update = function update(field) {
+    return function (e) {
+      return setState(_objectSpread(_objectSpread({}, state), {}, _defineProperty({}, field, e.currentTarget.value)));
+    };
+  };
+
+  var handleCreate = function handleCreate(e) {
+    createComment(pin.id, state.text);
+    setState({
+      text: ''
+    });
+  };
+
+  var createContainer = function createContainer() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "create-comment"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      user: currentUser
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      value: state.text,
+      onChange: update('text'),
+      type: "text"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      onClick: handleCreate,
+      className: "".concat(state.text === "" ? "not-clickable" : "", " button-save")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Done")));
+  };
+
+  return createContainer();
+};
+
+var mSTP = function mSTP(_ref2) {
+  var session = _ref2.session,
+      users = _ref2.entities.users;
+  return {
+    currentUser: users[session.id]
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    createComment: function createComment(pinId, text) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__.createComment)(pinId, text));
+    },
+    deleteComment: function deleteComment(pinId, commentId) {
+      return dispatch((0,_actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__.deleteComment)(pinId, commentId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mSTP, mDTP)(CreateCommentContainer));
 
 /***/ }),
 
@@ -3383,6 +3541,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 /* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _comments_create_comment__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../comments/create_comment */ "./frontend/components/comments/create_comment.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3394,6 +3553,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -3488,7 +3648,6 @@ var PinShowContainer = function PinShowContainer(props) {
 
   var pin = pins[pinId];
   var creator = users[pin === null || pin === void 0 ? void 0 : pin.creator];
-  var ownsPin = (creator === null || creator === void 0 ? void 0 : creator.id) === (currentUser === null || currentUser === void 0 ? void 0 : currentUser.id);
 
   var content = function content() {
     var _currentSelection$nam;
@@ -3541,7 +3700,9 @@ var PinShowContainer = function PinShowContainer(props) {
       user: creator
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "pin-comments"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comments_comments__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }, pin.comments ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comments_comments__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      pin: pin
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_comments_create_comment__WEBPACK_IMPORTED_MODULE_14__["default"], {
       pin: pin
     })))));
   };
@@ -5662,13 +5823,13 @@ __webpack_require__.r(__webpack_exports__);
 var fetchPinComments = function fetchPinComments(pinId) {
   return Promise.resolve($.ajax({
     method: 'GET',
-    url: "/api/pin/".concat(pinId, "/comments")
+    url: "/api/pins/".concat(pinId, "/comments")
   }));
 };
 var createComment = function createComment(pinId, text) {
   return Promise.resolve($.ajax({
     method: 'POST',
-    url: "/api/pin/".concat(pinId, "/comments"),
+    url: "/api/pins/".concat(pinId, "/comments"),
     data: {
       text: text
     }
@@ -5676,8 +5837,8 @@ var createComment = function createComment(pinId, text) {
 };
 var deleteComment = function deleteComment(pinId, commentId) {
   return Promise.resolve($.ajax({
-    method: 'GET',
-    url: "/api/pin/".concat(pinId, "/comments/").concat(commentId)
+    method: 'DELETE',
+    url: "/api/pins/".concat(pinId, "/comments/").concat(commentId)
   }));
 };
 
@@ -6062,8 +6223,7 @@ var timeSinceHelper = function timeSinceHelper(date) {
 };
 
 var timeSince = function timeSince(date) {
-  var aDay = 24 * 60 * 60 * 1000;
-  return timeSinceHelper(new Date(date) - aDay);
+  return timeSinceHelper(new Date(date));
 };
 
 /***/ }),

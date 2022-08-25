@@ -110,12 +110,13 @@
             p {
                 font-size: 12px;
             }
-
-            p:nth-child(2) {
-                color: $grey-text;
-            }
         }
     }
+}
+
+.updated-at {
+    color: $grey-text;
+    font-size: 12px;
 }
 
 div[class^='cover-panel'] {

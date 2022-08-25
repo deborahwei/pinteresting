@@ -12,6 +12,7 @@ import UserPreviewContainer from '../users/user_preview'
 import { abbreviate } from '../../util/function_util'
 import { MAX_BOARD_CHAR } from '../../util/constants_util'
 import { closeModal, openModal } from '../../actions/modal_actions'
+import CreateCommentContainer from '../comments/create_comment'
 
 const PinShowContainer = (props) => {
 
@@ -57,7 +58,6 @@ const PinShowContainer = (props) => {
     const pin = pins[pinId]
 
     const creator = users[pin?.creator]
-    const ownsPin = creator?.id === currentUser?.id
     
     const content = () => {
         return (
@@ -97,7 +97,7 @@ const PinShowContainer = (props) => {
                             </div>
                         </div>
                         <div className='pin-comments'>
-                            <PinCommentContainer pin={pin}/>
+                            { pin.comments ? <PinCommentContainer pin={pin}/> : <CreateCommentContainer pin={pin}/>}
                         </div>
                     </div>
                 </div>
