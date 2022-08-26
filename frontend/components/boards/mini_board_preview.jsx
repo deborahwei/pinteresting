@@ -5,6 +5,7 @@ import { MAX_NAME_CHAR } from '../../util/constants_util'
 import { fetchBoardCover } from '../../actions/board_actions'
 import { connect } from 'react-redux'
 import LoadingContainer from "../generic/loading"
+import MiniBoardCover from './mini_board_cover'
 
 const MiniBoardPreview = ({board, pin, updateCurrentSelection, query, pins, fetchBoardCover}) => {
 
@@ -26,6 +27,7 @@ const MiniBoardPreview = ({board, pin, updateCurrentSelection, query, pins, fetc
             <div onClick={()=> updateCurrentSelection(board)} 
             className={`mini-board-preview-container ${show ? "" : "hide"}`}>
                 <div className='mini-board-cover'>
+                    <MiniBoardCover pinId={board?.pins[0]}/>
                     {/* <div className='div-image mini-board'
                     style={{ backgroundImage: `url(${coverPin?.imageUrl}`}}
                     ></div> */}
