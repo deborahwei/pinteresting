@@ -4,7 +4,7 @@ import MiniBoardPreview from '../boards/mini_board_preview'
 import { openModal } from '../../actions/modal_actions'
 import MiniSearchBar from '../search_bar/mini_search_bar'
 
-const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelection}) => {
+const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelection, setOpen}) => {
 
     const userBoards = currentUser.boards.map( (boardId) => boards[boardId])
     
@@ -12,6 +12,7 @@ const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelec
         return e => {
             e.preventDefault();
             openModal(formType, props)
+            setOpen(false)
         }
     }
 

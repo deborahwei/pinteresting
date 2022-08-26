@@ -4,7 +4,7 @@ import { MAX_TITLE_CHAR } from '../../util/constants_util'
 import { Link } from 'react-router-dom'
 import MiniBoardCover from '../boards/mini_board_cover'
 
-const SearchBoardPreview = ({board, query}) => {
+const SearchBoardPreview = ({board, query, currentUser}) => {
     
     if (!board) return null
 
@@ -13,7 +13,7 @@ const SearchBoardPreview = ({board, query}) => {
 
     const content = () => {
         return (
-            <Link to={`/boards/${board.name}`}>
+            <Link to={`/users/${currentUser.username}/boards/${board.name}`}>
                 <div 
                     className={`mini-board-preview-container ${show ? "" : "hide"}`}>
                     <div className='mini-board-cover-container'>

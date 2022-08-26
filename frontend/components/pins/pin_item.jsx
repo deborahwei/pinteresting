@@ -56,7 +56,7 @@ const PinPhotoContainer = ({pin, isUser, creator, selection, openModal, showUser
                 </Link>
             </div>
             <div onClick={handleDropdownClick} className={`pin-add-menu ${open ? "open" : "closed"}`}>
-                <AddPinDropdown pin={pin} updateCurrentSelection={updateCurrentSelection}/> 
+                <AddPinDropdown setOpen={setOpen} pin={pin} updateCurrentSelection={updateCurrentSelection}/> 
             </div>
             <div className={`pin-item-info ${showUser ? "" : "hide"}`}>
                 <div className='pin-item-title'>

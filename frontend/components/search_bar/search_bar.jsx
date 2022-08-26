@@ -55,7 +55,7 @@ const SearchBarContainer = (props) => {
                         {PIN_KEYWORDS.map( (category, i) => <SearchBarCategories key={i} query={query} category={category}/>)}
                     </div>
                     <div className={`search-boards-container ${typing? "" : "hide"}`}>
-                        {userBoards.map( (userBoard, i) => <SearchBoardPreview query={query} board={userBoard} key={i}/>)} 
+                        {userBoards.map( (userBoard, i) => <SearchBoardPreview currentUser={currentUser} query={query} board={userBoard} key={i}/>)} 
                     </div>
                 </div>
             </div>

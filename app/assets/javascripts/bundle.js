@@ -1605,13 +1605,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _buttons_save_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../buttons/save_button */ "./frontend/components/buttons/save_button.jsx");
 /* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 /* harmony import */ var _util_constants_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/constants_util */ "./frontend/util/constants_util.js");
-/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
-/* harmony import */ var _mini_board_cover__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mini_board_cover */ "./frontend/components/boards/mini_board_cover.jsx");
-
-
-
+/* harmony import */ var _mini_board_cover__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mini_board_cover */ "./frontend/components/boards/mini_board_cover.jsx");
 
 
 
@@ -1625,16 +1619,7 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
       query = _ref.query,
       pins = _ref.pins,
       fetchBoardCover = _ref.fetchBoardCover;
-  var show = board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase()); // const coverPin = pins[board?.pins[0]]
-  // const [loading, setLoading] = useState(true)
-  // useEffect( () => {
-  //     if (board?.pins.length > 0) {
-  //         fetchBoardCover(board.id).finally(() => setLoading(false))
-  //     }
-  //     else {
-  //         setLoading(false)
-  //     }
-  // }, [])
+  var show = board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase());
 
   var content = function content() {
     var _board$name;
@@ -1646,9 +1631,7 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
       className: "mini-board-preview-container ".concat(show ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-cover"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mini_board_cover__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      pinId: board === null || board === void 0 ? void 0 : board.pins[0]
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-name"
@@ -1656,28 +1639,12 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
       boardId: board === null || board === void 0 ? void 0 : board.id,
       pinId: pin === null || pin === void 0 ? void 0 : pin.id
     }))));
-  }; // return loading ? <LoadingContainer/> : content()
-
+  };
 
   return content();
 };
 
-var mSTP = function mSTP(_ref2) {
-  var pins = _ref2.entities.pins;
-  return {
-    pins: pins
-  };
-};
-
-var mDTP = function mDTP(dispatch) {
-  return {
-    fetchBoardCover: function fetchBoardCover(boardId) {
-      return dispatch((0,_actions_board_actions__WEBPACK_IMPORTED_MODULE_4__.fetchBoardCover)(boardId));
-    }
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_5__.connect)(mSTP, mDTP)(MiniBoardPreview));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MiniBoardPreview);
 
 /***/ }),
 
@@ -2663,7 +2630,8 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
       currentUser = _ref.currentUser,
       openModal = _ref.openModal,
       pin = _ref.pin,
-      updateCurrentSelection = _ref.updateCurrentSelection;
+      updateCurrentSelection = _ref.updateCurrentSelection,
+      setOpen = _ref.setOpen;
   var userBoards = currentUser.boards.map(function (boardId) {
     return boards[boardId];
   });
@@ -2672,6 +2640,7 @@ var AddPinDropdown = function AddPinDropdown(_ref) {
     return function (e) {
       e.preventDefault();
       openModal(formType, props);
+      setOpen(false);
     };
   };
 
@@ -3599,6 +3568,7 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
     onClick: handleDropdownClick,
     className: "pin-add-menu ".concat(open ? "open" : "closed")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_pin_dropdown__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    setOpen: setOpen,
     pin: pin,
     updateCurrentSelection: updateCurrentSelection
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -4351,6 +4321,7 @@ var SearchBarContainer = function SearchBarContainer(props) {
       className: "search-boards-container ".concat(typing ? "" : "hide")
     }, userBoards.map(function (userBoard, i) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_search_bar_mini_board__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        currentUser: currentUser,
         query: query,
         board: userBoard,
         key: i
@@ -4444,7 +4415,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var SearchBoardPreview = function SearchBoardPreview(_ref) {
   var board = _ref.board,
-      query = _ref.query;
+      query = _ref.query,
+      currentUser = _ref.currentUser;
   if (!board) return null;
   var show = board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase());
 
@@ -4452,7 +4424,7 @@ var SearchBoardPreview = function SearchBoardPreview(_ref) {
     var _board$name;
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/boards/".concat(board.name)
+      to: "/users/".concat(currentUser.username, "/boards/").concat(board.name)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-preview-container ".concat(show ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
