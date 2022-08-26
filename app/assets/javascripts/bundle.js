@@ -4026,8 +4026,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var CategoryHomepage = function CategoryHomepage(props) {
-  var _pins$;
-
   var fetchHomepagePins = props.fetchHomepagePins,
       category = props.category,
       pins = props.pins;
@@ -4042,11 +4040,13 @@ var CategoryHomepage = function CategoryHomepage(props) {
       return setLoading(false);
     });
   }, []);
-  console.log((_pins$ = pins[306]) === null || _pins$ === void 0 ? void 0 : _pins$.tag, category);
-  var categorizedPins = Object.keys(pins).filter(function (pinId) {
+  var categorizedPinIds = Object.keys(pins).filter(function (pinId) {
     var _pins$pinId;
 
     return ((_pins$pinId = pins[pinId]) === null || _pins$pinId === void 0 ? void 0 : _pins$pinId.tag) === category;
+  });
+  var categorizedPins = categorizedPinIds.map(function (pinId) {
+    return pins[pinId];
   });
 
   var content = function content() {
@@ -5033,7 +5033,7 @@ var ProfilePicture = function ProfilePicture(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "div-image ".concat(big ? "big" : medium ? "medium" : xs ? "xs" : ""),
       style: {
-        backgroundImage: "url(".concat(user.image_url)
+        backgroundImage: "url(".concat(user === null || user === void 0 ? void 0 : user.image_url)
       }
     }));
   };
@@ -5045,10 +5045,10 @@ var ProfilePicture = function ProfilePicture(props) {
       className: "preview-photo ".concat(big ? "big" : medium ? "medium" : xs ? "xs" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "preview-photo-letter"
-    }, user.username[0].toUpperCase())));
+    }, user === null || user === void 0 ? void 0 : user.username[0].toUpperCase())));
   };
 
-  return user.image_url ? uploadedPhoto() : photoPreview();
+  return user !== null && user !== void 0 && user.image_url ? uploadedPhoto() : photoPreview();
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfilePicture);
@@ -5079,14 +5079,14 @@ var UserPreviewContainer = function UserPreviewContainer(props) {
       _props$bold = props.bold,
       bold = _props$bold === void 0 ? false : _props$bold;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    to: "/users/".concat(user.username, "/")
+    to: "/users/".concat(user === null || user === void 0 ? void 0 : user.username, "/")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "user-preview-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_profile_picture__WEBPACK_IMPORTED_MODULE_1__["default"], {
     user: user
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
     className: "username ".concat(bold ? "bold" : " ")
-  }, user.username)));
+  }, user === null || user === void 0 ? void 0 : user.username)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UserPreviewContainer);

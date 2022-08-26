@@ -14,9 +14,8 @@ const CategoryHomepage = (props) => {
         fetchHomepagePins(HOMEPAGE_NUM_PINS).finally(() => (setLoading(false)))
     }, [])
 
-    console.log(pins[306]?.tag, category, )
-
-    const categorizedPins = Object.keys(pins).filter((pinId) => pins[pinId]?.tag === category)
+    const categorizedPinIds = Object.keys(pins).filter((pinId) => pins[pinId]?.tag === category)
+    const categorizedPins = categorizedPinIds.map((pinId) => pins[pinId])
 
     const content = () => {
         return (
