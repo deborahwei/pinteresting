@@ -33,7 +33,7 @@ const CommentContainer = (props) => {
                     <div onClick={handleDelete} className="edit-comment-option">Delete</div>
                 </div>
                 <div className='updated-at'>
-                    {timeSince(comment.updated_at)}
+                    {timeSince(comment.created_at)}
                 </div>
                 <div className={`${isAuthor ? "" : "hide"} dots`} ref={openRef} >
                     <p onClick={handleClick} >

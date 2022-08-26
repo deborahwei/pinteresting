@@ -34,7 +34,7 @@ const BoardPreviewContainer = (props) => {
                     <h1>{boardName()}</h1>
                     <div className='board-preview-subtext'>
                         <p>{`${pins.length} Pins`}</p> 
-                        <p className="updated-at">{timeSince(board.updated_at)}</p>
+                        <p className="updated-at">{timeSince(board.created_at)}</p>
                     </div>
                 </div>
             </div>

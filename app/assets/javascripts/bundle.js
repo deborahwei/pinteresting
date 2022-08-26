@@ -1181,7 +1181,7 @@ var BoardPreviewContainer = function BoardPreviewContainer(props) {
     className: "board-preview-subtext"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "".concat(pins.length, " Pins")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     className: "updated-at"
-  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(board.updated_at))))));
+  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(board.created_at))))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoardPreviewContainer);
@@ -1850,7 +1850,7 @@ var CommentContainer = function CommentContainer(props) {
     className: "edit-comment-option"
   }, "Delete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "updated-at"
-  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(comment.updated_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, (0,_util_time_util__WEBPACK_IMPORTED_MODULE_3__.timeSince)(comment.created_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "".concat(isAuthor ? "" : "hide", " dots"),
     ref: openRef
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
