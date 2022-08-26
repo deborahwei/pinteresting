@@ -142,7 +142,7 @@ pin_16.save!
 
 # interior
 
-pin_17 = Pin.safe_create({title: "Favorite Things Friday", tag: "interior", description: "Happy Friday everyone!! & thank you for stopping by Favorite Things Friday. So happy you are here! Today I am getting ready for my mother in-law to come into town for the weekend. If you remember she was visiting a few weeks ago & she's coming again because she is working in North Carolina again about 4 hours away from us. We are so excited to have her here! Our plans for the weekend are to relax, eat, & enjoy each others company. Sounds pretty perfect to me. I hope that you all had a great week & that you"}, user_2.id)[0]
+pin_17 = Pin.safe_create({title: "Favorite Things Friday", tag: "interior", description: "Happy Friday everyone!! & thank you for stopping by Favorite Things Friday. So happy you are here! Today I am getting ready for my mother in-law to come into town for the weekend. If you remember she was visiting a few weeks ago & she's coming again because she is working in North Carolina again about 4 hours away from us. "}, user_2.id)[0]
 image_17 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/11806f92bc257b424e11d8133e207800.jpg")
 pin_17.image.attach(io: image_17, filename:"11806f92bc257b424e11d8133e207800.jpg")
 pin_17.save!
@@ -162,7 +162,7 @@ image_20 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/2c4b5
 pin_20.image.attach(io: image_20, filename:"2c4b506b48a78e5a119b50a509c8b6f7.jpg")
 pin_20.save!
 
-pin_21 = Pin.safe_create({title: "Double-height living area which opens up to the outside", tag: "interior", description: "London-born Charlotte Taylor is the creative genius behind the infamous renderings of Casa Atibaia: an imaginary home hidden in the São Paulo’s forest that combines Brazilian modernism and glasshouse components. Taylor is the creative director of studio ‘Maison de Sable’ and designs sets and interiors, though her online gallery spotlights her talent for creating fictional spaces."}, user_2.id)[0]
+pin_21 = Pin.safe_create({title: "Double-height living area which opens up to the outside", tag: "interior", description: "London-born Charlotte Taylor is the creative genius behind the infamous renderings of Casa Atibaia: an imaginary home hidden in the São Paulo’s forest that combines Brazilian modernism and glasshouse components. "}, user_2.id)[0]
 image_21 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/37404ee5575bdf24c1b77b8bee583436.jpg")
 pin_21.image.attach(io: image_21, filename:"37404ee5575bdf24c1b77b8bee583436.jpg")
 pin_21.save!
@@ -187,7 +187,7 @@ image_25 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/a5707
 pin_25.image.attach(io: image_25, filename:"a5707d3165dcfbbdf3771fb91a6dee1d.jpg")
 pin_25.save!
 
-pin_26 = Pin.safe_create({title: "House architecture | house aesthetic | indoor house decor | ~pic from Pinterest", tag: "interior", description: "offee, morning coffee, morning routine, morning walk, day in my life, aesthetic morning routine, coffee recipe, iced coffee, moody aesthetic, neutral aesthetic, mindfulness, quotes inspirational, self care, manifesting, journal inspiration, journal inspiration, journaling aesthetic, how to be a blogger, Pinterest blogger, Tumblr aesthetic, aesthetic pics, bedroom aesthetic, aesthetic vintage, summer aesthetic, Insta photos, insta photos inspo, insta inspo"}, user_3.id)[0]
+pin_26 = Pin.safe_create({title: "House architecture | house aesthetic | indoor house decor | ~pic from Pinterest", tag: "interior", description: "offee, morning coffee, morning routine, morning walk, day in my life, aesthetic morning routine, coffee recipe, iced coffee, moody aesthetic, neutral aesthetic, mindfulness, quotes inspirational"}, user_3.id)[0]
 image_26 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/c1f6abc92752b425d40882d8f1495aaa.jpg")
 pin_26.image.attach(io: image_26, filename:"c1f6abc92752b425d40882d8f1495aaa.jpg")
 pin_26.save!
@@ -202,7 +202,7 @@ image_28 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/e31c7
 pin_28.image.attach(io: image_28, filename:"e31c7ad154535e3ddee9d3a42cbb0eb8.jpg")
 pin_28.save!
 
-pin_29 = Pin.safe_create({title: "Hopeful Violets", tag: "interior", description: "`We expect the worst, and hope for the best`. _Mirabella_ .................. Mirabella Viola Hendrix, or Mirabella Viola Abeli.. never had it easy, as long as she can remember, she was being mistreated by her 'parents', never had the chance to experience what teens her age did, or even knew what they were supposed to do, shocked by the news she received, she moves in with the familly she never knew she had until now."}, user_3.id)[0]
+pin_29 = Pin.safe_create({title: "Hopeful Violets", tag: "interior", description: "`We expect the worst, and hope for the best`. _Mirabella_ .................. Mirabella Viola Hendrix, or Mirabella Viola Abeli.. never had it easy."}, user_3.id)[0]
 image_29 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/Fantastic+Falls+Road+Estate.jpg")
 pin_29.image.attach(io: image_29, filename:"Fantastic+Falls+Road+Estate.jpg")
 pin_29.save!
@@ -212,7 +212,7 @@ image_30 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/interior/fd440
 pin_30.image.attach(io: image_30, filename:"fd44085497fdde427c62a17f42b9af13.jpg")
 pin_30.save!
 
-pin_31 = Pin.safe_create({title: "Avignon Villa Rental | Avignon Serenity Suite | Haven In", tag: "interior", description: "Luxury and beauty blend effortlessly in the Serenity Suite, one of five magnificent, private guest suites located in the exquisite Avignon Hôtel Particulier, a beautifully restored 19th century mansion in the heart of Avignon’s historic center. Located at the end of a quiet cul-de-sac, steps from the Palais des Papes, restaurants, markets, and fabulous shopping, this unique, fully renovated property was meticulously decorated with authentic and stylish furnishings, all chosen with care by the current owners: a French interior designer and his partner."}, user_3.id)[0]
+pin_31 = Pin.safe_create({title: "Avignon Villa Rental | Avignon Serenity Suite | Haven In", tag: "interior", description: "Luxury and beauty blend effortlessly in the Serenity Suite, one of five magnificent, private guest suites located in the exquisite Avignon Hôtel Particulier, a beautifully restored 19th century mansion in the heart of Avignon’s historic center."}, user_3.id)[0]
 image_31 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/snowboarding/2-bro-s-media-l6lpv1OAP6s-unsplash.jpg")
 pin_31.image.attach(io: image_31, filename:"2-bro-s-media-l6lpv1OAP6s-unsplash.jpg")
 pin_31.save!
@@ -274,7 +274,7 @@ image_42 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/sunset/quino-a
 pin_42.image.attach(io: image_42, filename:"quino-al-mBQIfKlvowM-unsplash.jpg")
 pin_42.save!
 
-pin_43 = Pin.safe_create({title: "Pin by Mary Rivero on Almacenamiento rápido | Sky aesthetic, Beautiful landscape wallpaper, Beach sunset w… in 2022 | Sky aesthetic, Beach sunset wallpaper, Sunset pictures", tag: "summer", description: "cotton candy cloud sky"}, user_6.id)[0]
+pin_43 = Pin.safe_create({title: "Pin by Mary Rivero on Almacenamiento rápido | Sky aesthetic, Beautiful landscape wallpaper, Beach sunset w… in 2022"}, user_6.id)[0]
 image_43 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/sunset/recal-media-ueBIGLmiI5A-unsplash.jpg")
 pin_43.image.attach(io: image_43, filename:"recal-media-ueBIGLmiI5A-unsplash.jpg")
 pin_43.save!
@@ -311,7 +311,7 @@ image_49 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-
 pin_49.image.attach(io: image_49, filename:"alex-lvrs-aV9qf-Zy3E0-unsplash.jpg")
 pin_49.save!
 
-pin_50 = Pin.safe_create({title: "Cinnamon Sugar Apple Butter Pie | Butternut Bakery", tag: "baking", description: "2 reviews · 1.5 hours · Serves 8 · This apple butter pie is unlike any other pie you’ve had! Its custard-base filling is made with cozy apple butter and topped off with a layer of cinnamon sugar. It safe_creates a crackly crust on top that’s sweet and so delicious. This entire pie is also baked in a buttery and flaky gluten free pie crust! You’d never even know that it’s gluten free, but it makes this dessert accessible to everyone around your Thanksgiving table."}, user_7.id)[0]
+pin_50 = Pin.safe_create({title: "Cinnamon Sugar Apple Butter Pie | Butternut Bakery", tag: "baking", description: "2 reviews · 1.5 hours · Serves 8 · This apple butter pie is unlike any other pie you’ve had! Its custard-base filling is made with cozy apple butter and topped off with a layer of cinnamon sugar. "}, user_7.id)[0]
 image_50 = URI.open("https://fs-pinteresting-dev.s3.amazonaws.com/pie/alex-lvrs-aX_ljOOyWJY-unsplash.jpg")
 pin_50.image.attach(io: image_50, filename:"alex-lvrs-aX_ljOOyWJY-unsplash.jpg")
 pin_50.save!

@@ -39,7 +39,7 @@ const SearchBarContainer = (props) => {
 
         return(
             <div className='search-bar'>
-                <div className={`search-bar-background ${open || typing ? "" : "hide"}`}></div>
+                <div className={`search-bar-background ${open ? "" : "hide"}`}></div>
                 <input 
                     ref={openRef}
                     onClick={handleClick}
@@ -50,7 +50,7 @@ const SearchBarContainer = (props) => {
                 <div className={`magnifying-glass ${open || typing ? "hide" : ""}`}>
                     <i className="fa-solid fa-magnifying-glass fa-sm"></i>
                 </div>
-                <div className={`${open || typing? "" : "hide"} search-dropdown`}>
+                <div className={`${open ? "" : "hide"} search-dropdown`}>
                     <div className={`search-categories-container ${typing? "hide" : ""}`}>
                         {PIN_KEYWORDS.map( (category, i) => <SearchBarCategories key={i} query={query} category={category}/>)}
                     </div>

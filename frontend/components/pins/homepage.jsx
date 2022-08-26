@@ -16,6 +16,7 @@ const HomepageContainer = (props) => {
         fetchHomepagePins(HOMEPAGE_NUM_PINS).finally(() => (setLoading(false)))
     }, [])
 
+    // const homepagePins = Object.keys(pins).map((pinId) => pins[pinId])
     const homepagePins = shuffleArray(Object.keys(pins).map((pinId) => pins[pinId]))
 
     const content = () => {

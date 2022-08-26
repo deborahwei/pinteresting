@@ -7,7 +7,9 @@ class Api::BoardsController < ApplicationController
     def board_cover 
         @board = Board.find(params[:board_id])
         @pin = @board.pins.first 
-        render "api/pins/show"
+        if @board && @pin 
+            render "api/pins/show"
+        end
     end
 
     def index

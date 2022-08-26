@@ -50,12 +50,9 @@
     align-items: center;
 }
 
-.comment-user {
-    width: 125px;
-    margin:bottom
-}
 
 .comment-extras {
+    width: 40px;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -133,10 +130,11 @@
     padding-left: 10px;
     padding-bottom: 20px;
 
-    .default-picture {
+    .default-picture, .div-image {
         height: 45px;
         width: 45px;
         font-size: 16px;
+        border-radius: 50%;
         font-weight: $semibold;
     }
 

@@ -7,7 +7,6 @@ import { deleteComment } from '../../actions/comment_actions'
 
 
 const CommentContainer = (props) => {
-    console.log(props.comment)
     
     const {comment, user, pin, isAuthor, deleteComment} = props
 
@@ -17,7 +16,6 @@ const CommentContainer = (props) => {
 
     const handleDelete = () => {
         deleteComment(pin.id, comment.id)
-        // className={`${isAuthor ? "" : "hide"}`}
     }
 
     return (
@@ -37,7 +35,7 @@ const CommentContainer = (props) => {
                 <div className='updated-at'>
                     {timeSince(comment.updated_at)}
                 </div>
-                <div className="dots" ref={openRef} >
+                <div className={`${isAuthor ? "" : "hide"} dots`} ref={openRef} >
                     <p onClick={handleClick} >
                         ...
                     </p>

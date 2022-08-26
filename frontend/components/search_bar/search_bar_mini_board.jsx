@@ -1,11 +1,15 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import { abbreviate } from '../../util/function_util'
 import { MAX_TITLE_CHAR } from '../../util/constants_util'
 import { Link } from 'react-router-dom'
+import { fetchBoardCover } from '../../actions/board_actions'
+import MiniBoardCover from '../pins/mini_pin_cover'
 
 const SearchBoardPreview = ({board, query}) => {
     
     if (!board) return null
+
+
     const show = board?.name.toLowerCase().includes(query.toLowerCase())
 
     const content = () => {
@@ -13,7 +17,8 @@ const SearchBoardPreview = ({board, query}) => {
             <Link to={`/boards/${board.name}`}>
                 <div 
                     className={`mini-board-preview-container ${show ? "" : "hide"}`}>
-                    <div className='mini-board-cover'>
+                    <div className='mini-board-cover-container'>
+                        <MiniBoardCover pinId={board.pins[0]} />
                     </div>
                     <div className="mini-board-info">
                         <div className='mini-board-name'>
@@ -24,6 +29,7 @@ const SearchBoardPreview = ({board, query}) => {
             </Link>
         )
     }
+
     return content()
 }
 

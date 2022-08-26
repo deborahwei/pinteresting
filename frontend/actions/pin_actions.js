@@ -66,7 +66,6 @@ export const fetchPin = pinId => dispatch => (
 );
 
 export const deletePin = (pinId, userId) => dispatch => {
-    console.log(userId)
     return PinAPIUtil.deletePin(pinId).then((pinId) => (
       dispatch(removePin(pinId, userId))
     ))
