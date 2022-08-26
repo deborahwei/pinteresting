@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import MiniBoardPreview from '../boards/mini_board_preview'
 import { openModal } from '../../actions/modal_actions'
-import MiniSearchBar from '../generic/mini_search_bar'
+import MiniSearchBar from '../search_bar/mini_search_bar'
 
 const AddPinDropdown = ({boards, currentUser, openModal, pin, updateCurrentSelection}) => {
 

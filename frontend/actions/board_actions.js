@@ -1,4 +1,5 @@
 import * as BoardAPIUtil from '../util/board_api_util'
+import { receivePin } from './pin_actions';
 
 export const RECEIVE_BOARD = 'RECEIVE_BOARD';
 export const RECEIVE_BOARDS = 'RECEIVE_BOARDS';
@@ -40,6 +41,12 @@ export const fetchBoard = (userId, boardId) => dispatch => (
   })
 );
 
+export const fetchBoardCover = (boardId) => dispatch => (
+  BoardAPIUtil.fetchBoardCover(boardId).then((pin) => {
+    dispatch(receivePin(pin))
+  })
+);
+
 export const createBoard = (board) => dispatch => (
   BoardAPIUtil.createBoard(board).then((board) => {
     dispatch(receiveBoard(board))
@@ -70,10 +77,5 @@ export const fetchBoardByName = (userId, name) => dispatch => {
   ))
 }
 
-export const fetchUserBoardsByUsername = (username) => dispatch => (
-  BoardAPIUtil.fetchUserBoardsByUsername(username).then(boards => (
-      dispatch(receiveBoards(boards))
-  ))  
-)
 
 

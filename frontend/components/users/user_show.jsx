@@ -67,7 +67,7 @@ const UserShowContainer = (props) => {
         <div className="user-show-container">
             <div className="user-show-header">
                 <div className="user-show-profile-pic">
-                    <ProfilePicture user={user} hasPhoto={false}/>
+                    <ProfilePicture user={user} big={true} />
                 </div>
                 <h1 >{username}</h1>
                 <p>{`@${username}`}</p>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_25_190458) do
+ActiveRecord::Schema.define(version: 2022_08_26_000153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 2022_08_25_190458) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tag"
+    t.index ["tag"], name: "index_pins_on_tag"
   end
 
   create_table "pins_users", force: :cascade do |t|
@@ -80,6 +82,11 @@ ActiveRecord::Schema.define(version: 2022_08_25_190458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "pin_id"], name: "index_pins_users_on_user_id_and_pin_id", unique: true
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "category"
+    t.string "pin_id", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -73,7 +73,7 @@ const BoardShowContainer = (props) => {
                 <div className="board-show-owner">
                     <NavLink to={`/users/${user.username}/saved`}>
                         <div className='board-show-owner-profile'>
-                            <ProfilePicture user={ownsBoard ? currentUser : user} hasPhoto={false}/>
+                            <ProfilePicture user={ownsBoard ? currentUser : user}/>
                         </div>
                     </NavLink>
                 </div>

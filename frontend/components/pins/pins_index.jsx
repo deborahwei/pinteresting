@@ -29,6 +29,7 @@ const PinsIndexContainer = ({pins, currentUser, isUser, users, fetchUsers, fetch
                 >   
                     {
                         pins.map( (pin, i) => <PinPhotoContainer 
+                                                        board={null}
                                                         key={i}
                                                         pin={pin}
                                                         showUser={showUser}

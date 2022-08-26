@@ -5,7 +5,7 @@ import { openModal } from '../../actions/modal_actions'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import ProfilePicture from '../users/profile_picture'
 import { closeDropdown } from '../dropdown/close_dropdown'
-import SearchBarContainer from '../generic/search_bar'
+import SearchBarContainer from '../search_bar/search_bar'
 
 const Nav = (props) => {
     
@@ -92,7 +92,7 @@ const Nav = (props) => {
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
                     <Link to={`/users/${currentUser.username}/`} className="hover-user-pic">
-                        <ProfilePicture user={currentUser} hasPhoto={false}/> 
+                        <ProfilePicture user={currentUser} xs={true}/> 
                     </Link>
                 </div>
                 <div className="menu-container">
@@ -105,7 +105,7 @@ const Nav = (props) => {
                             <Link to={`/users/${currentUser.username}/`} >
                                 <div className='dropdown-user'>
                                     <div className="dropdown-user-pic">
-                                        <ProfilePicture user={currentUser} hasPhoto={false}/> 
+                                        <ProfilePicture user={currentUser} medium={true}/> 
                                     </div>
                                     <div className='dropdown-user-text'>
                                         { currentUser.username }

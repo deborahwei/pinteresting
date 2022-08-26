@@ -1,4 +1,4 @@
-json.extract! pin, :id, :title, :description
+json.extract! pin, :id, :title, :description, :tag
 json.imageUrl url_for(pin.image) if pin.image.attached?
 json.creator pin.creator.id
 

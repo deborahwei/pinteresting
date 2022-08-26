@@ -1,4 +1,4 @@
-json.extract! user, :id, :username
+json.extract! user, :id, :username 
 
 created_pins_array = []
 User.retrieve_created_pins(user.id).each do |pin|
@@ -17,3 +17,5 @@ user.boards.each do |board|
    boards << board.id
 end
 json.boards boards
+
+json.image_url url_for(user.image) if user.image.attached?

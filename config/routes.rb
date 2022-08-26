@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy, :index]
     end
 
-    get '/boards/user/:username', to: 'boards#find_boards_by_username', as: 'find_boards_by_username'
+    get '/boards/cover/:board_id', to: 'boards#board_cover', as: 'board_cover'
     resources :boards, only: [:create, :update, :destroy] 
 
     get '/pins_user/save/:pin_id', to: 'pins_user#save_pin', as: 'save_pin'

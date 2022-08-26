@@ -43,10 +43,10 @@ export const fetchBoardByName = (userId, name) => {
   }))
 };
 
-export const fetchUserBoardsByUsername = (username) => {
+export const fetchBoardCover = (boardId) => {
   return Promise.resolve($.ajax({
     method: 'GET',
-    url: `/api/boards/user/${username}`
+    url: `/api/boards/cover/${boardId}`
   }))
 };
 

@@ -1,8 +1,14 @@
 class Api::BoardsController < ApplicationController
 
     before_action :find_by_name, only: [:find_by_name]
-    before_action :find_boards_by_username, only: [:find_boards_by_username]
     before_action :find_all_boards_pins, only: [:find_all_boards_pins]
+    before_action :board_cover, only: [:board_cover]
+
+    def board_cover 
+        @board = Board.find(params[:board_id])
+        @pin = @board.pins.first 
+        render "api/pins/show"
+    end
 
     def index
         @boards = Board.where(user_id: params[:user_id])
@@ -17,12 +23,6 @@ class Api::BoardsController < ApplicationController
     def find_by_name
         @board = Board.find_by(name: params[:name])
         render "api/boards/show"
-    end
-
-    def find_boards_by_username
-        @user = User.find_by(username: params[:username])
-        @boards = @user.boards 
-        render "api/boards/index"
     end
 
     def create 

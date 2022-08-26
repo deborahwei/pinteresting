@@ -6,6 +6,12 @@
     justify-content: flex-start;
     align-items: center;
     width: 160px;
+
+    .div-image {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+    }
     
     > h1 {
         text-indent: 10px;
@@ -22,8 +28,31 @@
 
 }
 
+.div-image.big, .preview-photo.big {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+
+.div-image.medium, .preview-photo.medium {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.div-image.xs, .preview-photo.xs {
+    height: 23px;
+    width: 23px;
+    border-radius: 50%;
+
+    .preview-photo-letter {
+        margin-left: 1px;
+    }
+}
+
 .preview-photo-letter  {
     text-decoration: none;
+    margin-right: 1px;
 }
 
 .username.bold {
@@ -52,3 +81,4 @@
     text-indent: -0.1px;
 
 }
+
