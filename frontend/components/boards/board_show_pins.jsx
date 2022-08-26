@@ -25,9 +25,6 @@ const BoardShowPinsContainer = (props) => {
     const boardShowButtons = () => {
         return (
             <div className={`board-show-buttons ${!ownsBoard ? "hide": ""}`}>
-                <div className='pins-counter'>
-                    {`${pinCount} Pins`}
-                </div>
                 <div className={`add-pin-button`}>
                     <div ref={plusRef} onClick={handlePlusClick} className={`board-show-plus ${ plus ? "clicked" : "unclicked"}`}>
                         <i className={`fa-solid fa-plus fa-2xl`}></i>
@@ -57,6 +54,9 @@ const BoardShowPinsContainer = (props) => {
     const boardPinsIndex = () => {
         return (
             <div className="board-show-pins-container">
+                <div className='pins-counter'>
+                    {`${pinCount} Pins`}
+                </div>
                 <BoardPinsIndexContainer
                     pins={currentBoardPins}
                     board={board}
