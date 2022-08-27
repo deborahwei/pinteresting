@@ -4,16 +4,17 @@ import { abbreviate } from '../../util/function_util'
 import { MAX_NAME_CHAR } from '../../util/constants_util'
 import MiniBoardCover from './mini_board_cover'
 
-const MiniBoardPreview = ({board, pin, updateCurrentSelection, query, pins, fetchBoardCover}) => {
+const MiniBoardPreview = ({board, pin, updateCurrentSelection, query}) => {
+    console.log(board)
 
-    const show = board?.name.toLowerCase().includes(query.toLowerCase())
+    const show = board?.name.toLowerCase().includes(query.toLowerCase()) || board === null
 
     const content = () => {
         return (
             <div onClick={()=> updateCurrentSelection(board)} 
             className={`mini-board-preview-container ${show ? "" : "hide"}`}>
                 <div className='mini-board-cover'>
-                    {/* <MiniBoardCover pinId={board?.pins[0]}/> */}
+                    <MiniBoardCover pinId={board?.pins[0]}/>
                 </div>
                 <div className="mini-board-info">
                     <div className='mini-board-name'>

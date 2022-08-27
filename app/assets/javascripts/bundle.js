@@ -1616,10 +1616,9 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
   var board = _ref.board,
       pin = _ref.pin,
       updateCurrentSelection = _ref.updateCurrentSelection,
-      query = _ref.query,
-      pins = _ref.pins,
-      fetchBoardCover = _ref.fetchBoardCover;
-  var show = board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase());
+      query = _ref.query;
+  console.log(board);
+  var show = (board === null || board === void 0 ? void 0 : board.name.toLowerCase().includes(query.toLowerCase())) || board === null;
 
   var content = function content() {
     var _board$name;
@@ -1631,7 +1630,9 @@ var MiniBoardPreview = function MiniBoardPreview(_ref) {
       className: "mini-board-preview-container ".concat(show ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-cover"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mini_board_cover__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      pinId: board === null || board === void 0 ? void 0 : board.pins[0]
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board-name"
