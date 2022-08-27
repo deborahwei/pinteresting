@@ -38,7 +38,7 @@
 
 ## Code Snippets 
 
-With the use of *useState* and passing the set state function to the children component I was able to create search bars and board selection dropdown. This process was necessary in order for search results to render according to the query entered by the user in the search bar or for the appropriate board name to display when the user clicked on that board. 
+With the use of **useState** and passing the set state function to the children component I was able to create search bars and board selection dropdown. This process was necessary in order for search results to render according to the query entered by the user in the search bar or for the appropriate board name to display when the user clicked on that board. 
 
 ```
 const updateCurrentSelection = (selection) => {
@@ -65,7 +65,7 @@ className={`mini-board-preview-container ${show ? "" : "hide"}`}>
 
 ```
 
-In order to produce frontend routes that displayed the user's username rather than their id required extra routes and api requests to be made since the user's information such as their boards and pins were under the user's id. I chose to go down this route because this is how Pinterest displays their frontend routes to their users and also it provides a better UI experience. 
+In order to produce frontend routes that displayed the user's username rather than their id required extra routes and api requests to be made since the user's information such as their boards and pins were under the user's id. Thus, I decided to use **custom routes** which allowed me to define new routes in my routes file that were not the conventional standard Ruby routes that we are initially given. I chose to go down this route because this is how Pinterest displays their frontend routes to their users and also it provides a better UI experience. 
 
 ```
 # routes.rb
@@ -81,7 +81,7 @@ def find_by_username
 end
 
 ```
-There was also the use of transactions in my Ruby routes that were necessary because the pin creator was not on the Pin class itself but rather within a combinational joins table. So in order to ensure that every pin that was created had a creator a transaction was necessary, since the pin would not be able to be created without that association being created. 
+There was also the use of **transactions** in my Ruby routes that were necessary because the pin creator was not on the Pin class itself but rather within a combinational joins table. So in order to ensure that every pin that was created had a creator a transaction was necessary, since the pin would not be able to be created without that association being created. 
 
 
 ```
