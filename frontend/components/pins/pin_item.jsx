@@ -10,7 +10,8 @@ import AddPinDropdown from './add_pin_dropdown'
 import EditBoardButton from '../buttons/edit_board_button'
 import { openModal } from "../../actions/modal_actions";
 
-const PinPhotoContainer = ({pin, isUser, creator, selection, openModal, showUser=true, showDropdown=true}) => {
+const PinPhotoContainer = ({pin, isUser, lastPin=false, creator, selection, openModal, showUser=true, showDropdown=true}) => {
+
 
     const openRef = useRef(null)
     const [open, setOpen] = closeDropdown(openRef, false)
@@ -55,7 +56,9 @@ const PinPhotoContainer = ({pin, isUser, creator, selection, openModal, showUser
                     </div>
                 </Link>
             </div>
-            <div onClick={handleDropdownClick} className={`pin-add-menu ${open ? "open" : "closed"}`}>
+            <div onClick={handleDropdownClick} 
+                className={`pin-add-menu ${open ? "open" : "closed"} ${lastPin ? "last-pin" : ""}`}
+                >
                 <AddPinDropdown setOpen={setOpen} pin={pin} updateCurrentSelection={updateCurrentSelection}/> 
             </div>
             <div className={`pin-item-info ${showUser ? "" : "hide"}`}>

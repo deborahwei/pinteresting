@@ -2821,6 +2821,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2832,6 +2833,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -2879,7 +2881,8 @@ var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
         board: board,
         key: i,
         pin: pin,
-        creator: findPinCreator(pin)
+        creator: findPinCreator(pin),
+        lastPin: (i + 1) % (0,_util_function_util__WEBPACK_IMPORTED_MODULE_8__.getNumOfCols)() === 0
       });
     })));
   };
@@ -2889,9 +2892,7 @@ var BoardPinsIndexContainer = function BoardPinsIndexContainer(_ref) {
 
 var mSTP = function mSTP(_ref2) {
   var session = _ref2.session,
-      _ref2$entities = _ref2.entities,
-      users = _ref2$entities.users,
-      boards = _ref2$entities.boards;
+      users = _ref2.entities.users;
   return {
     users: users,
     currentUser: users[session.id]
@@ -3567,6 +3568,8 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
 
   var pin = _ref.pin,
       isUser = _ref.isUser,
+      _ref$lastPin = _ref.lastPin,
+      lastPin = _ref$lastPin === void 0 ? false : _ref$lastPin,
       creator = _ref.creator,
       selection = _ref.selection,
       openModal = _ref.openModal,
@@ -3632,7 +3635,7 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
     className: "pin-show-link"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     onClick: handleDropdownClick,
-    className: "pin-add-menu ".concat(open ? "open" : "closed")
+    className: "pin-add-menu ".concat(open ? "open" : "closed", " ").concat(lastPin ? "last-pin" : "")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_add_pin_dropdown__WEBPACK_IMPORTED_MODULE_7__["default"], {
     setOpen: setOpen,
     pin: pin,
@@ -3923,6 +3926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _util_function_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/function_util */ "./frontend/util/function_util.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3934,6 +3938,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -3990,6 +3995,7 @@ var PinsIndexContainer = function PinsIndexContainer(_ref) {
         showUser: showUser,
         showDropdown: showDropdown,
         isUser: isUser,
+        lastPin: (i + 1) % (0,_util_function_util__WEBPACK_IMPORTED_MODULE_8__.getNumOfCols)() === 0,
         creator: findPinCreator(pin)
       });
     })));
@@ -6442,6 +6448,7 @@ var PIN_KEYWORDS = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "abbreviate": () => (/* binding */ abbreviate),
+/* harmony export */   "getNumOfCols": () => (/* binding */ getNumOfCols),
 /* harmony export */   "reverseSearch": () => (/* binding */ reverseSearch),
 /* harmony export */   "shuffleArray": () => (/* binding */ shuffleArray)
 /* harmony export */ });
@@ -6466,6 +6473,14 @@ var shuffleArray = function shuffleArray(arr) {
   return arr.sort(function () {
     return Math.random() - 0.5;
   });
+};
+var getNumOfCols = function getNumOfCols() {
+  var windowSize = window.innerWidth;
+  if (windowSize > 1850) return 7;
+  if (windowSize > 1630) return 6;
+  if (windowSize > 1340) return 5;
+  if (windowSize > 1080) return 4;
+  return 3;
 };
 
 /***/ }),

@@ -6,6 +6,7 @@ import PinPhotoContainer from './pin_item'
 import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
+import { getNumOfCols } from '../../util/function_util'
 
 const PinsIndexContainer = ({pins, currentUser, isUser, users, fetchUsers, fetchBoards, showUser=true, showDropdown=true, center=false}) => {
     
@@ -35,6 +36,7 @@ const PinsIndexContainer = ({pins, currentUser, isUser, users, fetchUsers, fetch
                                                         showUser={showUser}
                                                         showDropdown={showDropdown}
                                                         isUser={isUser}
+                                                        lastPin={(i + 1) % getNumOfCols() === 0}
                                                         creator={findPinCreator(pin)}/>)
                     }
                 </Masonry>

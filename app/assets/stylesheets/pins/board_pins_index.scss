@@ -122,6 +122,10 @@
     z-index: 20;
 }
 
+.pin-add-menu.last-pin {
+    left: -260px;
+}
+
 .pin-add-menu.open {
     visibility: visible;
     opacity:  1;

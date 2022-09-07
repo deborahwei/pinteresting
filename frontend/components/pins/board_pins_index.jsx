@@ -6,9 +6,10 @@ import PinPhotoContainer from './pin_item'
 import { fetchUsers } from '../../actions/user_actions'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
+import { getNumOfCols } from '../../util/function_util'
 
 const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoards, board}) => {
-  
+
     const [loading, setLoading] = useState(true)
     useEffect( () => {
         fetchBoards(currentUser.id).then(() => fetchUsers(pins, users)).finally(() => setLoading(false))
@@ -31,7 +32,9 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
                                                         board={board}
                                                         key={i}
                                                         pin={pin}
-                                                        creator={findPinCreator(pin)}/>)
+                                                        creator={findPinCreator(pin)}
+                                                        lastPin={(i + 1) % getNumOfCols() === 0}
+                                                        />)
                     }
                 </Masonry>
             </div>
@@ -41,7 +44,7 @@ const BoardPinsIndexContainer = ({pins, currentUser, users, fetchUsers, fetchBoa
     return loading ? <LoadingContainer/> : content()
 }
 
-const mSTP = ({session, entities: {users, boards}}) => {
+const mSTP = ({session, entities: {users}}) => {
     return {
         users, 
         currentUser: users[session.id]
