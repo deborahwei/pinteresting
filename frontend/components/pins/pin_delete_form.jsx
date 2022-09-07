@@ -14,7 +14,7 @@ const DeleteBoardForm = (props) => {
         e.preventDefault();
         deletePin(pin.id, currentUser.id)
             .then(()=> {
-                history.push(`/users/${currentUser.username}`);
+                history.push(`/users/${currentUser.username}/created`);
             })
             .then(() => {
                 closeModal()

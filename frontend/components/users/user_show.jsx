@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink, Link, Redirect, useHistory } from 'react-router-dom'
+import { NavLink, Link, Redirect} from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
@@ -15,7 +15,6 @@ const Tab = {
     CREATED: "created"
 }
 
-
 const UserShowContainer = (props) => {    
     const { currentUser, fetchUserByUsername, username, user, tabSelected, openModal} = props   
     
@@ -24,7 +23,6 @@ const UserShowContainer = (props) => {
     const [tab, setTab] = useState(tabSelected)
     
     const handleClickTab = tab => e => {
-        e.preventDefault()
         setTab(tab)
     }
     
@@ -38,6 +36,7 @@ const UserShowContainer = (props) => {
         isUser={isUser}
         />,
     }
+
     useEffect(() => {
         if (!user) {
             fetchUserByUsername(username)
@@ -72,16 +71,14 @@ const UserShowContainer = (props) => {
                 <p>{`@${username}`}</p>
                 <div className="user-show-content-labels">
                     <NavLink 
-                        // onClick={handleClickTab(Tab.CREATED)} 
                         to={`/users/${username}/created`} 
                         >
-                        <h1 className = {`${tab === "created" ? "tab-clicked" : "" }`}>Created</h1>
+                        <h1 onClick={handleClickTab(Tab.CREATED)} className={`${tab === "created" ? "tab-clicked" : "" }`}>Created</h1>
                     </NavLink>
                     <NavLink 
-                        // onClick={handleClickTab(Tab.SAVED)} 
                         to={`/users/${username}/saved`} 
                         >
-                        <h1 className = {`${tab === "saved" ? "tab-clicked" : "" }`}>Saved</h1>
+                        <h1 onClick={handleClickTab(Tab.SAVED)} className={`${tab === "saved" ? "tab-clicked" : "" }`}>Saved</h1>
                     </NavLink>
                 </div>
                 <div className={`user-show-plus-container ${!isUser ? "hide" : ""}`}>

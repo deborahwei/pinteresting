@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { MAX_NAME_CHAR, MAX_BOARD_CHAR } from '../../util/constants_util'
+import { MAX_TITLE_CHAR, MAX_BOARD_CHAR } from '../../util/constants_util'
 import { abbreviate } from '../../util/function_util'
 import UserPreviewContainer from '../users/user_preview'
 import SavePinButton from '../buttons/save_button'
@@ -60,7 +60,7 @@ const PinPhotoContainer = ({pin, isUser, creator, selection, openModal, showUser
             </div>
             <div className={`pin-item-info ${showUser ? "" : "hide"}`}>
                 <div className='pin-item-title'>
-                    {abbreviate(pin.title, MAX_NAME_CHAR)}
+                    {abbreviate(pin.title, MAX_TITLE_CHAR)}
                 </div>
                 <div className='pin-item-user'>
                     <UserPreviewContainer user={creator}/>

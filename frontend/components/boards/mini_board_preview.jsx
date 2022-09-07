@@ -5,7 +5,6 @@ import { MAX_NAME_CHAR } from '../../util/constants_util'
 import MiniBoardCover from './mini_board_cover'
 
 const MiniBoardPreview = ({board, pin, updateCurrentSelection, query}) => {
-    console.log(board)
 
     const show = board?.name.toLowerCase().includes(query.toLowerCase()) || board === null
 

@@ -1,4 +1,4 @@
-import * as CommentAPIUtil from "../util/comment_util"
+import * as CommentAPIUtil from "../util/comment_api_util"
 import { receivePin } from "./pin_actions";
 
 export const fetchComments = (pinId) => dispatch => (
@@ -15,6 +15,12 @@ export const deleteComment = (pinId, commentId) => dispatch => (
 
 export const createComment = (pinId, text) => dispatch => (
     CommentAPIUtil.createComment(pinId, text).then(pin => (
+      dispatch(receivePin(pin))
+    ))
+);
+
+export const updateComment = (pinId, commentId, comment) => dispatch => (
+    CommentAPIUtil.updateComment(pinId, commentId, comment).then(pin => (
       dispatch(receivePin(pin))
     ))
 );

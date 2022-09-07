@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { createComment, deleteComment } from '../../actions/comment_actions'
 import ProfilePicture from '../users/profile_picture'
 
-const CreateCommentContainer = ({createComment, deleteComment, currentUser, pin}) => {
+const CreateCommentContainer = ({createComment, endDiv, currentUser, pin}) => {
     
     const [state, setState] = useState({
         text: ""

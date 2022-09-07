@@ -6,6 +6,16 @@ class Api::CommentsController < ApplicationController
         render "api/pins/show"
     end
 
+    def update 
+        @comment = Comment.find(params[:id])
+        @pin = Pin.find(params[:pin_id])
+        if @comment.update(comment_params) 
+            render "api/pins/show"
+        else 
+            render json: @comment.errors.full_messages, status: 422
+        end
+    end
+
     def create
         @pin = Pin.find(params[:pin_id])
         @user = current_user
@@ -34,6 +44,16 @@ class Api::CommentsController < ApplicationController
         else
             render json: ["Comment not found"]
         end
+    end
+
+    private
+
+    def ensure_owner_user 
+        current_user.id == @comment.author
+    end
+
+    def comment_params 
+        params.require(:comment).permit(:text)
     end
 
 end

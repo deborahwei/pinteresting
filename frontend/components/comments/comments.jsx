@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { connect } from 'react-redux'
 import LoadingContainer from '../generic/loading'
 import { fetchCommentUsers } from '../../actions/user_actions'
@@ -8,7 +8,7 @@ import CreateCommentContainer from './create_comment'
 
 const PinCommentContainer = (props) => {
 
-    
+    const bottomRef = useRef(null)
     const [loading, setLoading] = useState(true)
     const {fetchCommentUsers, pin, currentUser, users} = props
     if (!pin?.comments) return null
@@ -38,6 +38,10 @@ const PinCommentContainer = (props) => {
         }
     }
 
+    useEffect( () => {
+        bottomRef.current?.scrollIntoView({behavior:'smooth'})
+    }, [pin?.comments]);
+
     const content = () => {
         return(
             <div className='comments-container'>
@@ -55,8 +59,9 @@ const PinCommentContainer = (props) => {
                             isAuthor={currentUser.id === comment.user_id}
                         />)
                     }
+                    <div ref={bottomRef}></div>
                 </div>
-                <CreateCommentContainer pin={pin}/>
+                <CreateCommentContainer bottomRef={bottomRef} pin={pin}/>
             </div>
         )
     }

@@ -13,6 +13,14 @@ export const createComment = (pinId, text) => (
     }))
  )    
   
+export const updateComment = (pinId, commentId, comment) => (
+    Promise.resolve($.ajax({
+      method: 'PATCH',
+      url: `/api/pins/${pinId}/comments/${commentId}`, 
+      data: {comment}
+    }))
+ )    
+  
 export const deleteComment = (pinId, commentId) => (
     Promise.resolve($.ajax({
       method: 'DELETE',

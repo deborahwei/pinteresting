@@ -1,16 +1,17 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import LoadingContainer from '../generic/loading'
 import { fetchBoards } from '../../actions/board_actions'
-import { closeDropdown } from '../dropdown/close_dropdown'
 import { createPin } from '../../actions/pin_actions'
 
 const PinsCreateForm = (props) => {
 
-    const { errors, boards, currentUser, fetchBoards, createPin} = props
+    const { currentUser, fetchBoards, createPin} = props
     const [loading, setLoading] = useState(true)
     const history = useHistory()
+
+    const [errors, setErrors] = useState(false)
 
     useEffect( () => {
         fetchBoards(currentUser.id).finally(() => setLoading(false))
@@ -28,8 +29,6 @@ const PinsCreateForm = (props) => {
             ...state, [field]: e.currentTarget.value
         })
     }
-
-    const openRef = useRef(null)
 
     const handlePinFile = (e) => {
         const fileReader = new FileReader();
@@ -60,7 +59,14 @@ const PinsCreateForm = (props) => {
         if (state.imageFile) {
             formData.append('pin[image]', state.imageFile);
         }
-        createPin(formData, currentUser.id).then(() => history.push(`/users/${currentUser.username}/created`))
+        createPin(formData, currentUser.id).then((resp) => {
+            if (resp?.type !=="RECEIVE_PIN_ERRORS") {
+                history.push(`/users/${currentUser.username}/created`)
+            }
+            else {
+                setErrors(true)
+            }
+        })
     }
 
     const preview = state.imageUrl ? <div style={{ backgroundImage: `url(${state.imageUrl}`}}/> : null;
@@ -71,13 +77,12 @@ const PinsCreateForm = (props) => {
                 <div className="pin-create-background"></div>
                 <form onSubmit={handlePinSubmit} action="">
                     <div className="pin-create-container">
-
                         <div className='pin-create-left-container'>
                             <div className='upload-container'>
                                 {preview}
                                 <div className="upload-file-input">
                                     {!state.imageUrl &&
-                                         <>
+                                        <>
                                             <div className='pin-create-image-upload'>
                                                 <i className="fa-solid fa-circle-up fa-2xl"></i>
                                                 <h2>Drag and drop or click to upload</h2>
@@ -93,6 +98,7 @@ const PinsCreateForm = (props) => {
                                     </input>
                                 </div>
                             </div>
+                            <div className={`${errors ? "" : "hide"} pin-errors`}>Must attach image</div>
                         </div>
 
                         <div className="pin-create-right-container">
@@ -133,11 +139,10 @@ const PinsCreateForm = (props) => {
     return loading ? <LoadingContainer/> : content()
 }
 
-const mSTP = ({errors, session, entities: { users, boards }}) => {
+const mSTP = ({session, entities: { users, boards }}) => {
     return {
         currentUser: users[session.id], 
         boards, 
-        errors: errors.pins
     }
 }
 
