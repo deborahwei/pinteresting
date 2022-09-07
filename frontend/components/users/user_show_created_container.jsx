@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect }  from 'react'
 import ProfilePicture from './profile_picture'
 import { connect } from 'react-redux'
-import { NavLink, Link, Redirect, useHistory } from 'react-router-dom'
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import { closeDropdown } from '../dropdown/close_dropdown'
 import { openModal } from '../../actions/modal_actions'
 import { fetchUserByUsername} from '../../actions/user_actions'
@@ -10,30 +10,18 @@ import LoadingContainer from '../generic/loading'
 import UserShowCreatedContainer from './user_show_created'
 import UserShowSavedContainer from './user_show_saved'
 
-const Tab = {
-    SAVED: "saved",
-    CREATED: "created"
-}
-
-
 const UserShowContainer = (props) => {    
-    const { currentUser, fetchUserByUsername, username, user, tabSelected, openModal} = props   
+    const { currentUser, fetchUserByUsername, username, user, openModal} = props   
     
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
-    const [tab, setTab] = useState(tabSelected)
-    
-    const handleClickTab = tab => e => {
-        e.preventDefault()
-        setTab(tab)
-    }
     
     const childrenContainers = { // clean this up
-        [Tab.SAVED]: <UserShowSavedContainer
+        "saved": <UserShowSavedContainer
         user={user} 
         isUser={isUser}
         />,
-        [Tab.CREATED]: <UserShowCreatedContainer
+        "created": <UserShowCreatedContainer
         user={user} 
         isUser={isUser}
         />,
@@ -72,16 +60,14 @@ const UserShowContainer = (props) => {
                 <p>{`@${username}`}</p>
                 <div className="user-show-content-labels">
                     <NavLink 
-                        // onClick={handleClickTab(Tab.CREATED)} 
                         to={`/users/${username}/created`} 
                         >
-                        <h1 className = {`${tab === "created" ? "tab-clicked" : "" }`}>Created</h1>
+                        <h1 className="tab-clicked">Created</h1>
                     </NavLink>
                     <NavLink 
-                        // onClick={handleClickTab(Tab.SAVED)} 
                         to={`/users/${username}/saved`} 
                         >
-                        <h1 className = {`${tab === "saved" ? "tab-clicked" : "" }`}>Saved</h1>
+                        <h1>Saved</h1>
                     </NavLink>
                 </div>
                 <div className={`user-show-plus-container ${!isUser ? "hide" : ""}`}>
@@ -97,7 +83,7 @@ const UserShowContainer = (props) => {
                 </div>
             </div>
             <div className="user-show-content-container">
-                {childrenContainers[tab]}
+                {childrenContainers["created"]}
             </div>
         </div>
     )
@@ -121,14 +107,10 @@ const UserShowContainer = (props) => {
 }
 
 const mSTP = ({session, entities: {users}}, props) => {
-    const tabSelected = props.location.pathname.split("/")[3]?.toLowerCase() === "created"
-                        ? Tab.CREATED
-                        : Tab.SAVED;
     return {
         username: props.match.params.username,
         user: reverseSearch(users, "username", props.match.params.username),
         currentUser: users[session.id],
-        tabSelected 
     }
 }
 

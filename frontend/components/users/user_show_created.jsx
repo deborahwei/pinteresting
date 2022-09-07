@@ -11,8 +11,10 @@ const UserShowCreatedContainer = (props) => {
     const [loading, setLoading] = useState(true) 
     
     useEffect( () => {
-        fetchPins(user.created_pins).finally(() => (setLoading(false)))
+        fetchPins(user?.created_pins).finally(() => (setLoading(false)))
     }, [])
+
+    if (!user) return null
     
     const hasNoPins = user.created_pins.length === 0
     const createdPins = user.created_pins.map((pinId) => pins[pinId])

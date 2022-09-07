@@ -15,6 +15,7 @@ import SplashOrPass from "./generic/splash_or_pass"
 import PinShowContainer from './pins/pin_show'
 import PinCreateForm from './pins/pin_create_form'
 import CategoryHomePage from './search_bar/category_homepage'
+import CreatedContainer from './users/user_show_created_container'
 
 const App = () => (
     <div>
@@ -26,6 +27,8 @@ const App = () => (
         <ProtectedRoute exact path="/users/:username/boards/:boardName" component={BoardShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/pin-builder" component={PinCreateForm}></ProtectedRoute>
         <ProtectedRoute path="/pins/:pinId" component={PinShowContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/created" component={CreatedContainer}></ProtectedRoute>
+        <ProtectedRoute path="/users/:username/saved" component={UserShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/users/:username/" component={UserShowContainer}></ProtectedRoute>
         <ProtectedRoute path="/:category" component={CategoryHomePage}></ProtectedRoute>
         <Route path="/" component={SplashOrPass} />

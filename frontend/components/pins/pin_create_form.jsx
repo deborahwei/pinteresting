@@ -30,12 +30,6 @@ const PinsCreateForm = (props) => {
     }
 
     const openRef = useRef(null)
-    const [open, setOpen] = closeDropdown(openRef, false)
-    const handleClick = () => setOpen(!open)
-    const handleDropdownClick = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-    }
 
     const handlePinFile = (e) => {
         const fileReader = new FileReader();
@@ -66,7 +60,7 @@ const PinsCreateForm = (props) => {
         if (state.imageFile) {
             formData.append('pin[image]', state.imageFile);
         }
-        createPin(formData, currentUser.id).then(() => history.push(`/users/${currentUser.username}`))
+        createPin(formData, currentUser.id).then(() => history.push(`/users/${currentUser.username}/created`))
     }
 
     const preview = state.imageUrl ? <div style={{ backgroundImage: `url(${state.imageUrl}`}}/> : null;

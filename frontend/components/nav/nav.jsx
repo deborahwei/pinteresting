@@ -45,7 +45,7 @@ const Nav = (props) => {
             </div>
             <div className="logged-out-nav-right">
                 <div className="socials">
-                    <a href="">Portfolio</a>
+                    <a href="https://deborahwei.dev" target="_blank">Portfolio</a>
                     <a href="https://github.com/deborahwei/pinteresting" target="_blank">Github</a>
                     <a href="https://www.linkedin.com/in/deborah-wei-163b10152/" target="_blank">LinkedIn</a>
                 </div>
@@ -88,7 +88,7 @@ const Nav = (props) => {
                 <div className="logged-in-socials">
                     <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-brands fa-github fa-xl"></i></a>
                     <a href="https://www.linkedin.com/in/deborah-wei-163b10152/" target="_blank"><i className="fa-brands fa-linkedin-in fa-xl"></i></a>
-                    <a href="https://github.com/deborahwei/pinteresting" target="_blank"><i className="fa-solid fa-user fa-xl"></i></a>
+                    <a href="https://deborahwei.dev" target="_blank"><i className="fa-solid fa-user fa-xl"></i></a>
                 </div>
             <div className={`user-profile-icon user-avatar${onProfile ? "-clicked" : ""}`} >
                     <Link to={`/users/${currentUser.username}/`} className="hover-user-pic">
