@@ -16,7 +16,8 @@ const HomepageContainer = (props) => {
     }, [])
 
 
-    const homepagePins = shuffleArray(Object.keys(pins).map((pinId) => pins[pinId]))
+    const homepagePins = Object.keys(pins).map((pinId) => pins[pinId])
+    // const homepagePins = shuffleArray(Object.keys(pins).map((pinId) => pins[pinId]))
 
     const content = () => {
         return (

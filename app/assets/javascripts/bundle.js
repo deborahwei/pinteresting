@@ -2967,9 +2967,9 @@ var HomepageContainer = function HomepageContainer(props) {
       return setLoading(false);
     });
   }, []);
-  var homepagePins = (0,_util_function_util__WEBPACK_IMPORTED_MODULE_6__.shuffleArray)(Object.keys(pins).map(function (pinId) {
+  var homepagePins = Object.keys(pins).map(function (pinId) {
     return pins[pinId];
-  }));
+  }); // const homepagePins = shuffleArray(Object.keys(pins).map((pinId) => pins[pinId]))
 
   var content = function content() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
