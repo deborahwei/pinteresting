@@ -2951,7 +2951,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- // import InfiniteScroll from 'react-infinite-scroll-component'
+
 
 var HomepageContainer = function HomepageContainer(props) {
   var fetchHomepagePins = props.fetchHomepagePins,
@@ -5337,6 +5337,8 @@ var UserShowContainer = function UserShowContainer(props) {
       tab = _useState4[0],
       setTab = _useState4[1];
 
+  var topRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
   var handleClickTab = function handleClickTab(tab) {
     return function (e) {
       setTab(tab);
@@ -5350,6 +5352,14 @@ var UserShowContainer = function UserShowContainer(props) {
     user: user,
     isUser: isUser
   })), _childrenContainers);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _topRef$current;
+
+    window.scrollTo(0, 0);
+    (_topRef$current = topRef.current) === null || _topRef$current === void 0 ? void 0 : _topRef$current.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }, [tabSelected]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!user) {
       fetchUserByUsername(username)["finally"](function () {
@@ -5381,6 +5391,9 @@ var UserShowContainer = function UserShowContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-header"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "top-ref",
+      ref: topRef
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "user-show-profile-pic"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_profile_picture__WEBPACK_IMPORTED_MODULE_1__["default"], {
       user: user,
@@ -6421,7 +6434,7 @@ var BREAKPOINTS = {
 var MAX_NAME_CHAR = 17;
 var MAX_TITLE_CHAR = 25;
 var MAX_BOARD_CHAR = 7;
-var HOMEPAGE_NUM_PINS = 50;
+var HOMEPAGE_NUM_PINS = 60;
 var PIN_KEYWORDS = [{
   "keyword": "summer",
   "photo": "https://fs-pinteresting-dev.s3.amazonaws.com/search/summer.jpg"

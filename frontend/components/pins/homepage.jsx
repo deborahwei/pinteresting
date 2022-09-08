@@ -5,7 +5,6 @@ import PinsIndex from '../pins/pins_index'
 import { fetchHomepagePins } from '../../actions/pin_actions'
 import { HOMEPAGE_NUM_PINS } from '../../util/constants_util'
 import { shuffleArray } from '../../util/function_util'
-// import InfiniteScroll from 'react-infinite-scroll-component'
 
 const HomepageContainer = (props) => {
 
@@ -15,6 +14,7 @@ const HomepageContainer = (props) => {
     useEffect( () => {
         fetchHomepagePins(HOMEPAGE_NUM_PINS).finally(() => (setLoading(false)))
     }, [])
+
 
     const homepagePins = shuffleArray(Object.keys(pins).map((pinId) => pins[pinId]))
 

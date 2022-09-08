@@ -21,12 +21,13 @@ const UserShowContainer = (props) => {
     const [loading, setLoading] = useState(!user)
     const isUser = currentUser === user
     const [tab, setTab] = useState(tabSelected)
+    const topRef = useRef(null)
     
     const handleClickTab = tab => e => {
         setTab(tab)
     }
     
-    const childrenContainers = { // clean this up
+    const childrenContainers = {
         [Tab.SAVED]: <UserShowSavedContainer
         user={user} 
         isUser={isUser}
@@ -36,6 +37,11 @@ const UserShowContainer = (props) => {
         isUser={isUser}
         />,
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        topRef.current?.scrollIntoView({behavior: 'smooth'})
+    }, [tabSelected])
 
     useEffect(() => {
         if (!user) {
@@ -64,6 +70,7 @@ const UserShowContainer = (props) => {
     const content = () => (
         <div className="user-show-container">
             <div className="user-show-header">
+                <div className='top-ref' ref={topRef} ></div>
                 <div className="user-show-profile-pic">
                     <ProfilePicture user={user} big={true} />
                 </div>
