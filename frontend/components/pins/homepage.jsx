@@ -4,7 +4,6 @@ import LoadingContainer from '../generic/loading'
 import PinsIndex from '../pins/pins_index'
 import { fetchHomepagePins } from '../../actions/pin_actions'
 import { HOMEPAGE_NUM_PINS } from '../../util/constants_util'
-import { shuffleArray } from '../../util/function_util'
 
 const HomepageContainer = (props) => {
 
