@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 
 const UserPreviewContainer = (props) => {
     
-    const {user, bold=false, pin=false} = props
+    const {user, bold=false} = props
     
     return (
         <Link to={`/users/${user?.username}/`}>
             <div className='user-preview-container'>
-                <ProfilePicture user={user} pin={pin}/>
+                <ProfilePicture user={user}/>
                 <h1 className={`username ${bold ? "bold" : ""}`}>{user?.username}</h1>
             </div>
         </Link>
