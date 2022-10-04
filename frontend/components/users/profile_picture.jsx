@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProfilePicture = (props) => {
 
-    const { user, big=false, medium=false, xs=false } = props
+    const { user, big=false, medium=false, xs=false, board=false, pin=false} = props
 
     const uploadedPhoto = () => {
         return (
@@ -16,7 +16,7 @@ const ProfilePicture = (props) => {
         return (
             <div className='user-preview-pic'>
                     <div className={`preview-photo ${big ? "big" : medium ? "medium" : xs ? "xs" : ""}`}>
-                        <h1 className='preview-photo-letter'>{user?.username[0].toUpperCase()}</h1>
+                        <h1 className={`preview-photo-letter ${board ? "board" : ""} ${pin ? "pin" : ""}`}>{user?.username[0].toUpperCase()}</h1>
                     </div>  
             </div>
         )

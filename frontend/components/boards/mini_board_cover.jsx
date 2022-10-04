@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import { fetchPin } from '../../actions/pin_actions'
-import LoadingContainer from '../generic/loading'
 
 const MiniBoardCover = ({pinId, pins, fetchPin}) => {
 
@@ -23,7 +22,7 @@ const MiniBoardCover = ({pinId, pins, fetchPin}) => {
         )
     }
 
-    return loading ? <LoadingContainer/> : content()
+    return loading ? "" : content()
 }
 
 

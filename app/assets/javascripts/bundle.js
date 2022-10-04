@@ -1331,7 +1331,8 @@ var BoardShowContainer = function BoardShowContainer(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-owner-profile"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_profile_picture__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      user: ownsBoard ? currentUser : user
+      user: ownsBoard ? currentUser : user,
+      board: true
     })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "board-show-description ".concat((board === null || board === void 0 ? void 0 : board.description) != "" ? "" : "hide")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, board === null || board === void 0 ? void 0 : board.description))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -1534,7 +1535,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_pin_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/pin_actions */ "./frontend/actions/pin_actions.js");
-/* harmony import */ var _generic_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../generic/loading */ "./frontend/components/generic/loading.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1546,7 +1546,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1581,7 +1580,7 @@ var MiniBoardCover = function MiniBoardCover(_ref) {
     }));
   };
 
-  return loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_generic_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null) : content();
+  return loading ? "" : content();
 };
 
 var mSTP = function mSTP(_ref2) {
@@ -3645,7 +3644,8 @@ var PinPhotoContainer = function PinPhotoContainer(_ref) {
   }, (0,_util_function_util__WEBPACK_IMPORTED_MODULE_3__.abbreviate)(pin.title, _util_constants_util__WEBPACK_IMPORTED_MODULE_2__.MAX_TITLE_CHAR)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "pin-item-user"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_users_user_preview__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    user: creator
+    user: creator,
+    pin: true
   }))));
 };
 
@@ -5191,7 +5191,11 @@ var ProfilePicture = function ProfilePicture(props) {
       _props$medium = props.medium,
       medium = _props$medium === void 0 ? false : _props$medium,
       _props$xs = props.xs,
-      xs = _props$xs === void 0 ? false : _props$xs;
+      xs = _props$xs === void 0 ? false : _props$xs,
+      _props$board = props.board,
+      board = _props$board === void 0 ? false : _props$board,
+      _props$pin = props.pin,
+      pin = _props$pin === void 0 ? false : _props$pin;
 
   var uploadedPhoto = function uploadedPhoto() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -5210,7 +5214,7 @@ var ProfilePicture = function ProfilePicture(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "preview-photo ".concat(big ? "big" : medium ? "medium" : xs ? "xs" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
-      className: "preview-photo-letter"
+      className: "preview-photo-letter ".concat(board ? "board" : "", " ").concat(pin ? "pin" : "")
     }, user === null || user === void 0 ? void 0 : user.username[0].toUpperCase())));
   };
 
@@ -5243,15 +5247,18 @@ __webpack_require__.r(__webpack_exports__);
 var UserPreviewContainer = function UserPreviewContainer(props) {
   var user = props.user,
       _props$bold = props.bold,
-      bold = _props$bold === void 0 ? false : _props$bold;
+      bold = _props$bold === void 0 ? false : _props$bold,
+      _props$pin = props.pin,
+      pin = _props$pin === void 0 ? false : _props$pin;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/users/".concat(user === null || user === void 0 ? void 0 : user.username, "/")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "user-preview-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_profile_picture__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    user: user
+    user: user,
+    className: "".concat(pin ? "pin" : "")
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
-    className: "username ".concat(bold ? "bold" : " ")
+    className: "username ".concat(bold ? "bold" : "")
   }, user === null || user === void 0 ? void 0 : user.username)));
 };
 

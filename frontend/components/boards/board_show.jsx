@@ -11,6 +11,7 @@ import { closeDropdown } from '../dropdown/close_dropdown'
 import BoardShowPinsContainer from './board_show_pins'
 
 const BoardShowContainer = (props) => {
+
    
     const { board, user, currentUser, boardName, username, fetchBoardByName, fetchUserByUsername, openModal} = props 
     const [loading, setLoading] = useState(true)
@@ -73,7 +74,7 @@ const BoardShowContainer = (props) => {
                 <div className="board-show-owner">
                     <NavLink to={`/users/${user.username}/saved`}>
                         <div className='board-show-owner-profile'>
-                            <ProfilePicture user={ownsBoard ? currentUser : user}/>
+                            <ProfilePicture user={ownsBoard ? currentUser : user} board={true} />
                         </div>
                     </NavLink>
                 </div>

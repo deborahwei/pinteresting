@@ -66,7 +66,7 @@ const PinPhotoContainer = ({pin, isUser, lastPin=false, creator, selection, open
                     {abbreviate(pin.title, MAX_TITLE_CHAR)}
                 </div>
                 <div className='pin-item-user'>
-                    <UserPreviewContainer user={creator}/>
+                    <UserPreviewContainer user={creator} pin={true}/>
                 </div>
             </div>
         </div>
