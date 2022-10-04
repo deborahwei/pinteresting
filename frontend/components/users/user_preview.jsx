@@ -9,7 +9,7 @@ const UserPreviewContainer = (props) => {
     return (
         <Link to={`/users/${user?.username}/`}>
             <div className='user-preview-container'>
-                <ProfilePicture user={user} className={`${pin ? "pin" : ""}`}/>
+                <ProfilePicture user={user} pin={pin}/>
                 <h1 className={`username ${bold ? "bold" : ""}`}>{user?.username}</h1>
             </div>
         </Link>

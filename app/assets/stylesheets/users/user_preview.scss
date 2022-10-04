@@ -56,13 +56,10 @@
     margin-bottom: 1px;
 }
 
-.preview-photo-letter.board {
+.preview-photo-letter.board, .preview-photo-letter.pin {
     margin-right: 0px;
 }
 
-.preview-photo-letter.pin {
-    margin-left: 2px;
-}
 
 .username.bold {
     font-weight: $semibold;

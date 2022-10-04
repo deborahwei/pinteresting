@@ -5256,7 +5256,7 @@ var UserPreviewContainer = function UserPreviewContainer(props) {
     className: "user-preview-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_profile_picture__WEBPACK_IMPORTED_MODULE_1__["default"], {
     user: user,
-    className: "".concat(pin ? "pin" : "")
+    pin: pin
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
     className: "username ".concat(bold ? "bold" : "")
   }, user === null || user === void 0 ? void 0 : user.username)));
@@ -6243,7 +6243,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_2__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_0__["default"], preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_2__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"], (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_2__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_0__["default"], preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_2__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"]));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
