@@ -68,6 +68,28 @@ class Pin < ApplicationRecord
       return [pin, "Bad params"]
     end
 
+    def safe_create(user_id)
+      Pin.transaction do
+        if self.save!
+            pins_user = PinsUser.new({
+                user_id: user_id,
+                pin_id: self.id,
+                created_pin: true,
+                saved_pin: false
+            })
+            if pins_user.save!
+                return "success"
+            else
+              return pins_user.errors.full_messages
+            end
+        else
+          return self.errors.full_messages
+        end
+      end
+
+      return "Bad params"
+    end
+
     def self.find_pins_by_ids(pin_ids)
       return if pin_ids.nil? || pin_ids.empty? 
 
