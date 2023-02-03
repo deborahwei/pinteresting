@@ -56,16 +56,18 @@ const PinShowContainer = (props) => {
     }
     
     const pin = pins[pinId]
-
+    console.log(pin?.imageUrl)
     const creator = users[pin?.creator]
-    
+    if (pin) {
+        pin.imageUrl = pin.imageUrl
+    }
     const content = () => {
         return (
             <div>
                 <div onClick={handleGoBack} className="pin-show-background"></div>
                 <div className="pin-show-container">
                     <div className='pin-show-image-container'
-                        style={{backgroundImage: `url(${pin?.imageUrl}` }}
+                        style={{backgroundImage: `url(\"${pin.imageUrl}\")` }}
                         >
                     </div>
                     <div className="pin-show-right-container">

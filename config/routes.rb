@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root "static_pages#root"
 
   namespace :api, defaults: {format: :json} do 
@@ -27,5 +26,4 @@ Rails.application.routes.draw do
     resources :board_pins, only: [:index, :create, :destroy]
 
   end
-  
 end
