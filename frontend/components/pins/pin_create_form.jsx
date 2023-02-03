@@ -53,12 +53,14 @@ const PinsCreateForm = (props) => {
 
     const handlePinSubmit = (e) => {
         e.preventDefault();
+        if (!state.imageFile) {
+            setErrors(true);
+        }
+
         const formData = new FormData();
         formData.append('pin[title]', state.title);
         formData.append('pin[description]', state.description);
-        if (state.imageFile) {
-            formData.append('pin[image]', state.imageFile);
-        }
+        formData.append('pin[image]', state.imageFile);
         createPin(formData, currentUser.id).then((resp) => {
             if (resp?.type !=="RECEIVE_PIN_ERRORS") {
                 history.push(`/users/${currentUser.username}/created`)

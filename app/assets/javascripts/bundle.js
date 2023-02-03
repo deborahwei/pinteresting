@@ -3112,14 +3112,15 @@ var PinsCreateForm = function PinsCreateForm(props) {
 
   var handlePinSubmit = function handlePinSubmit(e) {
     e.preventDefault();
+
+    if (!state.imageFile) {
+      setErrors(true);
+    }
+
     var formData = new FormData();
     formData.append('pin[title]', state.title);
     formData.append('pin[description]', state.description);
-
-    if (state.imageFile) {
-      formData.append('pin[image]', state.imageFile);
-    }
-
+    formData.append('pin[image]', state.imageFile);
     createPin(formData, currentUser.id).then(function (resp) {
       if ((resp === null || resp === void 0 ? void 0 : resp.type) !== "RECEIVE_PIN_ERRORS") {
         history.push("/users/".concat(currentUser.username, "/created"));
