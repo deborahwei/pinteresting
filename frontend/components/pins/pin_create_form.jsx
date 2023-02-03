@@ -71,7 +71,7 @@ const PinsCreateForm = (props) => {
         })
     }
 
-    const preview = state.imageUrl ? <div style={{ backgroundImage: `url(${state.imageUrl}`}}/> : null;
+    const preview = state.imageUrl ? <div style={{ backgroundImage: `url(\"${state.imageUrl}\")`}}/> : null;
 
     const content = () => {
         return (

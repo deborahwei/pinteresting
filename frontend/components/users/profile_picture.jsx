@@ -7,7 +7,7 @@ const ProfilePicture = (props) => {
     const uploadedPhoto = () => {
         return (
             <div className="user-preview-pic">
-                <div className={`div-image ${big ? "big" : medium ? "medium" : xs ? "xs" : ""}`} style={{ backgroundImage: `url(${user?.image_url}`}}/>
+                <div className={`div-image ${big ? "big" : medium ? "medium" : xs ? "xs" : ""}`} style={{ backgroundImage: `url(\"${user?.image_url}\")`}}/>
             </div>
         )
     }

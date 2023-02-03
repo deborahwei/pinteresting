@@ -8,7 +8,7 @@ const SearchBarCategories = ({category}) => {
             <Link to={`/${category.keyword}`}>
                 <div 
                     className={`category-container`}>
-                    <div className='category-cover div-image' style={{ backgroundImage: `url(${category.photo}`}}>
+                    <div className='category-cover div-image' style={{ backgroundImage: `url(\"${category.photo}\")`}}>
                         <div className="category-name">
                             <h1>{category.keyword}</h1>
                         </div>

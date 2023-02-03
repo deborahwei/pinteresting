@@ -17,7 +17,7 @@ const MiniBoardCover = ({pinId, pins, fetchPin}) => {
     const content = () => {  
         return(
             <div className="mini-board-cover"> 
-                    <div className='mini-board div-image' style={{ backgroundImage: `url(${coverPin?.imageUrl}`}}/>
+                    <div className='mini-board div-image' style={{ backgroundImage: `url(\"${coverPin?.imageUrl}\")`}}/>
             </div>
         )
     }

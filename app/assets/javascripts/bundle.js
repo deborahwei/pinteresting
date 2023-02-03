@@ -1112,19 +1112,19 @@ var BoardPreviewCover = function BoardPreviewCover(_ref) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cover-panel-1",
     style: {
-      backgroundImage: "url(".concat((_pins$0$imageUrl = (_pins$ = pins[0]) === null || _pins$ === void 0 ? void 0 : _pins$.imageUrl) !== null && _pins$0$imageUrl !== void 0 ? _pins$0$imageUrl : "")
+      backgroundImage: "url(\"".concat((_pins$0$imageUrl = (_pins$ = pins[0]) === null || _pins$ === void 0 ? void 0 : _pins$.imageUrl) !== null && _pins$0$imageUrl !== void 0 ? _pins$0$imageUrl : "", "\")")
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cover-column-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cover-panel-2",
     style: {
-      backgroundImage: "url(".concat((_pins$1$imageUrl = (_pins$2 = pins[1]) === null || _pins$2 === void 0 ? void 0 : _pins$2.imageUrl) !== null && _pins$1$imageUrl !== void 0 ? _pins$1$imageUrl : "")
+      backgroundImage: "url(\"".concat((_pins$1$imageUrl = (_pins$2 = pins[1]) === null || _pins$2 === void 0 ? void 0 : _pins$2.imageUrl) !== null && _pins$1$imageUrl !== void 0 ? _pins$1$imageUrl : "", "\")")
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "cover-panel-3",
     style: {
-      backgroundImage: "url(".concat((_pins$2$imageUrl = (_pins$3 = pins[2]) === null || _pins$3 === void 0 ? void 0 : _pins$3.imageUrl) !== null && _pins$2$imageUrl !== void 0 ? _pins$2$imageUrl : "")
+      backgroundImage: "url(\"".concat((_pins$2$imageUrl = (_pins$3 = pins[2]) === null || _pins$3 === void 0 ? void 0 : _pins$3.imageUrl) !== null && _pins$2$imageUrl !== void 0 ? _pins$2$imageUrl : "", "\")")
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     onClick: handleEditClick,
@@ -1575,7 +1575,7 @@ var MiniBoardCover = function MiniBoardCover(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "mini-board div-image",
       style: {
-        backgroundImage: "url(".concat(coverPin === null || coverPin === void 0 ? void 0 : coverPin.imageUrl)
+        backgroundImage: "url(\"".concat(coverPin === null || coverPin === void 0 ? void 0 : coverPin.imageUrl, "\")")
       }
     }));
   };
@@ -3132,7 +3132,7 @@ var PinsCreateForm = function PinsCreateForm(props) {
 
   var preview = state.imageUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      backgroundImage: "url(".concat(state.imageUrl)
+      backgroundImage: "url(\"".concat(state.imageUrl, "\")")
     }
   }) : null;
 
@@ -3462,7 +3462,7 @@ var PinEditForm = function PinEditForm(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "div-image",
     style: {
-      backgroundImage: "url(".concat(pin.imageUrl)
+      backgroundImage: "url(\"".concat(pin.imageUrl, "\")")
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "edit-form-buttons"
@@ -4451,7 +4451,7 @@ var SearchBarCategories = function SearchBarCategories(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "category-cover div-image",
       style: {
-        backgroundImage: "url(".concat(category.photo)
+        backgroundImage: "url(\"".concat(category.photo, "\")")
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "category-name"
@@ -5204,7 +5204,7 @@ var ProfilePicture = function ProfilePicture(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "div-image ".concat(big ? "big" : medium ? "medium" : xs ? "xs" : ""),
       style: {
-        backgroundImage: "url(".concat(user === null || user === void 0 ? void 0 : user.image_url)
+        backgroundImage: "url(\"".concat(user === null || user === void 0 ? void 0 : user.image_url, "\")")
       }
     }));
   };

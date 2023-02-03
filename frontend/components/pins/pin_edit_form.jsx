@@ -95,7 +95,7 @@ const PinEditForm = (props) => {
                         </div>
                     </div>
                     <div className="pin-edit-photo">
-                        <div className="div-image" style={{ backgroundImage: `url(${pin.imageUrl}`}}/>
+                        <div className="div-image" style={{ backgroundImage: `url(\"${pin.imageUrl}\")`}}/>
                     </div>
                 </div>
                 <div className="edit-form-buttons">
